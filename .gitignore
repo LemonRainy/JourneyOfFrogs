@@ -1,3 +1,4 @@
 JFVenv
 .idea
 venv
+__pycache__
