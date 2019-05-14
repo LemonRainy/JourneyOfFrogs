@@ -3,4 +3,4 @@ JFVenv
 venv
 __pycache__
 db.sqlite3
-JourneyOfFrogs/__pycache__
+*.pyc
