@@ -1,4 +1,4 @@
-let i;
+let kunkun;
 $(function () {
     //删除按钮所在表格的那行
     $('.btn-primary').click(function () {
@@ -11,21 +11,20 @@ $(function () {
     });
 
     //恶搞
-    i = 0;
+    kunkun = 0;
+    $(".wjh").css("background-image", "url(" + "\'images/cxk.jpg\'" + ")");
+    $("h2.mb-3.bread").text("觉得不对？蔡徐坤让你敲回车试试？");
     $(document).keydown(function (event) {
         if (event.keyCode === 13) {
-
-            if (i === 0) {
+            if (kunkun === 0) {
                 $(".wjh").css("background-image", "url(" + "\'images/wjh.jpg\'" + ")");
                 $("h2.mb-3.bread").text("还觉得不对？再敲回车试试？");
-                i = 1;
-            } else if (i === 1) {
+                kunkun = 1;
+            } else if (kunkun === 1) {
                 $(".wjh").css("background-image", "url(" + "\'images/bg_2.jpg\'" + ")");
                 $("h2.mb-3.bread").remove();
-                i = 2;
+                kunkun = 2;
             }
-
-
         }
     });
 
