@@ -26,16 +26,11 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/wjh/wjh.css">
 
 
     <script src="js/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $("#change_personal_info").click(function () {
-                $("#disappare").show().delay(3000).hide(300);
-            });
-        })
-    </script>
+    <script src="js/wjh/jquery.wjh.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -50,19 +45,21 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a href="orderHandlingPage.html" class="nav-link">服务订单</a></li>
                 <li class="nav-item"><a href="expertOrderListPage.html" class="nav-link">历史订单</a></li>
+                <li class="nav-item active"><a href="expertPage.html" class="nav-link">个人中心</a></li>
 
             </ul>
         </div>
     </div>
 </nav>
 <!-- END nav -->
-
-<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_2.jpg');">
+<!--<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_2.jpg');">-->
+<div class="hero-wrap js-fullheight wjh">
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
             <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
                 <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">欢迎您，专员</h1>
+                <h2 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" style="color: white">想变成正常背景？敲回车试试？</h2>
             </div>
         </div>
     </div>
@@ -71,10 +68,12 @@
 
 <section class="ftco-section contact-section ftco-degree-bg">
     <div class="container">
-        <div class="row d-flex mb-5 contact-info">
+        <div class="row d-flex mb-5 contact-info" style="margin-bottom: 0 !important;">
             <div class="col-md-12 mb-4">
                 <h2 class="h4">个人信息</h2>
             </div>
+
+            <!--
             <div class="w-100"></div>
             <div class="col-md-3">
                 <p><span>个人简介：</span>**专员的个人介绍**</p>
@@ -89,6 +88,7 @@
             <div class="col-md-3">
                 <p><span>主页：</span> <a href="#">**专员的主页**</a></p>
             </div>
+            -->
         </div>
         <div class="row block-9">
             <div class="col-md-6 pr-md-5" style="text-align: center; margin-left: auto; margin-right: auto;">
@@ -96,35 +96,35 @@
                     <a>姓名</a>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="专员姓名">
+                    <input type="text" class="form-control" placeholder="蔡徐坤">
                 </div>
                 <div class="form-group" style="text-align: start;margin-bottom: 0;">
                     <a>邮箱</a>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="邮箱">
+                    <input type="email" class="form-control" placeholder="kunkun@qq.com">
                 </div>
                 <div class="form-group" style="text-align: start;margin-bottom: 0;">
                     <a>电话</a>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="电话号">
+                    <input type="text" class="form-control" placeholder="+86 56256 3625">
                 </div>
 
                 <div class="form-group" style="text-align: start;margin-bottom: 0;">
                     <a>个人简介</a>
                 </div>
                 <div class="form-group">
-                    <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="个人简介"></textarea>
+                    <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="我是练习长达两年半的练习生蔡徐坤，喜欢唱 跳 rap 篮球，music~"></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="原密码">
+                    <input type="password" class="form-control" placeholder="原密码">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="新密码">
+                    <input type="password" class="form-control" placeholder="新密码">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="新密码确认">
+                    <input type="password" class="form-control" placeholder="新密码确认">
                 </div>
                 <div class="form-group">
                     <input id="change_personal_info" type="submit" value="修改个人信息" class="btn btn-primary py-3 px-5">

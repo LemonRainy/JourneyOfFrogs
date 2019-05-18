@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/wjh/wjh.css">
+
+
 </head>
 <body>
 
@@ -41,13 +44,15 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item"><a href="orderHandlingPage.html" class="nav-link">服务订单</a></li>
                 <li class="nav-item active"><a href="expertOrderListPage.html" class="nav-link">历史订单</a></li>
+                <li class="nav-item"><a href="expertPage.html" class="nav-link">个人中心</a></li>
             </ul>
         </div>
     </div>
 </nav>
 <!-- END nav -->
 
-<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_2.jpg');">
+<div class="hero-wrap js-fullheight" style="background-image: url('images/wjh.jpg');">
+<!--<div class="hero-wrap js-fullheight wjh">-->
     <div class="overlay"></div>
     <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
@@ -64,6 +69,7 @@
             <caption>历史订单</caption>
             <thead>
             <tr>
+                <th>订单编号</th>
                 <th>客户</th>
                 <th>电话</th>
                 <th>下单日期</th>
@@ -73,7 +79,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="active">
+            <tr>
+                <td>1</td>
                 <td>王一</td>
                 <td>1438250</td>
                 <td>2019/5/15 9:03</td>
@@ -87,7 +94,8 @@
                     不错，很会过日子，很省钱
                 </td>
             </tr>
-            <tr class="success">
+            <tr >
+                <td>2</td>
                 <td>王二</td>
                 <td>5438250</td>
                 <td>2019/5/15 9:03</td>
@@ -95,13 +103,14 @@
                     已取消
                 </td>
                 <td>
-                   -
+                    -
                 </td>
                 <td>
                     -
                 </td>
             </tr>
-            <tr class="warning">
+            <tr >
+                <td>3</td>
                 <td>王三</td>
                 <td>1438250</td>
                 <td>2019/5/15 9:03</td>
@@ -115,7 +124,8 @@
                     -
                 </td>
             </tr>
-            <tr class="danger">
+            <tr >
+                <td>4</td>
                 <td>王四</td>
                 <td>5438250</td>
                 <td>2019/5/15 9:03</td>
@@ -210,8 +220,8 @@
     </svg>
 </div>
 
-
 <script src="js/jquery.min.js"></script>
+
 <script src="js/jquery-migrate-3.0.1.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
