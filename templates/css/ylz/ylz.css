@@ -1,3 +1,4 @@
+/*userPage*/
 .userInfo{
        margin-bottom: 10px;
 }
@@ -21,4 +22,14 @@
 
 .strategy{
     text-align: center;
+}
+
+
+/*personalPage*/
+.headLink{
+    color:#4d4d4d;
+}
+
+.linkHeight{
+    height: 200px;
 }
