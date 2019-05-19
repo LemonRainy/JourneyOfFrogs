@@ -7,4 +7,18 @@
     padding-right: 30px;
 }
 
+.userButtuns{
+    width: 100%;
+}
 
+.userButtun{
+    width: 30%;
+}
+
+.strategies{
+    padding-top: 10px;
+}
+
+.strategy{
+    text-align: center;
+}
