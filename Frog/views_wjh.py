@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 from Frog import models
 
@@ -13,20 +13,14 @@ def expert(request):
     # 输入的邮箱和密码
     email_input = "2973493373@qq.com"
     password = "123456"
-    expert = models.Expert.objects.get(email=email_input, password=password)
-
-    if expert:
+    lines = models.Expert.objects.filter(email=email_input, password=password)
+    if lines:
         # 登录成功返回页面
-        request.session['expert_email'] = expert.email
-        return render(request, '../templates/expertPage.html', {'expert': expert})
+        return render(request, '../templates/expertPage.html')
     else:
         return HttpResponse("用户名或者密码错误")
 
 
+
 def orderHandling(request):
-    v = request.session.get('expert_email')
-    if v:
-        orders = models.Order.objects.filter(expertEmail=v, state=0)
-        return render(request, '../templates/orderHandlingPage.html', {'orders': orders})
-    else:
-        return redirect('/expert')
+    return render(request, '../templates/orderHandlingPage.html')
