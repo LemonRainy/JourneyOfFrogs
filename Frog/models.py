@@ -42,15 +42,16 @@ class Order(models.Model):
     mark = models.FloatField(null=True)
 # -------------------- wjh models end --------------------
 
+# -------------------- xjy models begin --------------------
+#用户表
 class User(models.Model):
-    '''用户表'''
-    # email = models.ForeignKey(max_length=30,unique=True)
-    email = models.ForeignKey(max_length=30, unique=True)
-    name = models.CharField(max_length=10)
+    email = models.EmailField(primary_key=True)
+    name = models.CharField(max_length=64)
     password = models.CharField(max_length=64)
-    gender = models.IntegerField(max_length=32, default='男')
-    telephone = models.IntegerField()
+    gender = models.CharField(max_length=64)
+    telephone = models.CharField(max_length=64)
 
+# -------------------- xjy models end --------------------
 
 # 攻略表
 class Strategy(models.Model):
