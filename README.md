@@ -22,3 +22,24 @@
 ~~~
 > python manage.py runserver
 ~~~
+
+
+
+# 模板继承
+
+```
+基础文件：templates/complete/base.html
+Demo: templates/complete/indexPage.html
+```
+
+- 使用方法
+
+```
+{% extends "complete/base.html" %}
+{% block content %}  
+// 填入页面独有的内容（除开<head>，导航栏，footer）
+// 可参照complete目录下的indexPage.html
+{% endblock %}
+```
+
+  
