@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>DirEngine - Free Bootstrap 4 Template by Colorlib</title>
+    <title>青蛙旅行</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     
@@ -31,21 +31,21 @@
     
   <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
     <div class="container">
-      <a class="navbar-brand" href="index.html">青蛙旅行</a>
+      <a class="navbar-brand" href="{% url "share" %}">青蛙旅行</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="oi oi-menu"></span>菜单
       </button>
 
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="index.html" class="nav-link">主页</a></li>
-          <li class="nav-item"><a href="about.html" class="nav-link">私人定制</a></li>
-          <li class="nav-item"><a href="tour.html" class="nav-link">个人中心</a></li><!--
+          <li class="nav-item active"><a href="{% url "share" %}" class="nav-link">主页</a></li>
+          <li class="nav-item"><a href="{% url "share" %}" class="nav-link">私人定制</a></li>
+          <li class="nav-item"><a href="{% url "share" %}" class="nav-link">个人中心</a></li><!--
           <li class="nav-item"><a href="hotel.html" class="nav-link">Hotels</a></li>
           <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
           <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>-->
-          <li class="nav-item cta"><a href="login.html" class="nav-link"><span>登录</span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
-					<li class="nav-item cta"><a href="register.html" class="nav-link"><span>注册</span></a></li>
+          <li class="nav-item cta"><a href="{% url "share" %}" class="nav-link"><span>登录</span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+					<li class="nav-item cta"><a href="{% url "share" %}" class="nav-link"><span>注册</span></a></li>
         </ul>
       </div>
     </div>
@@ -137,9 +137,11 @@
   <script src="/static/js/bootstrap-datepicker.js"></script>
   <script src="/static/js/jquery.timepicker.min.js"></script>
   <script src="/static/js/scrollax.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="/static/js/google-map.js"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+  <script src="/static/js/google-map.js"></script> -->
   <script src="/static/js/main.js"></script>
-    
+	{% block script %}
+
+	{% endblock %}
   </body>
 </html>

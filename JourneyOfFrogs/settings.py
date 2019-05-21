@@ -123,3 +123,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+IMG_ROOT = BASE_DIR + '/static/upload/img/'
