@@ -81,19 +81,21 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>王一</td>
-                <td>1438250</td>
-                <td>2019/5/15 9:03</td>
-                <td>
-                    想去火星，预算免费
-                </td>
-                <td>
-                    <button type="button" class="btn btn-primary">接受</button>
-                    <button type="button" class="btn btn-primary">结束</button>
-                </td>
-            </tr>
+            {% for item in orders %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.memberEmail }}</td>
+                    <td>1438250</td>
+                    <td>2019/5/15 9:03</td>
+                    <td>
+                        想去火星，预算免费
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary">接受</button>
+                        <button type="button" class="btn btn-primary">结束</button>
+                    </td>
+                </tr>
+            {% endfor %}
             <tr>
                 <td>2</td>
                 <td>王二</td>
