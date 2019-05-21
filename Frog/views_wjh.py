@@ -1,3 +1,5 @@
+import time
+
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -27,6 +29,8 @@ def orderHandling(request):
     v = request.session.get('expert_email')
     if v:
         orders = models.Order.objects.filter(expert_id=v, state=0)
+
+
         return render(request, '../templates/orderHandlingPage.html', {'orders': orders})
     else:
         return redirect('/expert')

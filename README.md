@@ -34,6 +34,15 @@
 > python manage.py runserver
 ~~~
 
+# 数据库中关于时间的操作
+```python
+# ------ 获取日期的方式 ------
+ticks = time.time() # 获取当前时间的时间戳
+time_update = time.strftime('%Y-%m-%d %H:%M', time.localtime(ticks)) # 将时间戳格式化成%Y-%m-%d %H:%M的形式
+models.Order.objects.filter(expert_id=v, state=0).update(date=time_update) # 数据库中修改时间（增加信息的时候同理）
+# ---------------------------
+```
+
 
 
 # 模板继承
