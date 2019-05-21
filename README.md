@@ -18,6 +18,17 @@
 ~~~
 > deactivate
 ~~~
+
+# 数据库迁移
+- 在models.py中写好每个表(model)后，创建数据库
+```
+> python manege.py makemigrations Frog
+```
+- 迁移数据库
+```angular2
+> python manage.py migrate
+```
+
 # 运行
 ~~~
 > python manage.py runserver
