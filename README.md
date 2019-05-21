@@ -54,3 +54,17 @@ Demo: templates/complete/indexPage.html
 ```
 
   
+
+# Vue和Django的冲突
+
+```
+如何解决Django与Vue语法的冲突
+当我们在django web框架中,使用vue的时候,会遇到语法冲突.
+因为vue使用{{}},而django也使用{{}},因此会冲突.
+
+解决办法1:
+在django1.5以后,加入了标签:
+{% verbatim myblock %} {% endverbatim myblock %}
+被此标签包裹的代码将不会被Django的模板引擎渲染。
+```
+

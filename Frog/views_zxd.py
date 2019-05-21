@@ -9,7 +9,8 @@ def share(request):
         return render(request, '../templates/complete/shareStrategyPage.html')
     if request.method == "POST":
         content = request.POST.get('content')
-        print(content)
+        title = request.POST.get('title')
+        print(request.POST)
         return render(request, '../templates/complete/shareStrategyPage.html')
 
 
