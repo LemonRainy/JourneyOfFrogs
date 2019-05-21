@@ -26,7 +26,7 @@ def expert(request):
 def orderHandling(request):
     v = request.session.get('expert_email')
     if v:
-        orders = models.Order.objects.filter(expertEmail=v, state=0)
+        orders = models.Order.objects.filter(expert_id=v, state=0)
         return render(request, '../templates/orderHandlingPage.html', {'orders': orders})
     else:
         return redirect('/expert')

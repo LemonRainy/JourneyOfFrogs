@@ -84,11 +84,11 @@
             {% for item in orders %}
                 <tr>
                     <td>{{ item.id }}</td>
-                    <td>{{ item.memberEmail }}</td>
-                    <td>1438250</td>
-                    <td>2019/5/15 9:03</td>
+                    <td>{{ item.member.name }}</td>
+                    <td>{{ item.member.telephone }}</td>
+                    <td>{{ item.date|date:"Y-m-d H:i" }}</td>
                     <td>
-                        想去火星，预算免费
+                        {{ item.intent }}
                     </td>
                     <td>
                         <button type="button" class="btn btn-primary">接受</button>
@@ -96,45 +96,6 @@
                     </td>
                 </tr>
             {% endfor %}
-            <tr>
-                <td>2</td>
-                <td>王二</td>
-                <td>5438250</td>
-                <td>2019/5/15 9:03</td>
-                <td>
-                    想飞上天，和太阳肩并肩
-                </td>
-                <td>
-                    <button type="button" class="btn btn-primary">接受</button>
-                    <button type="button" class="btn btn-primary">结束</button>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>王三</td>
-                <td>1438250</td>
-                <td>2019/5/15 9:03</td>
-                <td>
-                    想去土耳其
-                </td>
-                <td>
-                    <button type="button" class="btn btn-primary">接受</button>
-                    <button type="button" class="btn btn-primary">结束</button>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>王四</td>
-                <td>5438250</td>
-                <td>2019/5/15 9:03</td>
-                <td>
-                    想出去玩，不知道去哪儿，预算100
-                </td>
-                <td>
-                    <button type="button" class="btn btn-primary">接受</button>
-                    <button type="button" class="btn btn-primary">结束</button>
-                </td>
-            </tr>
             </tbody>
 
         </table>

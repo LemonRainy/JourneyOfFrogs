@@ -1,9 +1,8 @@
 # Create your models here.
 from django.db import models
 
-
 class Expert(models.Model):
-    email = models.EmailField()
+    email = models.EmailField(primary_key=True)
 
     name = models.CharField(max_length=10)
     password = models.CharField(max_length=64)
@@ -17,16 +16,8 @@ class Expert(models.Model):
     mark = models.FloatField()
 
 
-class Order(models.Model):
-    memberEmail = models.EmailField()
-    expertEmail = models.EmailField()
-    state = models.IntegerField()
-    comment = models.TextField()
-    mark = models.FloatField()
-
-
 class Member(models.Model):
-    email = models.EmailField()
+    email = models.EmailField(primary_key=True)
 
     name = models.CharField(max_length=64)
     password = models.CharField(max_length=64)
@@ -36,3 +27,13 @@ class Member(models.Model):
     location = models.CharField(max_length=64)
     followNum = models.IntegerField()
     fansNum = models.IntegerField()
+
+
+class Order(models.Model):
+    member = models.ForeignKey(db_column='member_email', to=Member, on_delete=models.CASCADE)
+    expert = models.ForeignKey(db_column='expert_email', to=Expert, on_delete=models.CASCADE)
+    state = models.IntegerField()
+    date = models.DateTimeField(null=True)
+    intent = models.TextField(null=True)
+    comment = models.TextField(null=True)
+    mark = models.FloatField(null=True)
