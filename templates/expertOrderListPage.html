@@ -1,6 +1,9 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
+
+
     <title>历史订单</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -8,27 +11,27 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Alex+Brush" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="{% static 'css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
 
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
 
-    <link rel="stylesheet" href="css/aos.css">
+    <link rel="stylesheet" href="{% static 'css/aos.css' %}">
 
-    <link rel="stylesheet" href="css/ionicons.min.css">
+    <link rel="stylesheet" href="{% static 'css/ionicons.min.css' %}">
 
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
 
 
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/wjh/wjh.css">
-    <script src="js/jquery.min.js"></script>
-    <script src="js/wjh/jquery.wjh.js"></script>
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/wjh/wjh.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/wjh/jquery.wjh.js' %}"></script>
 
 
 </head>
@@ -44,9 +47,9 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item"><a href="orderHandlingPage.html" class="nav-link">服务订单</a></li>
-                <li class="nav-item active"><a href="expertOrderListPage.html" class="nav-link">历史订单</a></li>
-                <li class="nav-item"><a href="expertPage.html" class="nav-link">个人中心</a></li>
+                <li class="nav-item"><a href="{% url 'orderHandling' %}" class="nav-link">服务订单</a></li>
+                <li class="nav-item active"><a href="{% url 'expertOrderList' %}" class="nav-link">历史订单</a></li>
+                <li class="nav-item"><a href="{% url 'expert' %}" class="nav-link">个人中心</a></li>
             </ul>
         </div>
     </div>
@@ -96,7 +99,7 @@
                     不错，很会过日子，很省钱
                 </td>
             </tr>
-            <tr >
+            <tr>
                 <td>2</td>
                 <td>王二</td>
                 <td>5438250</td>
@@ -111,7 +114,7 @@
                     -
                 </td>
             </tr>
-            <tr >
+            <tr>
                 <td>3</td>
                 <td>王三</td>
                 <td>1438250</td>
@@ -126,7 +129,7 @@
                     -
                 </td>
             </tr>
-            <tr >
+            <tr>
                 <td>4</td>
                 <td>王四</td>
                 <td>5438250</td>
@@ -152,8 +155,8 @@
         <div class="row mb-5">
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">dirEngine</h2>
-                    <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                    <h2 class="ftco-heading-2">青蛙旅行</h2>
+                    <p>呱呱在手，说走就走</p>
                     <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                         <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
                         <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
@@ -163,38 +166,37 @@
             </div>
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4 ml-md-5">
-                    <h2 class="ftco-heading-2">Information</h2>
+                    <h2 class="ftco-heading-2">信息</h2>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="py-2 d-block">About</a></li>
-                        <li><a href="#" class="py-2 d-block">Service</a></li>
-                        <li><a href="#" class="py-2 d-block">Terms and Conditions</a></li>
-                        <li><a href="#" class="py-2 d-block">Become a partner</a></li>
-                        <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li>
-                        <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
+                        <li><a href="#" class="py-2 d-block">关于我们</a></li>
+                        <li><a href="#" class="py-2 d-block">服务</a></li>
+                        <li><a href="#" class="py-2 d-block">条款</a></li>
+                        <li><a href="#" class="py-2 d-block">商业合作</a></li>
+                        <li><a href="#" class="py-2 d-block">价格保证</a></li>
+                        <li><a href="#" class="py-2 d-block">政策与隐私</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Customer Support</h2>
+                    <h2 class="ftco-heading-2">客户支持</h2>
                     <ul class="list-unstyled">
                         <li><a href="#" class="py-2 d-block">FAQ</a></li>
-                        <li><a href="#" class="py-2 d-block">Payment Option</a></li>
-                        <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
-                        <li><a href="#" class="py-2 d-block">How it works</a></li>
-                        <li><a href="#" class="py-2 d-block">Contact Us</a></li>
+                        <li><a href="#" class="py-2 d-block">支付选项</a></li>
+                        <li><a href="#" class="py-2 d-block">预定须知</a></li>
+                        <li><a href="#" class="py-2 d-block">使用手册</a></li>
+                        <li><a href="#" class="py-2 d-block">联系我们</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md">
                 <div class="ftco-footer-widget mb-4">
-                    <h2 class="ftco-heading-2">Have a Questions?</h2>
+                    <h2 class="ftco-heading-2">有问题？</h2>
                     <div class="block-23 mb-3">
                         <ul>
-                            <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span>
-                            </li>
-                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                            <li><span class="icon icon-map-marker"></span><span class="text">北京市海淀区上园村3号北京交通大学软件学院</span></li>
+                            <li><a href="#"><span class="icon icon-phone"></span><span class="text">+86 8888 8888</span></a></li>
+                            <li><a href="#"><span class="icon icon-envelope"></span><span class="text">qwlx@bjtu.edu.cn</span></a></li>
                         </ul>
                     </div>
                 </div>
@@ -205,8 +207,7 @@
 
                 <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                    All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                                                                                                                         target="_blank">Colorlib</a>
+                    All rights reserved | 珠苗瑾行东 软件构思小组</a>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
             </div>
         </div>
@@ -223,23 +224,20 @@
 </div>
 
 
-
-<script src="js/jquery-migrate-3.0.1.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.waypoints.min.js"></script>
-<script src="js/jquery.stellar.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/aos.js"></script>
-<script src="js/jquery.animateNumber.min.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="js/jquery.timepicker.min.js"></script>
-<script src="js/scrollax.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="js/google-map.js"></script>
-<script src="js/main.js"></script>
+<script src="{% static 'js/jquery-migrate-3.0.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/jquery.animateNumber.min.js'%}"></script>
+<script src="{% static 'js/bootstrap-datepicker.js'%}"></script>
+<script src="{% static 'js/scrollax.min.js'%}"></script>
+<script src="{% static 'js/google-map.js'%}"></script>
+<script src="{% static 'js/main.js' %}"></script>
 
 </body>
 </html>

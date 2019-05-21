@@ -1,0 +1,24 @@
+{% extends "complete/base.html" %}
+{% block content %}
+<div class="hero-wrap js-fullheight" style="background-image: url('/static/images/bg_1.jpg');">
+	<div class="overlay"></div>
+	<div class="container">
+		<div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
+			<div class="col-md-9 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+				<h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><strong>探索 <br></strong>美好假期</h1>
+				<p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">帮您发现绝美城市、景点与美食</p>
+				<div class="block-17 my-4">
+					<form action="" method="post" class="d-block d-flex">
+						<div class="fields d-block d-flex">
+							<div class="textfield-search one-third">
+								<input type="text" class="form-control" placeholder="搜索：景点、餐厅、饮食等">
+							</div>
+						</div>
+						<input type="submit" class="search-submit btn btn-primary" value="搜索">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock%}

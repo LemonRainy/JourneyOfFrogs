@@ -10,7 +10,7 @@ $(function () {
         $("#disappare").show().delay(3000).hide(300);
     });
 
-    //恶搞
+    //----------------- 恶搞 可忽略--------------------------
     kunkun = 0;
     $(".wjh").css("background-image", "url(" + "\'images/cxk.jpg\'" + ")");
     $("h2.mb-3.bread").text("觉得不对？蔡徐坤让你敲回车试试？");
