@@ -117,7 +117,8 @@ state分为4个状态，对应如下含义：
 > git log
 ```  
 比如,如下的版本号就是“aa909cff2239536df14820fe086d96305b24e9f1”
-```commit aa909cff2239536df14820fe086d96305b24e9f1
+```
+commit aa909cff2239536df14820fe086d96305b24e9f1
 Author: hanchao5272 <89298141@qq.com>
 Date:   Sat Mar 3 23:43:03 2018 +0800
 ```
