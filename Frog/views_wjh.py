@@ -59,7 +59,14 @@ def changePassword(request):
 
 # 查看历史订单
 def expertOrderList(request):
-    return render(request, '../templates/expertOrderListPage.html')
+    v = request.session.get('expert_email')
+    if v:
+        orders = models.Order.objects.filter(expert_id=v).exclude(state=0)
+        return render(request, '../templates/expertOrderListPage.html', {'orders': orders})
+    else:
+        return redirect('/expert')
+
+
 
 
 # 专员个人中心
@@ -67,7 +74,7 @@ def expert(request):
     if request.method == 'GET':
         # 输入的邮箱和密码
         email_input = "2973493373@qq.com"
-        password = "111111"
+        password = "123456"
         try:
             expert = models.Expert.objects.get(email=email_input, password=password)
         except models.Expert.DoesNotExist:

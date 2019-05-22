@@ -78,72 +78,41 @@
                 <th>客户</th>
                 <th>电话</th>
                 <th>下单日期</th>
+                <th>意向信息</th>
                 <th>订单状态</th>
                 <th>评分</th>
                 <th>评价</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1</td>
-                <td>王一</td>
-                <td>1438250</td>
-                <td>2019/5/15 9:03</td>
-                <td>
-                    已完成
-                </td>
-                <td>
-                    5
-                </td>
-                <td>
-                    不错，很会过日子，很省钱
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>王二</td>
-                <td>5438250</td>
-                <td>2019/5/15 9:03</td>
-                <td>
-                    已取消
-                </td>
-                <td>
-                    -
-                </td>
-                <td>
-                    -
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>王三</td>
-                <td>1438250</td>
-                <td>2019/5/15 9:03</td>
-                <td>
-                    待完成
-                </td>
-                <td>
-                    -
-                </td>
-                <td>
-                    -
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>王四</td>
-                <td>5438250</td>
-                <td>2019/5/15 9:03</td>
-                <td>
-                    已完成
-                </td>
-                <td>
-                    0
-                </td>
-                <td>
-                    你大爷的，圈钱跑了？
-                </td>
-            </tr>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.member.name }}</td>
+                    <td>{{ order.member.telephone }}</td>
+                    <td>{{ order.date }}</td>
+                    <td>{{ order.intent }}</td>
+                    <td>
+                        {% if order.state is 1 %}
+                            待完成
+                        {% endif %}
+                        {% if order.state is 2 %}
+                            已完成
+                        {% endif %}
+                        {% if order.state is -1 %}
+                            已取消
+                        {% endif %}
+
+                    </td>
+                    <td>
+                        {{ order.mark }}
+                    </td>
+                    <td>
+                        {{ order.comment }}
+                    </td>
+                </tr>
+            {% endfor %}
+
             </tbody>
         </table>
     </div>
@@ -233,10 +202,10 @@
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
 <script src="{% static 'js/aos.js' %}"></script>
-<script src="{% static 'js/jquery.animateNumber.min.js'%}"></script>
-<script src="{% static 'js/bootstrap-datepicker.js'%}"></script>
-<script src="{% static 'js/scrollax.min.js'%}"></script>
-<script src="{% static 'js/google-map.js'%}"></script>
+<script src="{% static 'js/jquery.animateNumber.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-datepicker.js' %}"></script>
+<script src="{% static 'js/scrollax.min.js' %}"></script>
+<script src="{% static 'js/google-map.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 
 </body>
