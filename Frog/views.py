@@ -26,26 +26,26 @@ def login(request):
 def register(request):
     pass
 
-def modifyPassword(request):
-    if request.method == "POST":
-        # 输入的密码
-        password = request.POST.get('password')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-        email = request.POST.get('email')
-        code = request.POST.get('code')
-
-        if password1 == password2:
-            user = models.User.objects.get(email=email, password=password)
-                if code == token:
-                if user:
-                    # 登录成功返回页面
-                    return HttpResponse("修改成功")
-                else:
-                    return HttpResponse("原始密码错误")
-
-        else:
-            return HttpResponse("请两次输入相同密码!")
+# def modifyPassword(request):
+#     if request.method == "POST":
+#         # 输入的密码
+#         password = request.POST.get('password')
+#         password1 = request.POST.get('password1')
+#         password2 = request.POST.get('password2')
+#         email = request.POST.get('email')
+#         code = request.POST.get('code')
+#
+#         if password1 == password2:
+#             user = models.User.objects.get(email=email, password=password)
+#                 if code == token:
+#                 if user:
+#                     # 登录成功返回页面
+#                     return HttpResponse("修改成功")
+#                 else:
+#                     return HttpResponse("原始密码错误")
+#
+#         else:
+#             return HttpResponse("请两次输入相同密码!")
 
 
 

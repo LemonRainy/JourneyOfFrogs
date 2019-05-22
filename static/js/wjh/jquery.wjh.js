@@ -11,6 +11,11 @@ $(function () {
         var expert_name = $("#expert_name").val();
         var expert_tel = $("#expert_tel").val();
         var expert_intro = $("#expert_intro").val();
+        var expert_gender = $("#expert_gender").val();
+        var expert_seniority = $("#expert_seniority").val();
+        var expert_company = $("#expert_company").val();
+        var expert_tag = $("#expert_tag").val();
+
 
         $.ajax({
             type: "GET",
@@ -19,19 +24,32 @@ $(function () {
                 'expert_name': expert_name,
                 'expert_tel': expert_tel,
                 'expert_intro': expert_intro,
+                'expert_gender': expert_gender,
+                'expert_seniority': expert_seniority,
+                'expert_company': expert_company,
+                'expert_tag': expert_tag,
+
             },
             success: function (data) {
-                console.log(data)           // 这是json字符串
+                // data:
+                //     cool: 代表修改是否成功
+
                 // var data = JSON.parse(data) //JS 的json反序列化方法
                 if (data.cool) {             //用点的方法取出键值
-                    $("#disappare").show().delay(3000).hide(300);
+                    $("#disappare_info").find('p').css("color","green");
+                    $("#disappare_info").find('p').text("修改成功!");
+                    $("#disappare_info").show().delay(3000).hide(300);
                 } else {
-                    $("#disappare_2").show().delay(3000).hide(300);
+                    $("#disappare_info").find('p').css("color","red");
+                    $("#disappare_info").find('p').text("修改失败!");
+                    $("#disappare_info").show().delay(3000).hide(300);
                 }
 
             },
             error: function (data) {
-                $("#disappare_2").show().delay(3000).hide(300);
+                $("#disappare_info").find('p').css("color","red");
+                $("#disappare_info").find('p').text("哦呦，发生了不可描述的错误...");
+                $("#disappare_info").show().delay(3000).hide(300);
             }
         })
     });
@@ -50,11 +68,16 @@ $(function () {
                 'new_password_confirm': new_password_confirm,
             },
             success: function (data) {
-                console.log(data);       // 这是json字符串
-                // var data = JSON.parse(data) //JS 的json反序列化方法
+                // data:
+                //     cool: 代表修改是否成功
+                //     res_message: 返回的信息，"修改成功"，"旧密码错误"， "两次新密码不一致"
 
+                if(data.cool){
+                    $("#disappare_password").find('p').css("color","green");
+                }else {
+                    $("#disappare_password").find('p').css("color","red");
+                }
                 $("#disappare_password").find('p').text(data.res_message);
-
                 $("#disappare_password").show().delay(3000).hide(300);
 
             },

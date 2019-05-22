@@ -102,6 +102,12 @@
                     <input id="expert_name" type="text" class="form-control" name="expert_name" value={{ expert.name }}>
                 </div>
                 <div class="form-group" style="text-align: start;margin-bottom: 0;">
+                    <a>性别</a>
+                </div>
+                <div class="form-group">
+                    <input id="expert_gender" type="text" class="form-control" name="expert_gender" value={{ expert.gender }}>
+                </div>
+                <div class="form-group" style="text-align: start;margin-bottom: 0;">
                     <a>邮箱</a>
                 </div>
                 <div class="form-group">
@@ -112,6 +118,30 @@
                 </div>
                 <div class="form-group">
                     <input id="expert_tel" type="text" class="form-control" name="expert_tel" value={{ expert.telephone }}>
+                </div>
+                <div class="form-group" style="text-align: start;margin-bottom: 0;">
+                    <a>资历(单位：年)</a>
+                </div>
+                <div class="form-group">
+                    <input id="expert_seniority" type="text" class="form-control" name="expert_seniority" value={{ expert.seniority }}>
+                </div>
+                <div class="form-group" style="text-align: start;margin-bottom: 0;">
+                    <a>擅长城市</a>
+                </div>
+                <div class="form-group">
+                    <input id="expert_tag" type="text" class="form-control" name="expert_tag" value={{ expert.tag }}>
+                </div>
+                <div class="form-group" style="text-align: start;margin-bottom: 0;">
+                    <a>公司</a>
+                </div>
+                <div class="form-group">
+                    <input id="expert_company" type="text" class="form-control" name="expert_company" value={{ expert.company }}>
+                </div>
+                <div class="form-group" style="text-align: start;margin-bottom: 0;">
+                    <a>评分</a>
+                </div>
+                <div class="form-group">
+                    <input id="expert_mark" type="text" class="form-control" readonly="readonly" name="expert_mark" placeholder= {{ expert.mark }}>
                 </div>
 
                 <div class="form-group" style="text-align: start;margin-bottom: 0;">
@@ -124,13 +154,9 @@
                     <input id="change_personal_info" name="submit" type="submit" value="修改个人信息" class="btn btn-primary py-3 px-5">
                 </div>
                 <div class="form-group" id="content">
-                    <div id="disappare" style="display:none;">
+                    <div id="disappare_info" style="display:none;">
                         <h3></h3>
-                        <p>保存成功！</p>
-                    </div>
-                    <div id="disappare_2" style="display:none;">
-                        <h3></h3>
-                        <p>保存失败！</p>
+                        <p></p>
                     </div>
                 </div>
 
