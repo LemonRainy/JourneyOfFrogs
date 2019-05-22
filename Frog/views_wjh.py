@@ -57,6 +57,25 @@ def changePassword(request):
         return HttpResponse(json.dumps(res), content_type='application/json')
 
 
+# 接受订单
+def acceptOrder(request):
+    if request.method == 'GET':
+        order_id = request.GET['order_id']
+        models.Order.objects.filter(id=order_id).update(state=1)
+        res = {}
+        res['cool'] = True
+        return HttpResponse(json.dumps(res), content_type='application/json')
+
+# 拒绝订单
+def refuseOrder(request):
+    if request.method == 'GET':
+        order_id = request.GET['order_id']
+        models.Order.objects.filter(id=order_id).update(state=-1)
+        res = {}
+        res['cool'] = True
+        return HttpResponse(json.dumps(res), content_type='application/json')
+
+
 # 查看历史订单
 def expertOrderList(request):
     v = request.session.get('expert_email')
@@ -65,8 +84,6 @@ def expertOrderList(request):
         return render(request, '../templates/expertOrderListPage.html', {'orders': orders})
     else:
         return redirect('/expert')
-
-
 
 
 # 专员个人中心

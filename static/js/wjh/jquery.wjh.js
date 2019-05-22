@@ -1,8 +1,59 @@
 let kunkun;
 $(function () {
-    //删除按钮所在表格的那行
-    $('.btn-primary').click(function () {
-        $(this).parent("td").parent("tr").remove();
+    //接受
+    $("button[name='accept']").click(function () {
+        //获取所在列的订单编号
+        var t = $(this);
+        var order_id = $(this).parent("td").parent("tr").children().eq(0).text();
+        console.log("接受订单编号：" + order_id);
+        $.ajax({
+            type: "GET",
+            url: "acceptOrder",
+            data: {
+                'order_id': order_id,
+            },
+            success: function (data) {
+                if (data.cool) {
+                    t.parent("td").parent("tr").remove();
+
+                } else {
+                    alert("接受订单失败!")
+                }
+
+            },
+            error: function (data) {
+                alert("接受订单失败!")
+
+            }
+        })
+    });
+
+    //拒绝
+    $("button[name='refuse']").click(function () {
+        //获取所在列的订单编号
+        var t = $(this);
+        var order_id = $(this).parent("td").parent("tr").children().eq(0).text();
+        console.log("拒绝订单编号：" + order_id);
+        $.ajax({
+            type: "GET",
+            url: "refuseOrder",
+            data: {
+                'order_id': order_id,
+            },
+            success: function (data) {
+                if (data.cool) {
+                    t.parent("td").parent("tr").remove();
+
+                } else {
+                    alert("拒绝订单失败!")
+                }
+
+            },
+            error: function (data) {
+                alert("拒绝订单失败!")
+
+            }
+        })
     });
 
 
@@ -28,7 +79,6 @@ $(function () {
                 'expert_seniority': expert_seniority,
                 'expert_company': expert_company,
                 'expert_tag': expert_tag,
-
             },
             success: function (data) {
                 // data:
@@ -36,18 +86,18 @@ $(function () {
 
                 // var data = JSON.parse(data) //JS 的json反序列化方法
                 if (data.cool) {             //用点的方法取出键值
-                    $("#disappare_info").find('p').css("color","green");
+                    $("#disappare_info").find('p').css("color", "green");
                     $("#disappare_info").find('p').text("修改成功!");
                     $("#disappare_info").show().delay(3000).hide(300);
                 } else {
-                    $("#disappare_info").find('p').css("color","red");
+                    $("#disappare_info").find('p').css("color", "red");
                     $("#disappare_info").find('p').text("修改失败!");
                     $("#disappare_info").show().delay(3000).hide(300);
                 }
 
             },
             error: function (data) {
-                $("#disappare_info").find('p').css("color","red");
+                $("#disappare_info").find('p').css("color", "red");
                 $("#disappare_info").find('p').text("哦呦，发生了不可描述的错误...");
                 $("#disappare_info").show().delay(3000).hide(300);
             }
@@ -72,10 +122,10 @@ $(function () {
                 //     cool: 代表修改是否成功
                 //     res_message: 返回的信息，"修改成功"，"旧密码错误"， "两次新密码不一致"
 
-                if(data.cool){
-                    $("#disappare_password").find('p').css("color","green");
-                }else {
-                    $("#disappare_password").find('p').css("color","red");
+                if (data.cool) {
+                    $("#disappare_password").find('p').css("color", "green");
+                } else {
+                    $("#disappare_password").find('p').css("color", "red");
                 }
                 $("#disappare_password").find('p').text(data.res_message);
                 $("#disappare_password").show().delay(3000).hide(300);
