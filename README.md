@@ -62,7 +62,7 @@ Demo: templates/complete/indexPage.html
 {% endblock %}
 ```
 
-  
+
 
 # Vue和Django的冲突
 
@@ -76,4 +76,20 @@ Demo: templates/complete/indexPage.html
 {% verbatim myblock %} {% endverbatim myblock %}
 被此标签包裹的代码将不会被Django的模板引擎渲染。
 ```
+
+# 关于Order表中订单状态的含义（2019/5/22 11:37更新, by:家行）
+
+state分为4个状态，对应如下含义：
+- 0：待服务  
+用户刚下单，专员还未操作  
+
+- 1：待完成  
+专员已经接受订单  
+
+- 2：已完成  
+订单已经完成  
+
+- -1：已取消  
+订单被取消，可能由于用户中途取消，也可能由于专员拒绝了订单  
+
 
