@@ -45,6 +45,7 @@ class Order(models.Model):
 # -------------------- wjh models end --------------------
 
 # -------------------- xjy models begin --------------------
+
 #用户表
 # class User(models.Model):
 #     email = models.EmailField(primary_key=True)

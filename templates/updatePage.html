@@ -26,6 +26,16 @@
     <link rel="stylesheet" href="css/flaticon.css">
     <link rel="stylesheet" href="css/icomoon.css">
     <link rel="stylesheet" href="css/style.css">
+    <script language="javascript">
+      function checkCode(){
+              var value=document.getElementById("textId").value
+              if(value=='1') {
+                      alert("11111111");
+              }else{
+                      alert("00000000");
+              }
+      }
+</script>
   </head>
   <body>
     
@@ -90,26 +100,26 @@
         </div>
         <div class="row block-9">
           <div class="col-md-6 pr-md-5">
-            <form action="#">
+            <form action="#" method="POST">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="旧密码">
+                <input name="password" type="text" class="form-control" placeholder="旧密码">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="新密码第一次">
+                <input name="password1" type="text" class="form-control" placeholder="新密码第一次">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="新密码第二次">
+                <input name="password2" type="text" class="form-control" placeholder="新密码第二次">
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="邮箱">
+                <input name="email" type="text" class="form-control" placeholder="邮箱">
                 <div class="slider-text">
                   <p class="browse d-md-flex">
-                  <span class="d-flex justify-content-md-center align-items-md-center"><a href="#">获取验证码</a></span>
+                  <span class="d-flex justify-content-md-center align-items-md-center" onclick="getCode()"><a href="#">获取验证码</a></span>
                 </p>
                 </div>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="验证码">
+                <input name="code" id="code" type="text" class="form-control" placeholder="验证码">
               </div>
         
               <!--<div class="form-group">
