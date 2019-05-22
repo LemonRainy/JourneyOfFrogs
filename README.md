@@ -4,7 +4,7 @@
 [模板继承](#模板继承)  
 [Vue和Django的冲突](#Vue和Django的冲突)    
 [关于Order表中订单状态的含义(2019/5/22更新)](#关于Order表中订单状态的含义)  
-[撤回commit](#撤回commit)
+[撤回commit](#撤回commit)  
 [撤回push](#撤回push)
 
 # 虚拟环境
