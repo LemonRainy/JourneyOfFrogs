@@ -93,51 +93,63 @@
         </div>
         <div class="row block-9">
             <div class="col-md-6 pr-md-5" style="text-align: center; margin-left: auto; margin-right: auto;">
+
+
                 <div class="form-group" style="text-align: start;margin-bottom: 0;">
                     <a>姓名</a>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" value={{ expert.name }}>
+                    <input id="expert_name" type="text" class="form-control" name="expert_name" value={{ expert.name }}>
                 </div>
                 <div class="form-group" style="text-align: start;margin-bottom: 0;">
                     <a>邮箱</a>
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" readonly="readonly" placeholder=
-                            {{ expert.email }}（不可修改）>
+                    <input type="email" class="form-control" readonly="readonly" placeholder={{ expert.email }}（不可修改）>
                 </div>
                 <div class="form-group" style="text-align: start;margin-bottom: 0;">
                     <a>电话</a>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" value={{ expert.telephone }}>
+                    <input id="expert_tel" type="text" class="form-control" name="expert_tel" value={{ expert.telephone }}>
                 </div>
 
                 <div class="form-group" style="text-align: start;margin-bottom: 0;">
                     <a>个人简介</a>
                 </div>
                 <div class="form-group">
-                    <textarea name="" id="" cols="30" rows="7" class="form-control">{{ expert.introduction }}</textarea>
+                    <textarea name="expert_intro" id="expert_intro" cols="30" rows="7" class="form-control">{{ expert.introduction }}</textarea>
                 </div>
                 <div class="form-group">
-                    <input id="change_personal_info" type="submit" value="修改个人信息" class="btn btn-primary py-3 px-5">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="原密码">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="新密码">
-                </div>
-                <div class="form-group">
-                    <input type="password" class="form-control" placeholder="新密码确认">
-                </div>
-                <div class="form-group">
-                    <input id="change_personal_info" type="submit" value="修改密码" class="btn btn-primary py-3 px-5">
+                    <input id="change_personal_info" name="submit" type="submit" value="修改个人信息" class="btn btn-primary py-3 px-5">
                 </div>
                 <div class="form-group" id="content">
                     <div id="disappare" style="display:none;">
                         <h3></h3>
                         <p>保存成功！</p>
+                    </div>
+                    <div id="disappare_2" style="display:none;">
+                        <h3></h3>
+                        <p>保存失败！</p>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input id="old_password" type="password" class="form-control" placeholder="原密码">
+                </div>
+                <div class="form-group">
+                    <input id="new_password" type="password" class="form-control" placeholder="新密码">
+                </div>
+                <div class="form-group">
+                    <input id="new_password_confirm" type="password" class="form-control" placeholder="新密码确认">
+                </div>
+                <div class="form-group">
+                    <input id="change_password" type="submit" name="submit" value="修改密码" class="btn btn-primary py-3 px-5">
+                </div>
+                <div class="form-group" id="content">
+                    <div id="disappare_password" style="display:none;">
+                        <h3></h3>
+                        <p></p>
                     </div>
                 </div>
 

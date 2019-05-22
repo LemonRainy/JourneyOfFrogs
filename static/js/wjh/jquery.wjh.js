@@ -5,9 +5,64 @@ $(function () {
         $(this).parent("td").parent("tr").remove();
     });
 
-    //显示 保存成功
+
+    //修改个人信息
     $("#change_personal_info").click(function () {
-        $("#disappare").show().delay(3000).hide(300);
+        var expert_name = $("#expert_name").val();
+        var expert_tel = $("#expert_tel").val();
+        var expert_intro = $("#expert_intro").val();
+
+        $.ajax({
+            type: "GET",
+            url: "changeInfo",
+            data: {
+                'expert_name': expert_name,
+                'expert_tel': expert_tel,
+                'expert_intro': expert_intro,
+            },
+            success: function (data) {
+                console.log(data)           // 这是json字符串
+                // var data = JSON.parse(data) //JS 的json反序列化方法
+                if (data.cool) {             //用点的方法取出键值
+                    $("#disappare").show().delay(3000).hide(300);
+                } else {
+                    $("#disappare_2").show().delay(3000).hide(300);
+                }
+
+            },
+            error: function (data) {
+                $("#disappare_2").show().delay(3000).hide(300);
+            }
+        })
+    });
+
+    //修改密码
+    $("#change_password").click(function () {
+        var old_password = $("#old_password").val();
+        var new_password = $("#new_password").val();
+        var new_password_confirm = $("#new_password_confirm").val();
+        $.ajax({
+            type: "GET",
+            url: "changePassword",
+            data: {
+                'old_password': old_password,
+                'new_password': new_password,
+                'new_password_confirm': new_password_confirm,
+            },
+            success: function (data) {
+                console.log(data);       // 这是json字符串
+                // var data = JSON.parse(data) //JS 的json反序列化方法
+
+                $("#disappare_password").find('p').text(data.res_message);
+
+                $("#disappare_password").show().delay(3000).hide(300);
+
+            },
+            error: function (data) {
+                $("#disappare_password").find('p').text("哦呦，发生了不可描述的错误...");
+                $("#disappare_password").show().delay(3000).hide(300);
+            }
+        })
     });
 
     //----------------- 恶搞 可忽略--------------------------
