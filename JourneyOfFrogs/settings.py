@@ -124,3 +124,5 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 IMG_ROOT = BASE_DIR + '/static/upload/img/'
+
+AUTH_USER_MODEL='Frog.User'
