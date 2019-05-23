@@ -40,14 +40,20 @@
 
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item active"><a href="{% url "share" %}" class="nav-link">主页</a></li>
-          <li class="nav-item"><a href="{% url "share" %}" class="nav-link">私人定制</a></li>
-          <li class="nav-item"><a href="{% url "share" %}" class="nav-link">个人中心</a></li><!--
+          <li class="nav-item {% if request.resolver_match.url_name == "indexpage" %}active{% endif %}"><a href="{% url "indexpage" %}" class="nav-link">主页</a></li>
+          <li class="nav-item {% if request.resolver_match.url_name == "customize" %}active{% endif %}"><a href="{% url "customize" %}" class="nav-link">私人定制</a></li>
+          <li class="nav-item {% if request.resolver_match.url_name == "user" %}active{% endif %}"><a href="{% url "user" %}" class="nav-link">个人中心</a></li>
+          <li class="nav-item  {% if request.resolver_match.url_name == "share" %}active{% endif %}"><a href="{% url "share" %}" class="nav-link">分享攻略</a></li><!--
           <li class="nav-item"><a href="hotel.html" class="nav-link">Hotels</a></li>
           <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
           <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>-->
-          <li class="nav-item cta"><a href="{% url "share" %}" class="nav-link"><span>登录</span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
-					<li class="nav-item cta"><a href="{% url "share" %}" class="nav-link"><span>注册</span></a></li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item"><p class="nav-link">你好，用户{{ request.user.username }}</p></li>
+          <li class="nav-item cta"><a href="{% url "logout" %}" class="nav-link"><span>注销</span></a></li>
+          {% else %}
+          <li class="nav-item cta"><a href="{% url "log" %}" class="nav-link"><span>登录</span></a></li>&nbsp;&nbsp;&nbsp;&nbsp;
+					<li class="nav-item cta"><a href="{% url "register" %}" class="nav-link"><span>注册</span></a></li>
+          {% endif %}
         </ul>
       </div>
     </div>

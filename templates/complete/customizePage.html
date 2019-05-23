@@ -1,0 +1,83 @@
+{% extends "complete/base.html"%}
+{% block content %}
+    <div class="hero-wrap js-fullheight" style="background-image: url('/static/images/bg_5.jpg');">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
+                data-scrollax-parent="true">
+                <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                    <!-- <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Hotel</span></p> -->
+                    <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">私人定制</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <br>
+    <br>
+    <br>
+
+    <div class="col-lg-31 sidebar">
+        <div class="customize">
+            <div class="sidebar-wrap bg-light ftco-animate">
+                <h3 class="heading mb-4">请填写基本出行信息</h3>
+                <form action="#">
+                    <div class="fields">
+                        <P>*出行人数</P>
+                        <div class="form-group1">
+                            <select name="" id="" class="form-control1" placeholder="Keyword search">
+                                <option value="">2人</option>
+                                <option value="">3人</option>
+                                <option value="">4人</option>
+                                <option value="">5人</option>
+                                <option value="">5人以上</option>
+                            </select>
+                            <hr class="line" />
+                            <select name="" id="" class="form-control1" placeholder="Keyword search">
+                                <option value="">没有儿童</option>
+                                <option value="">2岁以下婴儿1位</option>
+                                <option value="">2岁以下婴儿2位</option>
+                                <option value="">2-6岁婴儿1位</option>
+                                <option value="">2-6岁婴儿2位</option>
+                                <option value="">其他</option>
+                            </select>
+                        </div>
+                        <br>
+
+                        <P>*往返城市</P>
+                        <div class="form-group1">
+                            <input type="text" class="form-control1" placeholder="出发城市">
+                            <hr class="line" />
+                            <input type="text" class="form-control1" placeholder="返回城市">
+                        </div>
+                        <br>
+
+                        <P>*往返时间</P>
+                        <div class="form-group1">
+                            <input type="text" id="checkin_date" class="form-control1" placeholder="出发时间">
+                            <hr class="line" />
+                            <input type="text" id="checkin_date" class="form-control1" placeholder="返回时间">
+                        </div>
+                        <br>
+
+                        <P>*选择专员</P>
+                        <div class="form-group1">
+                            <select name="" id="" class="form-control2" placeholder="Keyword search">
+                                <option value="">王子文</option>
+                                <option value="">宋仲基</option>
+                                <option value="">邓伦</option>
+                                <option value="">王凯</option>
+                                <option value="">随机选择</option>
+                            </select>
+                        </div>
+                        <br>
+
+                        <input class="submit1" type="submit" value="提交"/>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -7,9 +7,10 @@ from email.mime.text import MIMEText#用于发送邮件的类
 
 
 def index(request):
-    return render(request, '../templates/index.html')
+    return redirect('/index')
 
-def login(request):
+
+def login_view(request):
     if request.method == "POST":
         # 输入的邮箱和密码
         email = request.POST.get('email')
@@ -23,8 +24,21 @@ def login(request):
         else:
             return HttpResponse("用户名或密码错误")
 
+
 def register(request):
-    pass
+    if request.method == "POST":
+        print(request.POST)
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        telephone = request.POST.get('telephone')
+        password = request.POST.get('password')
+        user = models.User.objects.create_user(username=email, password=password, telephone=telephone, name=name)
+        # 还需要添加用户到member表
+        login(request, user)
+
+    if request.user.is_authenticated:
+        return redirect('/index')
+    return render(request, "../templates/complete/registerPage.html")
 
 # def modifyPassword(request):
 #     if request.method == "POST":
@@ -48,8 +62,37 @@ def register(request):
 #             return HttpResponse("请两次输入相同密码!")
 
 
+def logoff(request):
+    if request.user.is_authenticated:
+        logout(request)
+        return redirect('/index')
+    else:
+        return redirect('/index')
 
 
+def log(request):
+    if request.method == "POST":
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        print(email, password)
+        user = authenticate(username=email, password=password)
+        print(user)
+        if user is not None:
+            login(request, user)
+            return redirect('/index')
+    return render(request, "../templates/complete/loginPage.html")
+
+
+def indexpage(request):
+    return render(request, "../templates/complete/indexPage.html")
+
+
+def customize(requesrt):
+    return render(requesrt, "../templates/complete/customizePage.html")
+
+
+def user(request):
+    return render(request, "../templates/complete/userPage.html")
 
 
 def historyOrder(request):

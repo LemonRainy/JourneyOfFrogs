@@ -56,14 +56,14 @@ class Order(models.Model):
 
 
 class User(AbstractUser):
-    email = models.EmailField(primary_key=True)
-    name = models.CharField(max_length=64)
-    password = models.CharField(max_length=64)
+    # email = models.EmailField(primary_key=True)
+    name = models.CharField(max_length=64, default="user")
+    # password = models.CharField(max_length=64)
     gender = models.CharField(max_length=64)
     telephone = models.CharField(max_length=64)
-
-    class Meta:
-        db_table='user'
+    #
+    # class Meta:
+    #     db_table='user'
 
 # -------------------- xjy models end --------------------
 
