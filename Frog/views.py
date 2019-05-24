@@ -8,7 +8,7 @@ import json
 
 
 def index(request):
-    return render('/index')
+    return redirect('/index')
 
 def login_view(request):
     if request.method == "POST":
@@ -41,7 +41,7 @@ def register(request):
     return render(request, "../templates/complete/registerPage.html")
 
 
-def modifypassword(request):
+def modifyPassword(request):
     if request.method == "POST":
         # 输入的密码
         password = request.POST.get('password')
