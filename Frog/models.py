@@ -8,9 +8,7 @@ from django.contrib.auth.models import AbstractUser
 # 专家表
 class Expert(models.Model):
     email = models.EmailField(primary_key=True)
-
     name = models.CharField(max_length=10, null=True)
-    password = models.CharField(max_length=64, null=True)
     gender = models.CharField(max_length=10,null=True)
     telephone = models.CharField(max_length=11,null=True)
 
@@ -25,13 +23,12 @@ class Member(models.Model):
     email = models.EmailField(primary_key=True)
 
     name = models.CharField(max_length=64)
-    password = models.CharField(max_length=64)
     gender = models.CharField(max_length=64)
     telephone = models.CharField(max_length=64)
 
     location = models.CharField(max_length=64)
-    followNum = models.IntegerField()
-    fansNum = models.IntegerField()
+    followNum = models.IntegerField(default=0)
+    fansNum = models.IntegerField(default=0)
 
 # 订单表
 class Order(models.Model):

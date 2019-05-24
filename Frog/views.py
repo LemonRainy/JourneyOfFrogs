@@ -1,14 +1,17 @@
-from django.shortcuts import render,redirect
-from django.contrib.auth import authenticate,login,logout
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from Frog import models
-from email.mime.text import MIMEText#用于发送邮件的类
+from email.mime.text import MIMEText  # 用于发送邮件的类
 import json
+
+
 # Create your views here.
 
 
 def index(request):
     return redirect('/index')
+
 
 def login_view(request):
     if request.method == "POST":
@@ -35,20 +38,20 @@ def register(request):
         gender = request.POST.get('sex')
         type = request.POST.get('type')
 
-
-
         user = models.User.objects.create_user(username=email,
                                                password=password,
                                                telephone=telephone,
                                                name=name,
-                                               gender = gender,
-                                               type = type)
-        # 还需要添加用户到member表
+                                               gender=gender,
+                                               type=type)
 
-        # 添加用户到expert表
         if type == '订制专员':
-            models.Expert.objects.create(email=email, name=name,gender = gender,telephone= telephone)
+            # 添加用户到expert表
+            models.Expert.objects.create(email=email, name=name, gender=gender, telephone=telephone)
             return redirect('/index')
+        if type == '普通用户':
+            # 添加用户到member表
+            models.Member.objects.create(email=email, name=name, gender=gender, telephone=telephone)
         login(request, user)
 
     if request.user.is_authenticated:
@@ -82,7 +85,6 @@ def modifyPassword(request):
         return HttpResponse(json.dumps(res), content_type='application/json')
 
 
-
 def logoff(request):
     if request.user.is_authenticated:
         logout(request)
@@ -107,8 +109,9 @@ def log(request):
 
 
 def indexpage(request):
-    if request.user.type == '订制专员':
-        return redirect('/expert')
+    if request.user.is_authenticated:
+        if request.user.type == '订制专员':
+            return redirect('/expert')
     return render(request, "../templates/complete/indexPage.html")
 
 
