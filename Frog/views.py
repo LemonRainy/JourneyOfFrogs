@@ -3,12 +3,12 @@ from django.contrib.auth import authenticate,login,logout
 from django.http import HttpResponse
 from Frog import models
 from email.mime.text import MIMEText#用于发送邮件的类
-import json
 # Create your views here.
 
 
 def index(request):
-    return render('/index')
+    return redirect('/index')
+
 
 def login_view(request):
     if request.method == "POST":
@@ -40,32 +40,26 @@ def register(request):
         return redirect('/index')
     return render(request, "../templates/complete/registerPage.html")
 
-
-def modifypassword(request):
-    if request.method == "POST":
-        # 输入的密码
-        password = request.POST.get('password')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
-        code = request.POST.get('code')
-
-        res = {}
-        email = request.session.get('email')
-        oldPassword = models.Expert.objects.get(email=email).password
-        if password == oldPassword:
-            if password1 == password2:
-                models.Expert.objects.filter(email=email).update(password=password1)
-                res['cool'] = True
-                res['res_message'] = '修改成功!'
-            else:
-                res['cool'] = False
-                res['res_message'] = '输入新密码不一致!'
-        else:
-            res['cool'] = False
-            res['res_message'] = '原始密码错误!'
-
-        return HttpResponse(json.dumps(res), content_type='application/json')
-
+# def modifyPassword(request):
+#     if request.method == "POST":
+#         # 输入的密码
+#         password = request.POST.get('password')
+#         password1 = request.POST.get('password1')
+#         password2 = request.POST.get('password2')
+#         email = request.POST.get('email')
+#         code = request.POST.get('code')
+#
+#         if password1 == password2:
+#             user = models.User.objects.get(email=email, password=password)
+#                 if code == token:
+#                 if user:
+#                     # 登录成功返回页面
+#                     return HttpResponse("修改成功")
+#                 else:
+#                     return HttpResponse("原始密码错误")
+#
+#         else:
+#             return HttpResponse("请两次输入相同密码!")
 
 
 def logoff(request):
@@ -102,9 +96,4 @@ def user(request):
 
 
 def historyOrder(request):
-    email = request.session.get('email')
-    if email:
-        orders = models.Order.objects.filter(expert_id=email)
-        return render(request, '../templates/orderListPage.html', {'orders': orders})
-    else:
-        return redirect('/personal')
+    pass
