@@ -36,9 +36,16 @@ class Order(models.Model):
     expert = models.ForeignKey(db_column='expert_email', to=Expert, on_delete=models.CASCADE)
     state = models.IntegerField()
     date = models.DateTimeField(null=True)
-    intent = models.TextField(null=True)
+    intent = models.TextField(max_length=300, null=True)
     comment = models.TextField(null=True)
     mark = models.FloatField(null=True)
+    travelNum = models.CharField(max_length=30, null=True)
+    childNum = models.CharField(max_length=30, null=True)
+    departureCity = models.CharField(max_length=30, null=True)
+    destinationCity = models.CharField(max_length=30, null=True)
+    departureTime = models.DateTimeField(null=True)
+    destinationTime = models.DateTimeField(null=True)
+
 # -------------------- wjh models end --------------------
 
 # -------------------- xjy models begin --------------------
