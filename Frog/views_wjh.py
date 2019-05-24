@@ -2,6 +2,7 @@ import json
 import time
 
 from django.contrib.auth import authenticate, login
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
@@ -9,6 +10,9 @@ from Frog import models
 
 
 # 修改专员个人信息
+from Frog.models import User
+
+
 def changeInfo(request):
     if request.method == 'GET':
         # print('来了老弟？')
@@ -41,10 +45,12 @@ def changePassword(request):
         new_password_confirm = request.GET['new_password_confirm']
         res = {}
         v = request.user.username
-        old_password_from_db = models.Expert.objects.get(email=v).password
-        if old_password == old_password_from_db:
+
+        if authenticate(username=v, password=old_password):
             if new_password == new_password_confirm:
-                models.Expert.objects.filter(email=v).update(password=new_password)
+                user = User.objects.get(username=v)
+                user.set_password(new_password)
+                user.save()
                 res['cool'] = True
                 res['res_message'] = '修改密码成功!'
             else:
