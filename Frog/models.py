@@ -9,16 +9,16 @@ from django.contrib.auth.models import AbstractUser
 class Expert(models.Model):
     email = models.EmailField(primary_key=True)
 
-    name = models.CharField(max_length=10)
-    password = models.CharField(max_length=64)
-    gender = models.CharField(max_length=10)
-    telephone = models.CharField(max_length=11)
+    name = models.CharField(max_length=10, null=True)
+    password = models.CharField(max_length=64, null=True)
+    gender = models.CharField(max_length=10,null=True)
+    telephone = models.CharField(max_length=11,null=True)
 
-    introduction = models.TextField()
-    seniority = models.IntegerField()
-    tag = models.CharField(max_length=10)
-    company = models.CharField(max_length=64)
-    mark = models.FloatField()
+    introduction = models.TextField(null=True)
+    seniority = models.IntegerField(null=True)
+    tag = models.CharField(max_length=10,null=True)
+    company = models.CharField(max_length=64,null=True)
+    mark = models.FloatField(null=True)
 
 # 会员表
 class Member(models.Model):
@@ -61,6 +61,7 @@ class User(AbstractUser):
     # password = models.CharField(max_length=64)
     gender = models.CharField(max_length=64)
     telephone = models.CharField(max_length=64)
+    type = models.CharField(max_length=64)
     #
     # class Meta:
     #     db_table='user'

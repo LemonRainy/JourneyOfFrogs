@@ -32,8 +32,23 @@ def register(request):
         email = request.POST.get('email')
         telephone = request.POST.get('telephone')
         password = request.POST.get('password')
-        user = models.User.objects.create_user(username=email, password=password, telephone=telephone, name=name)
+        gender = request.POST.get('sex')
+        type = request.POST.get('type')
+
+
+
+        user = models.User.objects.create_user(username=email,
+                                               password=password,
+                                               telephone=telephone,
+                                               name=name,
+                                               gender = gender,
+                                               type = type)
         # 还需要添加用户到member表
+
+        # 添加用户到expert表
+        if type == '订制专员':
+            models.Expert.objects.create(email=email, name=name,gender = gender,telephone= telephone)
+            return redirect('/index')
         login(request, user)
 
     if request.user.is_authenticated:
@@ -85,11 +100,15 @@ def log(request):
         print(user)
         if user is not None:
             login(request, user)
+            if user.type == '订制专员':
+                return redirect('/expert')
             return redirect('/index')
     return render(request, "../templates/complete/loginPage.html")
 
 
 def indexpage(request):
+    if request.user.type == '订制专员':
+        return redirect('/expert')
     return render(request, "../templates/complete/indexPage.html")
 
 
