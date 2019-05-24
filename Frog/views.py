@@ -2,10 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from Frog import models
-from email.mime.text import MIMEText  # 用于发送邮件的类
+from django.core.mail import send_mail, send_mass_mail  # 用于发送邮件的类
 import json
-
-
+from django.conf import settings
 # Create your views here.
 
 
@@ -29,6 +28,15 @@ def login_view(request):
 
 
 def register(request):
+    if request.method == "GET":
+        title = "青蛙旅行验证码"
+        msg = "验证码："+request.GET['code']
+        email_from = settings.EMAIL_HOST_USER
+        reciever = request.GET['email']
+        # 发送邮件
+        send_mail(title, msg, email_from, reciever)
+        return HttpResponse("邮件已发送！")
+
     if request.method == "POST":
         print(request.POST)
         name = request.POST.get('name')

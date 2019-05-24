@@ -126,3 +126,11 @@ STATICFILES_DIRS = (
 IMG_ROOT = BASE_DIR + '/static/upload/img/'
 
 AUTH_USER_MODEL='Frog.User'
+
+# 邮件配置
+EMAIL_HOST = "smtp.163.com"   # 服务器
+EMAIL_PORT = 25               # 一般情况下都为25
+EMAIL_HOST_USER = "abc@163.com"   # 账号
+EMAIL_HOST_PASSWORD = "password"  # 密码
+EMAIL_USE_TLS = False             # 一般都为False
+EMAIL_FROM = "abc@163.com"        # 邮箱来自
