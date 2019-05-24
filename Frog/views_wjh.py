@@ -8,7 +8,6 @@ from django.shortcuts import render, redirect
 
 from Frog import models
 
-
 # 修改专员个人信息
 from Frog.models import User
 
@@ -72,6 +71,7 @@ def acceptOrder(request):
         res['cool'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
 
+
 # 拒绝订单
 def refuseOrder(request):
     if request.method == 'GET':
@@ -95,7 +95,6 @@ def expertOrderList(request):
 # 专员个人中心
 def expert(request):
     if request.method == 'GET':
-        # 输入的邮箱和密码
         expert = models.Expert.objects.get(email=request.user.username)
         if expert:
             return render(request, '../templates/expertPage.html', {'expert': expert})
@@ -113,3 +112,18 @@ def orderHandling(request):
         return render(request, '../templates/orderHandlingPage.html', {'orders': orders})
     else:
         return redirect('/expert')
+
+
+# 城市详情
+def city_detail(request):
+    city_name = '哈尔滨'
+    city = models.City.objects.get(cityName=city_name)
+    print(city.province)
+    return render(request, '../templates/city_detail.html', {'city': city})
+
+# 景点详情
+def spot_detail(request):
+    spot_name = '太阳岛'
+    spot = models.Spot.objects.get(spotName=spot_name)
+
+    return render(request, '../templates/spot_detail.html', {'spot': spot})

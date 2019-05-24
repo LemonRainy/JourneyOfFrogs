@@ -9,4 +9,6 @@ urlpatterns = [
     path('changePassword', views_wjh.changePassword, name='changePassword'),
     path('acceptOrder', views_wjh.acceptOrder, name='acceptOrder'),
     path('refuseOrder', views_wjh.refuseOrder, name='refuseOrder'),
+    path('city_detail', views_wjh.city_detail, name='city_detail'),
+    path('spot_detail', views_wjh.spot_detail, name='spot_detail'),
 ]
