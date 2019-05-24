@@ -1,4 +1,9 @@
 {% extends "complete/base.html"%}
+
+{% block link %}
+<link rel="stylesheet" type="text/css" href="/static/css/wmm/customize.css" />
+{% endblock %}
+
 {% block content %}
     <div class="hero-wrap js-fullheight" style="background-image: url('/static/images/bg_5.jpg');">
         <div class="overlay"></div>
@@ -12,8 +17,6 @@
             </div>
         </div>
     </div>
-
-
     <br>
     <br>
     <br>
@@ -22,7 +25,8 @@
         <div class="customize">
             <div class="sidebar-wrap bg-light ftco-animate">
                 <h3 class="heading mb-4">请填写基本出行信息</h3>
-                <form action="#">
+                <form action="#" method="post" accept-charset =“utf-8”>
+                    {% csrf_token %}
                     <div class="fields">
                         <P>*出行人数</P>
                         <div class="form-group1">
@@ -72,9 +76,7 @@
                             </select>
                         </div>
                         <br>
-
-                        <input class="submit1" type="submit" value="提交"/>
-
+                        <input class="submitBtn" type="submit" value="提交"/>
                     </div>
                 </form>
             </div>
