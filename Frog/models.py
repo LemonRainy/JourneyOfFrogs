@@ -76,6 +76,7 @@ class User(AbstractUser):
 class Strategy(models.Model):
     strategyId = models.AutoField(primary_key=True)
     peopleNumber = models.IntegerField(blank=True, null=True, default=0)
+    days = models.IntegerField(blank=True, null=True)
     budget = models.BigIntegerField(blank=True, null=True)
     content = models.CharField(max_length=500, blank=True, null=True)
     strategyTitle = models.CharField(max_length=10, blank=True, null=True)
