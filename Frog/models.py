@@ -75,6 +75,7 @@ class User(AbstractUser):
 # 攻略表
 class Strategy(models.Model):
     strategyId = models.AutoField(primary_key=True)
+    memberEmail = models.ForeignKey('Member', on_delete=models.CASCADE)
     peopleNumber = models.IntegerField(blank=True, null=True, default=0)
     days = models.IntegerField(blank=True, null=True)
     budget = models.BigIntegerField(blank=True, null=True)

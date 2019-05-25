@@ -159,10 +159,11 @@ def filterStrategy(request):
         print(request.POST)
         # searchSpot = request.POST.get('searchSpot')
         searchPeopleNumber = request.POST.get('searchPeopleNumber')
-        # searchDays = request.POST.get('searchDays')
+        searchDays = request.POST.get('searchDays')
         searchBudget = request.POST.get('searchBudget')
         # searchSortord = request.POST.get('searchSortord')
-        strategys = models.Strategy.objects.filter(peopleNumber=searchPeopleNumber)
+
+        strategys = models.Strategy.objects.filter(peopleNumber=searchPeopleNumber,days=searchDays,budget=searchBudget)
         print(strategys)
         return render(request, "../templates/strategyListPage.html", {'strategyList': strategys,
                                                                       })
