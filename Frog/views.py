@@ -120,7 +120,16 @@ def indexpage(request):
     if request.user.is_authenticated:
         if request.user.type == '订制专员':
             return redirect('/expert')
+
+    if request.method == "POST":
+        # print(request.POST)
+        searchContent = request.POST.get('searchContent')
+        strategys = models.Strategy.objects.filter(strategyTitle__contains=searchContent)
+        print(strategys)
+        return redirect('/strategyList')
+
     return render(request, "../templates/complete/indexPage.html")
+
 
 
 def customize(requesrt):
@@ -138,3 +147,27 @@ def historyOrder(request):
         return render(request, '../templates/orderListPage.html', {'orders': orders})
     else:
         return redirect('/personal')
+
+
+def filterStrategy(request):
+    if request.method== "POST":
+        print(request.POST)
+        # searchSpot = request.POST.get('searchSpot')
+        searchPeopleNumber = request.POST.get('searchPeopleNumber')
+        # searchDays = request.POST.get('searchDays')
+        searchBudget = request.POST.get('searchBudget')
+        # searchSortord = request.POST.get('searchSortord')
+        strategys = models.Strategy.objects.filter(peopleNumber=searchPeopleNumber)
+        print(strategys)
+        return render(request, "../templates/strategyListPage.html", {'strategyList': strategys,
+                                                                      })
+    if request.method=="GET":
+        strategys = models.Strategy.objects.all()
+        # citys=models.CityIncluded.objects
+        print(strategys)
+        print("strategy")
+        return render(request, "../templates/strategyListPage.html", {'strategyList':strategys,
+                                                                      })
+
+def enterUserPage(request):
+    return render(request,"../templates/userPage.html")
