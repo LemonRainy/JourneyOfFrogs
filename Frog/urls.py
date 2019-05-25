@@ -14,5 +14,6 @@ urlpatterns = [
     #  path('user/<userId>', views.user, name='user'), 用这个可以穿参数
     path('customize/', views.customize, name='customize'),
     path('user/', views.user, name='user'),
-    path('api/code/', views.code, name='code')
+    path('strategyList/',views.filterStrategy,name='strategyList1'),
+    path('strategyDetail/',views.enterUserPage,name='strategyDetail'),
 ]

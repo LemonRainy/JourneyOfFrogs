@@ -28,7 +28,14 @@ def login_view(request):
 
 
 def register(request):
-
+    if request.method == "GET":
+        title = "青蛙旅行验证码"
+        msg = "验证码："+request.GET['code']
+        email_from = settings.EMAIL_HOST_USER
+        reciever = request.GET['email']
+        # 发送邮件
+        send_mail(title, msg, email_from, reciever)
+        return HttpResponse("邮件已发送！")
 
     if request.method == "POST":
         print(request.POST)
@@ -66,6 +73,7 @@ def modifyPassword(request):
         password = request.POST.get('password')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
+        code = request.POST.get('code')
 
         res = {}
         email = request.session.get('email')
@@ -112,7 +120,16 @@ def indexpage(request):
     if request.user.is_authenticated:
         if request.user.type == '订制专员':
             return redirect('/expert')
+
+    if request.method == "POST":
+        # print(request.POST)
+        searchContent = request.POST.get('searchContent')
+        strategys = models.Strategy.objects.filter(strategyTitle__contains=searchContent)
+        print(strategys)
+        return redirect('/strategyList')
+
     return render(request, "../templates/complete/indexPage.html")
+
 
 
 def customize(requesrt):
@@ -132,15 +149,25 @@ def historyOrder(request):
         return redirect('/personal')
 
 
-def code(request):
-    if request.method == "GET":
-        print("get method")
-        title = "青蛙旅行验证码"
-        msg = "验证码："+ str(request.GET.get('code'))
-        email_from = settings.EMAIL_HOST_USER
-        reciever = request.GET['email']
-        # 发送邮件
-        print(reciever, msg)
-        send_mail(title, str(msg), email_from, [reciever])
+def filterStrategy(request):
+    if request.method== "POST":
+        print(request.POST)
+        # searchSpot = request.POST.get('searchSpot')
+        searchPeopleNumber = request.POST.get('searchPeopleNumber')
+        # searchDays = request.POST.get('searchDays')
+        searchBudget = request.POST.get('searchBudget')
+        # searchSortord = request.POST.get('searchSortord')
+        strategys = models.Strategy.objects.filter(peopleNumber=searchPeopleNumber)
+        print(strategys)
+        return render(request, "../templates/strategyListPage.html", {'strategyList': strategys,
+                                                                      })
+    if request.method=="GET":
+        strategys = models.Strategy.objects.all()
+        # citys=models.CityIncluded.objects
+        print(strategys)
+        print("strategy")
+        return render(request, "../templates/strategyListPage.html", {'strategyList':strategys,
+                                                                      })
 
-        return HttpResponse("邮件已发送！")
+def enterUserPage(request):
+    return render(request,"../templates/userPage.html")
