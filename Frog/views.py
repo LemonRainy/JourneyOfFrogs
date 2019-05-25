@@ -60,7 +60,7 @@ def register(request):
     return render(request, "../templates/complete/registerPage.html")
 
 
-def modifyPassword(request):
+def update(request):
     if request.method == "POST":
         # 输入的密码
         password = request.POST.get('password')
@@ -83,6 +83,7 @@ def modifyPassword(request):
             res['res_message'] = '原始密码错误!'
 
         return HttpResponse(json.dumps(res), content_type='application/json')
+    return render(request, "../templates/complete/updatePage.html")
 
 
 def logoff(request):
