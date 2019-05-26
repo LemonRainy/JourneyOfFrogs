@@ -16,8 +16,11 @@ $(function () {
                 if (data.cool) {
                     t.parent("td").find("button[name='accept']").hide();
                     t.parent("td").find("button[name='refuse']").hide();
-                    t.parent("td").find("button[name='end']").show();
-                    t.parent("td").find("button[name='cancel']").show();
+
+                    t.parent("td").find("button[name='end']").fadeIn(2000,function(){});
+                    t.parent("td").find("button[name='cancel']").fadeIn(2000,function(){});
+
+
 
                 } else {
                     alert("接受订单失败!")
@@ -114,7 +117,6 @@ $(function () {
             }
         })
     });
-
 
 
     //修改个人信息
