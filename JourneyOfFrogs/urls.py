@@ -20,5 +20,6 @@ urlpatterns = [
     path('', include('Frog.urls')),
     path('', include('Frog.urls_wjh')),
     path('', include('Frog.urls_zxd')),
+    path('', include('Frog.urls_wmm')),
     path('admin/', admin.site.urls),
 ]

@@ -75,7 +75,7 @@
             <caption>历史订单</caption>
             <thead>
             <tr>
-                <th>订单编号</th>
+                <th style="width: 150px;">订单编号</th>
                 <th>客户</th>
                 <th>电话</th>
                 <th>下单日期</th>
@@ -106,7 +106,7 @@
             <tbody>
             {% for order in orders %}
                 <tr>
-                    <td>{{ order.id }}</td>
+                    <td>{{ order.orderID }}</td>
                     <td>{{ order.member.name }}</td>
                     <td>{{ order.member.telephone }}</td>
                     <td>{{ order.date }}</td>

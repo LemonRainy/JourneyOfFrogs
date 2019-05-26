@@ -66,7 +66,7 @@ def changePassword(request):
 def acceptOrder(request):
     if request.method == 'GET':
         order_id = request.GET['order_id']
-        models.Order.objects.filter(id=order_id).update(state=1)
+        models.Order.objects.filter(orderID=order_id).update(state=1)
         res = {}
         res['cool'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
@@ -76,7 +76,7 @@ def acceptOrder(request):
 def refuseOrder(request):
     if request.method == 'GET':
         order_id = request.GET['order_id']
-        models.Order.objects.filter(id=order_id).update(state=-2)
+        models.Order.objects.filter(orderID=order_id).update(state=-2)
         res = {}
         res['cool'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
@@ -86,7 +86,7 @@ def refuseOrder(request):
 def cancelOrder(request):
     if request.method == 'GET':
         order_id = request.GET['order_id']
-        models.Order.objects.filter(id=order_id).update(state=-1)
+        models.Order.objects.filter(orderID=order_id).update(state=-1)
         res = {}
         res['cool'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
@@ -96,7 +96,7 @@ def cancelOrder(request):
 def endOrder(request):
     if request.method == 'GET':
         order_id = request.GET['order_id']
-        models.Order.objects.filter(id=order_id).update(state=2)
+        models.Order.objects.filter(orderID=order_id).update(state=2)
         res = {}
         res['cool'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')

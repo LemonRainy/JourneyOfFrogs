@@ -67,11 +67,11 @@
 
 <section class="ftco-section contact-section ftco-degree-bg">
     <div class="container" style="max-width: 1400px;">
-        <table class="table" style="word-wrap:break-word; word-break:break-all;table-layout: fixed;">
+        <table class="table" style="table-layout: fixed;">
             <caption>待服务订单</caption>
             <thead>
             <tr>
-                <th>订单编号</th>
+                <th style="width: 150px;">订单编号</th>
                 <th>客户</th>
                 <th>电话</th>
                 <th>下单日期</th>
@@ -105,7 +105,7 @@
             <tbody>
             {% for item in orders %}
                 <tr>
-                    <td>{{ item.id }}</td>
+                    <td>{{ item.orderID }}</td>
                     <td>{{ item.member.name }}</td>
                     <td>{{ item.member.telephone }}</td>
                     <td>{{ item.date }}</td>

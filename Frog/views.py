@@ -38,9 +38,9 @@ def register(request):
         gender = request.POST.get('sex')
         type = request.POST.get('type')
 
-        user = models.User.objects.create_user(member=email,
-                                               password=password,
+        user = models.User.objects.create_user(password=password,
                                                telephone=telephone,
+                                               username=email,
                                                name=name,
                                                gender=gender,
                                                type=type)
