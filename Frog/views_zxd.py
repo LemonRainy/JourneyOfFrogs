@@ -5,14 +5,17 @@ from . import models
 # Create your views here.
 import json
 # 分享攻略
+
+
 def share(request):
     if request.method == "GET":
         return render(request, '../templates/complete/shareStrategyPage.html')
     if request.method == "POST":
+        member = models.Member.objects.get(email=request.user)
         content = request.POST.get('content')
         title = request.POST.get('title')
         newstrategy = models.Strategy.objects.create(peopleNumber=0, budget=0, content=content,
-                                                     strategyTitle=title)
+                                                     memberEmail=member,strategyTitle=title)
         return redirect('/article/' + str(newstrategy.strategyId))
         # print(request.POST)
         # return render(request, '../templates/complete/shareStrategyPage.html')
