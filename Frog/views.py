@@ -131,15 +131,6 @@ def user(request):
     return render(request, "../templates/complete/userPage.html")
 
 
-def historyOrder(request):
-    email = request.session.get('email')
-    if email:
-        orders = models.Order.objects.filter(expert_id=email)
-        return render(request, '../templates/orderListPage.html', {'orders': orders})
-    else:
-        return redirect('/personal')
-
-
 def code(request):
     if request.method == "GET":
         print("get method")
@@ -152,6 +143,15 @@ def code(request):
         send_mail(title, str(msg), email_from, [reciever])
 
         return HttpResponse("邮件已发送！")
+
+#查看历史攻略
+def personal(request):
+    email = request.session.get('email')
+    if email:
+        strategies = models.Strategy.objects.filter(memberEmail=email)
+        return render(request, '../templates/personalPage.html', {'strategies': strategies})
+    else:
+        return redirect('/personal')
 
 
 def filterStrategy(request):

@@ -6,7 +6,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('register/', views.register, name='register'),
     path('update/', views.update, name='update'),
-    path('historyOrder/', views.historyOrder, name='historyOrder'),
+    path('personal/', views.personal, name='personal'),#查看历史攻略
 
     path('logout/', views.logoff, name='logout'),
     path('index/', views.indexpage, name='indexpage'),
