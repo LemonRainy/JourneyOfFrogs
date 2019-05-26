@@ -28,7 +28,8 @@ def detailArticle(request, strategyId):
     if request.method == "GET":
         if not models.Strategy.objects.filter(strategyId=strategyId):
             error = "strategy not found"
-            return render(request, '../templates/complete/article.html', {'error': error})
+            return redirect('index/')
+            # return render(request, '../templates/complete/article.html', {'error': error})
 
     strategy = models.Strategy.objects.get(strategyId=strategyId)
     if request.method == "POST":
