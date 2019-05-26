@@ -32,7 +32,7 @@ def customize(request):
         order = models.Order.objects.create(
                                                member=member[0],
                                                expert=expert[0],
-                                               state=0,
+                                               state=1,
                                                date=time.strftime('%Y-%m-%d %H:%M', time.localtime(time.time())),
                                                intent=intent,
                                                travelNum=travelNum,
@@ -51,7 +51,7 @@ def customize(request):
 #私人定制列表
 def orderList(request):
     if request.method == "GET":
-        orderlist = models.Order.objects.filter(member='123456')
+        orderlist = models.Order.objects.filter(member=request.session.get('member_email'))
         return render(request, "../templates/complete/orderList.html",locals())
     return redirect('/orderDetail')
 
@@ -63,12 +63,12 @@ def orderDetail(request,orderID):
         order=orderList[0]
         comment="已评价"
         state="订单正在等待服务"
-        if order.state==1:
-            state = "订单正在服务中"
         if order.state==2:
             state = "订单已完成"
-        if order.state==3:
+        if order.state==-1:
             state = "订单已取消"
+        if order.state==-2:
+            state = "订单已拒绝"
 
         if order.comment=="":
             comment="未评价"
@@ -78,10 +78,20 @@ def orderDetail(request,orderID):
         return render(request, "../templates/complete/orderDetail.html",locals())
 
     # POST
+    orderLists = models.Order.objects.filter(orderID=id)
     totalnum=request.POST.get("totalnum")
     if totalnum == "0":
         totalnum=None
     models.Order.objects.filter(orderID=id).update(comment=request.POST.get("comment"),
                                                    mark=totalnum)
+    orders = models.Order.objects.filter(expert_id= orderLists[0].expert.email)
+    sum = 0
+    num = 0
+    for order in orders:
+        if order.mark:
+            sum += order.mark
+            num += 1
+    if num is not 0:
+        models.Expert.objects.filter(email= orderLists[0].expert.email).update(mark=float(sum / num))
     return redirect('/index')
 
