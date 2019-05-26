@@ -49,13 +49,15 @@ def register(request):
         if type == '订制专员':
             # 添加用户到expert表
             models.Expert.objects.create(email=email, name=name, gender=gender, telephone=telephone)
-            return redirect('/index')
+            # return redirect('/index')
         if type == '普通用户':
             # 添加用户到member表
             models.Member.objects.create(email=email, name=name, gender=gender, telephone=telephone)
         login(request, user)
 
     if request.user.is_authenticated:
+        if models.User.objects.get(username=request.user).type == "定制专员":
+            return redirect('/expert')
         return redirect('/index')
     return render(request, "../templates/complete/registerPage.html")
 
