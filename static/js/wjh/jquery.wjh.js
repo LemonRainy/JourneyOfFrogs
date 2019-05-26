@@ -14,7 +14,10 @@ $(function () {
             },
             success: function (data) {
                 if (data.cool) {
-                    t.parent("td").parent("tr").remove();
+                    t.parent("td").find("button[name='accept']").hide();
+                    t.parent("td").find("button[name='refuse']").hide();
+                    t.parent("td").find("button[name='end']").show();
+                    t.parent("td").find("button[name='cancel']").show();
 
                 } else {
                     alert("接受订单失败!")
@@ -55,6 +58,63 @@ $(function () {
             }
         })
     });
+
+    //结束
+    $("button[name='end']").click(function () {
+        //获取所在列的订单编号
+        var t = $(this);
+        var order_id = $(this).parent("td").parent("tr").children().eq(0).text();
+        console.log("结束订单编号：" + order_id);
+        $.ajax({
+            type: "GET",
+            url: "endOrder",
+            data: {
+                'order_id': order_id,
+            },
+            success: function (data) {
+                if (data.cool) {
+                    t.parent("td").parent("tr").remove();
+
+                } else {
+                    alert("结束订单失败!")
+                }
+
+            },
+            error: function (data) {
+                alert("结束订单失败!")
+
+            }
+        })
+    });
+
+    //取消
+    $("button[name='cancel']").click(function () {
+        //获取所在列的订单编号
+        var t = $(this);
+        var order_id = $(this).parent("td").parent("tr").children().eq(0).text();
+        console.log("取消订单编号：" + order_id);
+        $.ajax({
+            type: "GET",
+            url: "cancelOrder",
+            data: {
+                'order_id': order_id,
+            },
+            success: function (data) {
+                if (data.cool) {
+                    t.parent("td").parent("tr").remove();
+
+                } else {
+                    alert("取消订单失败!")
+                }
+
+            },
+            error: function (data) {
+                alert("取消订单失败!")
+
+            }
+        })
+    });
+
 
 
     //修改个人信息
