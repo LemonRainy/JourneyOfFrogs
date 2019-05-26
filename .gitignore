@@ -7,3 +7,4 @@ db.sqlite3
 .idea/*
 Frog/migrations
 Frog/migrations/*
+JourneyOfFrogs/__pycache__/settings.cpython-35.pyc

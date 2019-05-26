@@ -70,8 +70,8 @@
 </div>
 
 <section class="ftco-section contact-section ftco-degree-bg">
-    <div class="container">
-        <table class="table">
+    <div class="container" style="max-width: 1400px;">
+        <table class="table" style="table-layout: fixed;">
             <caption>历史订单</caption>
             <thead>
             <tr>
@@ -79,6 +79,24 @@
                 <th>客户</th>
                 <th>电话</th>
                 <th>下单日期</th>
+                <th>
+                    出行人数
+                </th>
+                <th>
+                    小孩人数
+                </th>
+                <th>
+                    出发地
+                </th>
+                <th>
+                    目的地
+                </th>
+                <th>
+                    出发时间
+                </th>
+                <th>
+                    到达时间
+                </th>
                 <th>意向信息</th>
                 <th>订单状态</th>
                 <th>评分</th>
@@ -92,6 +110,12 @@
                     <td>{{ order.member.name }}</td>
                     <td>{{ order.member.telephone }}</td>
                     <td>{{ order.date }}</td>
+                    <td>{{ order.travelNum }}</td>
+                    <td>{{ order.childNum }}</td>
+                    <td>{{ order.departureCity }}</td>
+                    <td>{{ order.destinationCity }}</td>
+                    <td>{{ order.departureTime }}</td>
+                    <td>{{ order.destinationTime }}</td>
                     <td>{{ order.intent }}</td>
                     <td>
                         {% if order.state is 1 %}
@@ -103,6 +127,10 @@
                         {% if order.state is -1 %}
                             已取消
                         {% endif %}
+                        {% if order.state is -2 %}
+                            已拒绝
+                        {% endif %}
+
 
                     </td>
                     <td>

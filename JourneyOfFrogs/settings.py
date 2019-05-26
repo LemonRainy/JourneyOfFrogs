@@ -126,3 +126,11 @@ STATICFILES_DIRS = (
 IMG_ROOT = BASE_DIR + '/static/upload/img/'
 
 AUTH_USER_MODEL='Frog.User'
+
+# 邮件配置
+EMAIL_HOST = "smtp.sina.com"   # 服务器
+EMAIL_PORT = 25
+EMAIL_HOST_USER = "aaaaazin@sina.com"   # 账号
+EMAIL_HOST_PASSWORD = "qwlx2019"  # 密码
+EMAIL_USE_TLS = False             # 一般都为False
+EMAIL_FROM = "青蛙旅行"        # 邮箱来自

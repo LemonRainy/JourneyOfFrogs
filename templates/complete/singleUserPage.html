@@ -1,4 +1,13 @@
 {% extends "complete/base.html" %}
+{% block link %}
+
+<style>
+.follow{
+  background-color:#f85959; 
+  color: white;
+}
+</style>
+{% endblock %}
 {% block content %}
     <div class="hero-wrap js-fullheight" style="background-image: url('/static/images/userBackground1.jpg');">
       <div class="overlay"></div>
@@ -7,14 +16,14 @@
           <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }"  >
             <img src="/static/images/member.jpg" alt="Responsive image" class="userInfo img-thumbnail" width="180" height="180">
 
-              <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" style="margin-bottom: 10px; font-size: 2.5rem">薇薇的窝</h1>
-              <div >
-                  <p class="inline">定位：北京</p>
+              <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" style="margin-bottom: 10px; font-size: 2.5rem">{{ member.name }}的窝</h1>
+              <div id="app-6">
+                  <p class="inline">定位：{{ member.location }}</p>
 
-                  <p class="inline">邮箱：123456@163.com</p>
+                  <p class="inline">邮箱：{{ member.email }}</p>
 
-                   <p class="inline">粉丝数：88</p>
-                  <button class="btn btn-default" type="button" width="80">+ 关注</button>
+                   <p class="inline" id="fan_number">粉丝数:{% verbatim myblock %} {{ number }}{% endverbatim myblock %}</p>
+                  <button class="btn btn-default {% if tag == 0 %}follow{% endif %}" id="followButton" type="button" width="80" onclick="follow();">{% if tag == 1 %}取消关注{% else %}+关注{% endif %}</button>
               </div>
 
           </div>
@@ -170,3 +179,39 @@
     </section>
 
  {% endblock %}
+
+
+ {% block script %}
+ <script type="text/javascript">
+function follow(){
+      $.ajax({
+          url: "/api/follow/",
+          data: {
+              followEmail:  {{ email|safe }} 
+          },
+          success: function( result ) {
+             if(result==1){
+              $("#followButton").addClass("follow")
+                $("#followButton").text("+关注");
+                app6.number = app6.number - 1;
+            
+             }else if(result==0){
+              $("#followButton").removeClass("follow")
+              $("#followButton").text("取消关注");
+                  app6.number = app6.number + 1;
+             }
+          }
+      });
+  }
+
+ </script>
+ <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  var app6 = new Vue({
+    el: '#app-6',
+    data: {
+      number: {{ fan_number }}
+    }
+  })
+  </script>
+{% endblock %}

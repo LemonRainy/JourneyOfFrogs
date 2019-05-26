@@ -9,9 +9,10 @@
 				<p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">帮您发现绝美城市、景点与美食</p>
 				<div class="block-17 my-4">
 					<form action="" method="post" class="d-block d-flex">
+                        {% csrf_token %}
 						<div class="fields d-block d-flex">
 							<div class="textfield-search one-third">
-								<input type="text" class="form-control" placeholder="搜索：景点、餐厅、饮食等">
+								<input type="text" name="searchContent" class="form-control" placeholder="搜索：景点、餐厅、饮食等">
 							</div>
 						</div>
 						<input type="submit" class="search-submit btn btn-primary" value="搜索">

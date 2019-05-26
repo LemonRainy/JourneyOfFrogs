@@ -74,7 +74,9 @@ class User(AbstractUser):
 # 攻略表
 class Strategy(models.Model):
     strategyId = models.AutoField(primary_key=True)
+    memberEmail = models.ForeignKey('Member', on_delete=models.CASCADE)
     peopleNumber = models.IntegerField(blank=True, null=True, default=0)
+    days = models.IntegerField(blank=True, null=True)
     budget = models.BigIntegerField(blank=True, null=True)
     content = models.CharField(max_length=500, blank=True, null=True)
     strategyTitle = models.CharField(max_length=10, blank=True, null=True)
@@ -105,7 +107,7 @@ class Restaurant(models.Model):
     cityName=models.ForeignKey('City',on_delete=models.SET_NULL,null=True)
     location=models.CharField(max_length=60)
     telephone=models.CharField(max_length=20)
-    pictureURL=models.TextField(max_length=200)
+    pictureURL=models.TextField(max_length=200, null=True)
     speciality=models.CharField(max_length=30)
     averageConsume=models.PositiveIntegerField()
 
@@ -117,6 +119,7 @@ class Spot(models.Model):
     ticketPrice=models.PositiveIntegerField()
     location = models.CharField(max_length=60)
     spotTelephone=models.CharField(max_length=20)
+    pictureURL = models.TextField(max_length=200, null=True)
 
 # 城市表
 class City(models.Model):

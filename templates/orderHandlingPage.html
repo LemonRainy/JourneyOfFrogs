@@ -66,8 +66,8 @@
 </div>
 
 <section class="ftco-section contact-section ftco-degree-bg">
-    <div class="container">
-        <table class="table" style="word-wrap:break-word; word-break:break-all;">
+    <div class="container" style="max-width: 1400px;">
+        <table class="table" style="word-wrap:break-word; word-break:break-all;table-layout: fixed;">
             <caption>待服务订单</caption>
             <thead>
             <tr>
@@ -76,9 +76,30 @@
                 <th>电话</th>
                 <th>下单日期</th>
                 <th>
+                    出行人数
+                </th>
+                <th>
+                    小孩人数
+                </th>
+                <th>
+                    出发地
+                </th>
+                <th>
+                    目的地
+                </th>
+                <th>
+                    出发时间
+                </th>
+                <th>
+                    到达时间
+                </th>
+                <th>
+                    订单状态
+                </th>
+                <th>
                     意向信息
                 </th>
-                <th>操作</th>
+                <th style="width: 300px;">操作</th>
             </tr>
             </thead>
             <tbody>
@@ -87,13 +108,37 @@
                     <td>{{ item.id }}</td>
                     <td>{{ item.member.name }}</td>
                     <td>{{ item.member.telephone }}</td>
-                    <td>{{ item.date|date:"Y-m-d H:i" }}</td>
+                    <td>{{ item.date }}</td>
+                    <td>{{ item.travelNum }}</td>
+                    <td>{{ item.childNum }}</td>
+                    <td>{{ item.departureCity }}</td>
+                    <td>{{ item.destinationCity }}</td>
+                    <td>{{ item.departureTime }}</td>
+                    <td>{{ item.destinationTime }}</td>
+                    <td>
+                        {% if item.state is 1 %}
+                            待服务
+                        {% endif %}
+                        {% if item.state is 0 %}
+                            待处理
+                        {% endif %}
+                    </td>
                     <td>
                         {{ item.intent }}
                     </td>
                     <td>
-                        <button type="button" name="accept" class="btn btn-primary">接受</button>
-                        <button type="button" name="refuse" class="btn btn-primary">结束</button>
+                        {% if item.state is 1 %}
+                            <button type="button" name="end" class="btn btn-primary">结束</button>
+                            <button type="button" name="cancel" class="btn btn-primary">取消</button>
+                        {% endif %}
+                        {% if item.state is 0 %}
+                            <button type="button" name="accept" class="btn btn-primary">接受</button>
+                            <button type="button" name="refuse" class="btn btn-primary">拒绝</button>
+                        {% endif %}
+                        <button type="button" style="display: none" name="end" class="btn btn-primary">结束</button>
+                        <button type="button" style="display: none" name="cancel" class="btn btn-primary">取消</button>
+
+
                     </td>
                 </tr>
             {% endfor %}
