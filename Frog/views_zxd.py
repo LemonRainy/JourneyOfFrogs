@@ -3,8 +3,7 @@ import time
 from django.conf import settings
 from . import models
 # Create your views here.
-
-
+import json
 # 分享攻略
 def share(request):
     if request.method == "GET":
@@ -21,7 +20,10 @@ def share(request):
 
 def detailArticle(request, strategyId):
     print(strategyId)
-    useremail = 1 # 假定用户邮箱
+    # useremail = 1 # 假定用户邮箱
+    useremail = request.user
+    member = models.Member.objects.get(email=useremail)
+
     digg_tag = 0  # 初始点赞状态
     if request.method == "GET":
         if not models.Strategy.objects.filter(strategyId=strategyId):
@@ -32,14 +34,34 @@ def detailArticle(request, strategyId):
     if request.method == "POST":
         commentcontent = request.POST.get("commentContent")
         print(commentcontent)
-        models.Comment.objects.create(useremail=1, content=commentcontent, strategy=strategy)
+        models.Comment.objects.create(useremail=member, content=commentcontent, strategy=strategy)
 
-    if models.Digg.objects.filter(useremail=useremail, strategy=strategy):
+    if models.Digg.objects.filter(useremail=member, strategy=strategy):
         digg_tag = 1
 
-    comments = models.Comment.objects.filter(strategy=strategy)
-    return render(request, '../templates/complete/strategyDetailPage.html', {'strategy': strategy, 'comments': comments, 'digg_tag': digg_tag})
+    comments = models.Comment.objects.filter(strategy=strategy).order_by('-commentId')
+    return render(request, '../templates/complete/strategyDetailPage.html', {'strategy': strategy, 'comments': comments,
+                                                                             'digg_tag': digg_tag})
 
+
+def singleUser(request, userId):
+    print(userId)
+    user_email = request.user
+    u = models.Member.objects.get(email=user_email)
+    if models.User.objects.filter(id=userId):
+        user = models.User.objects.get(id=userId)
+        if user.type == '普通用户':
+            member = models.Member.objects.get(email=user.username)
+            fan_number = models.Follow.objects.filter(followedEmail=member).count()
+            tag = 0
+            if models.Follow.objects.filter(followedEmail=member, followingEmail=u):
+                tag = 1
+            return render(request, '../templates/complete/singleUserPage.html', {'member': member,
+                                                                                 'email': json.dumps(member.email),
+                                                                                 'fan_number': fan_number,
+                                                                                 'tag': tag})
+
+    return redirect('/index')
 
 
 # 图片上传接口
@@ -62,14 +84,31 @@ def getimage(request):
 # 点赞接口
 def digg(request):
     # 差把保存点赞
-    useremail = 1
+    useremail = request.user
+    member = models.Member.objects.get(email=useremail)
     if request.method == "GET":
         strategy = models.Strategy.objects.get(strategyId=request.GET.get('strategyId'))
-        if models.Digg.objects.filter(useremail=useremail, strategy=strategy):
-            models.Digg.objects.get(useremail=useremail, strategy=strategy).delete()
+        if models.Digg.objects.filter(useremail=member, strategy=strategy):
+            models.Digg.objects.get(useremail=member, strategy=strategy).delete()
             return HttpResponse(0)
         else:
-            models.Digg.objects.create(useremail=useremail, strategy=strategy)
+            models.Digg.objects.create(useremail=member, strategy=strategy)
             return HttpResponse(1)
     else:
         return HttpResponse(-1)
+
+
+def follow(request):
+    print(request)
+    print(request.user)
+    print(request.GET)
+    fan = models.Member.objects.get(email=request.user)
+    follow_email = request.GET.get('followEmail')
+    follow = models.Member.objects.get(email=follow_email)
+
+    if models.Follow.objects.filter(followedEmail=follow, followingEmail=fan):
+        models.Follow.objects.get(followedEmail=follow, followingEmail=fan).delete()
+        return HttpResponse(1)
+    else:
+        models.Follow.objects.create(followedEmail=follow, followingEmail=fan)
+        return HttpResponse(0)
