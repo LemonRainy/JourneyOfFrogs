@@ -5,7 +5,8 @@
 [Vue和Django的冲突](#Vue和Django的冲突)    
 [关于Order表中订单状态的含义(2019/5/22更新)](#关于Order表中订单状态的含义)  
 [撤回commit](#撤回commit)  
-[撤回push](#撤回push)
+[撤回push](#撤回push)  
+[专员评分更新](#专员评分更新)
 
 # 虚拟环境
 - 创建虚拟环境
@@ -128,6 +129,19 @@ Date:   Sat Mar 3 23:43:03 2018 +0800
 4. 回退你想回到的版本号（`注意，不是你交错的版本号，而是你想回退到的版本号`）
 ```
 > git reset --soft <你想回退到的版本号>
+```
+
+# 专员评分更新
+```python
+orders = models.Order.objects.filter(expert_id=<专员邮箱>)
+sum = 0
+num = 0
+for order in orders:
+    if order.mark:
+        sum += order.mark
+        num += 1
+if num is not 0:
+    models.Expert.objects.filter(email=<专员邮箱>).update(mark=float(sum / num))
 ```
 
 

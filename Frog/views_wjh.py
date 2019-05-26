@@ -81,6 +81,7 @@ def refuseOrder(request):
         res['cool'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
 
+
 # 取消订单
 def cancelOrder(request):
     if request.method == 'GET':
@@ -89,6 +90,7 @@ def cancelOrder(request):
         res = {}
         res['cool'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
+
 
 # 结束订单
 def endOrder(request):
@@ -99,11 +101,12 @@ def endOrder(request):
         res['cool'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
 
+
 # 查看历史订单
 def expertOrderList(request):
     v = request.user.username
     if v:
-        orders = models.Order.objects.filter(expert_id=v).exclude(state__in=[0,1])
+        orders = models.Order.objects.filter(expert_id=v).exclude(state__in=[0, 1]).order_by("-date")
         return render(request, '../templates/expertOrderListPage.html', {'orders': orders})
     else:
         return redirect('/expert')
@@ -124,7 +127,7 @@ def expert(request):
 def orderHandling(request):
     v = request.user.username
     if v:
-        orders = models.Order.objects.filter(expert_id=v, state__in=[0,1])
+        orders = models.Order.objects.filter(expert_id=v, state__in=[0, 1]).order_by("-date")
         print(orders)
 
         return render(request, '../templates/orderHandlingPage.html', {'orders': orders})
@@ -138,6 +141,7 @@ def city_detail(request):
     city = models.City.objects.get(cityName=city_name)
     print(city.province)
     return render(request, '../templates/city_detail.html', {'city': city})
+
 
 # 景点详情
 def spot_detail(request):
