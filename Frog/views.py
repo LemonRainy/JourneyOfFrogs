@@ -26,7 +26,6 @@ def login_view(request):
         else:
             return HttpResponse("用户名或密码错误")
 
-
 def register(request):
 
 
@@ -39,9 +38,9 @@ def register(request):
         gender = request.POST.get('sex')
         type = request.POST.get('type')
 
-        user = models.User.objects.create_user(username=email,
-                                               password=password,
+        user = models.User.objects.create_user(password=password,
                                                telephone=telephone,
+                                               username=email,
                                                name=name,
                                                gender=gender,
                                                type=type)
@@ -111,6 +110,7 @@ def log(request):
     return render(request, "../templates/complete/loginPage.html")
 
 
+
 def indexpage(request):
     if request.user.is_authenticated:
         if request.user.type == '订制专员':
@@ -125,8 +125,7 @@ def indexpage(request):
     return render(request, "../templates/complete/indexPage.html")
 
 
-def customize(requesrt):
-    return render(requesrt, "../templates/complete/customizePage.html")
+
 
 
 def user(request):

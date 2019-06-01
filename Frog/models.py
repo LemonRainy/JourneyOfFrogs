@@ -11,7 +11,6 @@ class Expert(models.Model):
     name = models.CharField(max_length=10, null=True)
     gender = models.CharField(max_length=10,null=True)
     telephone = models.CharField(max_length=11,null=True)
-
     introduction = models.TextField(null=True)
     seniority = models.IntegerField(null=True)
     tag = models.CharField(max_length=10,null=True)
@@ -43,9 +42,9 @@ class Order(models.Model):
     childNum = models.CharField(max_length=30, null=True)
     departureCity = models.CharField(max_length=30, null=True)
     destinationCity = models.CharField(max_length=30, null=True)
-    departureTime = models.DateTimeField(null=True)
-    destinationTime = models.DateTimeField(null=True)
-
+    departureTime = models.CharField(max_length=30, null=True)
+    destinationTime = models.CharField(max_length=30, null=True)
+    orderID = models.CharField(max_length=30, null=True)
 # -------------------- wjh models end --------------------
 
 # -------------------- xjy models begin --------------------

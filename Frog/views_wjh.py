@@ -66,7 +66,7 @@ def changePassword(request):
 def acceptOrder(request):
     if request.method == 'GET':
         order_id = request.GET['order_id']
-        models.Order.objects.filter(id=order_id).update(state=1)
+        models.Order.objects.filter(orderID=order_id).update(state=1)
         res = {}
         res['cool'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
@@ -76,7 +76,27 @@ def acceptOrder(request):
 def refuseOrder(request):
     if request.method == 'GET':
         order_id = request.GET['order_id']
-        models.Order.objects.filter(id=order_id).update(state=-1)
+        models.Order.objects.filter(orderID=order_id).update(state=-2)
+        res = {}
+        res['cool'] = True
+        return HttpResponse(json.dumps(res), content_type='application/json')
+
+
+# 取消订单
+def cancelOrder(request):
+    if request.method == 'GET':
+        order_id = request.GET['order_id']
+        models.Order.objects.filter(orderID=order_id).update(state=-1)
+        res = {}
+        res['cool'] = True
+        return HttpResponse(json.dumps(res), content_type='application/json')
+
+
+# 结束订单
+def endOrder(request):
+    if request.method == 'GET':
+        order_id = request.GET['order_id']
+        models.Order.objects.filter(orderID=order_id).update(state=2)
         res = {}
         res['cool'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
@@ -86,7 +106,7 @@ def refuseOrder(request):
 def expertOrderList(request):
     v = request.user.username
     if v:
-        orders = models.Order.objects.filter(expert_id=v).exclude(state=0)
+        orders = models.Order.objects.filter(expert_id=v).exclude(state__in=[0, 1]).order_by("-date")
         return render(request, '../templates/expertOrderListPage.html', {'orders': orders})
     else:
         return redirect('/expert')
@@ -107,7 +127,8 @@ def expert(request):
 def orderHandling(request):
     v = request.user.username
     if v:
-        orders = models.Order.objects.filter(expert_id=v, state=0)
+        orders = models.Order.objects.filter(expert_id=v, state__in=[0, 1]).order_by("-date")
+        print(orders)
 
         return render(request, '../templates/orderHandlingPage.html', {'orders': orders})
     else:
@@ -120,6 +141,7 @@ def city_detail(request):
     city = models.City.objects.get(cityName=city_name)
     print(city.province)
     return render(request, '../templates/city_detail.html', {'city': city})
+
 
 # 景点详情
 def spot_detail(request):

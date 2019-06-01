@@ -1,38 +1,18 @@
-{% extends "complete/base.html"%}
+{% extends "complete/base.html" %}
 
 {% block link %}
-<link rel="stylesheet" type="text/css" href="/static/css/wmm/customize.css" />
+{#    <link rel="stylesheet" type="text/css" href="/static/css/wmm/customize.css"/>#}
+    <link rel="stylesheet" href="/static/css/wjh/wjh.css">
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/wjh/jquery.wjh.js"></script>
 {% endblock %}
 
 {% block content %}
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">dirEngine.</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
-
-            <div class="collapse navbar-collapse" id="ftco-nav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="tour.html" class="nav-link">Tour</a></li>
-                    <li class="nav-item active"><a href="hotel.html" class="nav-link">Hotels</a></li>
-                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                    <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Add listing</span></a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- END nav -->
-
     <div class="hero-wrap js-fullheight" style="background-image: url('/static/images/bg_5.jpg');">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
-                data-scrollax-parent="true">
+                 data-scrollax-parent="true">
                 <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
                     <!-- <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Hotel</span></p> -->
                     <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">订单列表</h1>
@@ -41,187 +21,99 @@
         </div>
     </div>
 
-
     <br>
     <br>
     <br>
 
-    <div class="col-lg-32 sidebar">
-        <h3 style="margin: auto"> 您的历史订单</h3>
-        <table>
+
+{#    <div class="col-lg-32 sidebar">#}
+{#        <script src='/static/jquery.js'></script>#}
+{##}
+{##}
+{#        <h3 style="margin: auto"> 您的历史订单</h3>#}
+{#        <br>#}
+{#        <br>#}
+{#        <table>#}
+{#            <tbody>#}
+{#            <tr>#}
+{#                <td>订单号#}
+{#                <td>预定日期#}
+{#                <td>专员姓名#}
+{#                <td>往返时间#}
+{#                <td>往返城市#}
+{#                <td>#}
+{#                    <br>#}
+{#                    {% for order in orderlist %}#}
+{#                        <tr>#}
+{#                        <td >{{ order.orderID }}#}
+{#                        <td>{{order.date }}#}
+{#                        <td>{{ order.expert.name }}#}
+{#                        <td>{{ order.departureTime }}---{{ order.destinationTime }}#}
+{#                        <td>{{ order.departureCity }}---{{ order.destinationCity }}#}
+{#                        <td ><a name ="viewDetail" href="/orderDetail/<{{ order.orderID }}>">查看详情</a>#}
+{#                        <br>#}
+{#                    {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+{#        <br>#}
+{#        <input class="submitBtn" type="submit" value="确定"/>#}
+{#        <br>#}
+{#        <br>#}
+{#    </div>#}
+    <h3 style="text-align: center"> 您的历史订单</h3>
+    <section class="ftco-section contact-section ftco-degree-bg">
+    <div class="container">
+        <table class="table">
             <thead>
-                <tr>
-                    <th>订单号
-                    <th>预定日期
-                    <th>专员
-                    <th>订单花费
-                    <th>往返时间
-                    <th>往返城市
-                    <th>查看详情</th>
+            <tr>
+                <th>订单编号</th>
+                <th>预定日期</th>
+                <th>专员姓名</th>
+                <th>往返时间</th>
+                <th>往返城市</th>
+                <th>订单状态</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
-                    <tr>
-                            <td>订单号
-                            <td>预定日期
-                            <td>专员
-                            <td>订单花费
-                            <td>往返时间
-                            <td>往返城市
-                            <td>
-                                <br>
+            {% for order in orderlist %}
+                <tr>
+                    <td>{{ order.orderID }}</td>
+                    <td>{{ order.date }}</td>
+                    <td>{{ order.expert.name }}</td>
+                    <td>{{ order.departureTime }}---{{ order.destinationTime }}</td>
+                    <td>{{ order.departureCity }}---{{ order.destinationCity }}</td>
+                    <td>
+                        {% if order.state is 1 %}
+                            待完成
+                        {% endif %}
+                        {% if order.state is 2 %}
+                            已完成
+                        {% endif %}
+                        {% if order.state is -1 %}
+                            已取消
+                        {% endif %}
+                        {% if order.state is -2 %}
+                            已拒绝
+                        {% endif %}
 
-                <tr>
-                    <td>gdvbh84156035620
-                    <td>2019-02-14
-                    <td>王子文
-                    <td>500元
-                    <td>2019-02-16---2019-02-20
-                    <td>北京---西安
-                    <td><a href="orderDetail.html">查看详情</a>
-                        <br>
-                <tr>
-                    <td>vdcgbyh98652398562
-                    <td>2019-03-01
-                    <td>宋仲基
-                    <td>300元
-                    <td>2019-03-03---2019-03-05
-                    <td>泰安---桂林
-                    <td><a href="orderDetail.html">查看详情</a>
-                        <br>
-                <tr>
-                    <td>cfvgbhj8652896523
-                    <td>2019-03-14
-                    <td>王凯
-                    <td>400元
-                    <td>2019-03-20---2019-03-30
-                    <td>北京---拉萨
-                    <td><a href="orderDetail.html">查看详情</a>
-                        <br>
-                <tr>
-                    <td>gdvbh84156035620
-                    <td>2019-04-14
-                    <td>赵雷
-                    <td>600元
-                    <td>2019-05-01---2019-05-03
-                    <td>石家庄---杭州
-                    <td><a href="orderDetail.html">查看详情</a>
-                        <br>
-                <tr>
-                    <td>gdvbh84156035620
-                    <td>2019-04-24
-                    <td>小海
-                    <td>500元
-                    <td>2019-05-01---2019-05-04
-                    <td>林芝---西安
-                    <td><a href="orderDetail.html">查看详情</a>
+                    </td>
+                    <td>
+                        <a name ="viewDetail" href="/orderDetail/<{{ order.orderID }}>">查看详情</a>
+                    </td>
+                </tr>
+            {% endfor %}
 
             </tbody>
         </table>
-        <br>
-        <input class="submitBtn" type="submit" value="确定"/>
-        <br>
-        <br>
     </div>
-
-
-    <footer class="ftco-footer ftco-bg-dark ftco-section">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">dirEngine</h2>
-                        <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia,
-                            there live the blind texts.</p>
-                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
-                            <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                            <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4 ml-md-5">
-                        <h2 class="ftco-heading-2">Information</h2>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="py-2 d-block">About</a></li>
-                            <li><a href="#" class="py-2 d-block">Service</a></li>
-                            <li><a href="#" class="py-2 d-block">Terms and Conditions</a></li>
-                            <li><a href="#" class="py-2 d-block">Become a partner</a></li>
-                            <li><a href="#" class="py-2 d-block">Best Price Guarantee</a></li>
-                            <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Customer Support</h2>
-                        <ul class="list-unstyled">
-                            <li><a href="#" class="py-2 d-block">FAQ</a></li>
-                            <li><a href="#" class="py-2 d-block">Payment Option</a></li>
-                            <li><a href="#" class="py-2 d-block">Booking Tips</a></li>
-                            <li><a href="#" class="py-2 d-block">How it works</a></li>
-                            <li><a href="#" class="py-2 d-block">Contact Us</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">Have a Questions?</h2>
-                        <div class="block-23 mb-3">
-                            <ul>
-                                <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain
-                                        View, San Francisco, California, USA</span></li>
-                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929
-                                            210</span></a></li>
-                                <li><a href="#"><span class="icon icon-envelope"></span><span
-                                            class="text">info@yourdomain.com</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-center">
-
-                    <p>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>
-                            document.write(new Date().getFullYear());
-                        </script> All rights reserved | This template is made with <i class="icon-heart"
-                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-
-
-    <!-- loader -->
-    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px">
-            <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" />
-            <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00" /></svg></div>
-
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-3.0.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/jquery.waypoints.min.js"></script>
-    <script src="js/jquery.stellar.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/jquery.magnific-popup.min.js"></script>
-    <script src="js/aos.js"></script>
-    <script src="js/jquery.animateNumber.min.js"></script>
-    <script src="js/bootstrap-datepicker.js"></script>
-    <script src="js/jquery.timepicker.min.js"></script>
-    <script src="js/scrollax.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false">
-    </script>
-    <script src="js/google-map.js"></script>
-    <script src="js/main.js"></script>
-
+</section>
 {% endblock %}
+
+
+
+
+
+
+
+
