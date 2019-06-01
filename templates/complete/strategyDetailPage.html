@@ -1,10 +1,16 @@
 {% extends "complete/base.html" %}
     <!-- END nav -->
 
-
+{% block link %}
+<style>
+.bk-img{
+  background-image: url({{ strategy.coverUrl }});
+}
+</style>
+{% endblock%}
     {% block content%}
 
-    <div class="hero-wrap js-fullheight" style="background-image: url('/static/images/bg_4.jpg');">
+    <div class="hero-wrap js-fullheight bk-img" id="cover_image">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
@@ -15,7 +21,6 @@
         </div>
       </div>
     </div>
-
 
     <section class="ftco-section ftco-degree-bg">
       <div class="container">
@@ -129,7 +134,7 @@
             <div class="sidebar-box ftco-animate">
               <h3>Recent Blog</h3>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_1.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url(/static/images/image_1.jpg);"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
                   <div class="meta">
@@ -140,7 +145,7 @@
                 </div>
               </div>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_2.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url(/static/images/image_2.jpg);"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
                   <div class="meta">
@@ -151,7 +156,7 @@
                 </div>
               </div>
               <div class="block-21 mb-4 d-flex">
-                <a class="blog-img mr-4" style="background-image: url(images/image_3.jpg);"></a>
+                <a class="blog-img mr-4" style="background-image: url(/static/images/image_3.jpg);"></a>
                 <div class="text">
                   <h3 class="heading"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
                   <div class="meta">

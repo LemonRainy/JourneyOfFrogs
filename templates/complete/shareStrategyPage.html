@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
 
-<div class="hero-wrap js-fullheight" style="background-image: url('/static/images/bg_4.jpg');">
+<div class="hero-wrap js-fullheight" id="cover_image" style="background-image: url('/static/images/bg_4.jpg');">
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
@@ -100,6 +100,9 @@
               </div>
               <div class="form-group">
                   <input class="form-control" type="text" placeholder="景点">
+              </div>
+               <div class="form-group">
+                  <input class="form-control" type="hidden" name="cover" id="cover_input">
               </div>
               <div class="form-group">
                   <input  type="hidden" name="content" id="cnt2" />
@@ -743,6 +746,8 @@ var app6 = new Vue({
                 　　img.src = "/static/upload/img/"+imagename;
                 
                     div_.appendChild(img);
+                    $('#cover_input').val(img.src);
+                    document.getElementById("cover_image").style.backgroundImage="url("+img.src+")";
                 });
         
                 $upload.addClass( 'state-' + state );

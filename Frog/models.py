@@ -81,6 +81,7 @@ class Strategy(models.Model):
     budget = models.BigIntegerField(blank=True, null=True)
     content = models.CharField(max_length=500, blank=True, null=True)
     strategyTitle = models.CharField(max_length=10, blank=True, null=True)
+    coverUrl = models.CharField(max_length=100, blank=True, null=True)
 
 
 # 评论表

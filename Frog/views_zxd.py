@@ -11,17 +11,27 @@ def share(request):
     if request.method == "GET":
         return render(request, '../templates/complete/shareStrategyPage.html')
     if request.method == "POST":
+        print(request.POST)
         member = models.Member.objects.get(email=request.user)
         content = request.POST.get('content')
         title = request.POST.get('title')
+        cover = request.POST.get('cover')
+        print(cover)
         newstrategy = models.Strategy.objects.create(peopleNumber=0, budget=0, content=content,
-                                                     memberEmail=member,strategyTitle=title)
-        return redirect('/article/' + str(newstrategy.strategyId))
+                                                     memberEmail=member, strategyTitle=title,
+                                                     coverUrl=cover)
+
+        print(newstrategy)
+        print(newstrategy.strategyId)
+        articleurl = '/article/' + str(newstrategy.strategyId)
+        return redirect(articleurl)
+
         # print(request.POST)
         # return render(request, '../templates/complete/shareStrategyPage.html')
 
 
 def detailArticle(request, strategyId):
+    print("######################")
     print(strategyId)
     # useremail = 1 # 假定用户邮箱
     useremail = request.user
@@ -31,7 +41,7 @@ def detailArticle(request, strategyId):
     if request.method == "GET":
         if not models.Strategy.objects.filter(strategyId=strategyId):
             error = "strategy not found"
-            return redirect('index/')
+            return redirect('/index')
             # return render(request, '../templates/complete/article.html', {'error': error})
 
     strategy = models.Strategy.objects.get(strategyId=strategyId)
