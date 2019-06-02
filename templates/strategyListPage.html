@@ -61,10 +61,11 @@
 
             <div class="block-17 my-4">
               <form action="" method="post" class="d-block d-flex">
+                  {% csrf_token %}
                 <div class="fields d-block d-flex">
-                  <div class="textfield-search one-third" >
-                  	<input type="text" class="form-control" placeholder="请输入城市名（如北京、上海）：">
-                  </div>
+{#                  <div class="textfield-search one-third" >#}
+                  	<input type="text" name="searchCity" class="form-control" placeholder="请输入城市名（如北京、上海）：">
+{#                  </div>#}
                 </div>
                 <input type="submit" class="search-submit btn btn-primary" value="搜索">
               </form>
@@ -89,6 +90,7 @@
         				<div class="fields">
 		              <div class="form-group">
 		                <input type="text" name="searchSpot" class="form-control" placeholder="请输入景点名:">
+                        <input type="hidden" name="filterOrSearch" value="filter">
 		              </div>
                       <div class="form-group">
 		                <input type="text" name="searchPeopleNumber" class="form-control" placeholder="请输入出行人数:">
@@ -150,12 +152,12 @@
 						      	<p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
 							    </label>
 							  </div>
-							</form>
+                    </form>
         		</div>
           </div>
           <div class="col-lg-9">
           	<div class="row">
-                {% for singleStrategy in strategyList %}
+                {% for  strategy in strategyList %}
           		<div class="col-md-4 ftco-animate">
 		    				<div class="destination">
 		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/static/images/destination-1.jpg);">
@@ -166,7 +168,7 @@
 		    					<div class="text p-3">
 		    						<div class="d-flex">
 		    							<div class="one">
-				    						<h3><a href="#">Paris, Italy</a></h3>
+				    						<h3><a href="#">{{ strategy.cityName }} ,{{ strategy.province }}</a></h3>
 				    						<p class="rate">
 				    							<i class="icon-star"></i>
 				    							<i class="icon-star"></i>
@@ -177,12 +179,12 @@
 				    						</p>
 			    						</div>
 			    						<div class="two">
-			    							<span class="price">$200</span>
+                                            <span class="price">¥<span>{{ strategy.budget }}</span></span>
 		    							</div>
 		    						</div>
-                                    <p class="days"><span>{{ singleStrategy.strategyTitle }}</span></p>
+                                    <p class="days"><span>{{strategy.strategyTitle }}</span></p>
 
-                                    <p class="days"><span>{{ singleStrategy.days }}天{{ singleStrategy.peopleNumber }}人游</span></p>
+                                    <p class="days"><span>{{ strategy.days }}天，{{ strategy.peopleNumber }}人游</span></p>
                                     <hr>
 		    						<p>Far far away, behind the word mountains, far from the countries</p>
 
@@ -191,6 +193,9 @@
 		    				</div>
 		    			</div>
                 {% endfor %}
+
+
+
           	</div>
           	<div class="row mt-5">
 		          <div class="col text-center">
