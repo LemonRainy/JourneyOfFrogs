@@ -13,4 +13,5 @@ urlpatterns = [
     path('cancelOrder', views_wjh.cancelOrder, name='cancelOrder'),
     path('city_detail', views_wjh.city_detail, name='city_detail'),
     path('spot_detail', views_wjh.spot_detail, name='spot_detail'),
+    path('expertList', views_wjh.expertList, name='expertList'),
 ]

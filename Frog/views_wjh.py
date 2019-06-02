@@ -128,8 +128,6 @@ def orderHandling(request):
     v = request.user.username
     if v:
         orders = models.Order.objects.filter(expert_id=v, state__in=[0, 1]).order_by("-date")
-        print(orders)
-
         return render(request, '../templates/orderHandlingPage.html', {'orders': orders})
     else:
         return redirect('/expert')
@@ -139,13 +137,17 @@ def orderHandling(request):
 def city_detail(request):
     city_name = '哈尔滨'
     city = models.City.objects.get(cityName=city_name)
-    print(city.province)
     return render(request, '../templates/city_detail.html', {'city': city})
 
 
 # 景点详情
 def spot_detail(request):
     spot_name = '太阳岛'
-    spot = models.Spot.objects.get(spotName=spot_name)
-
+    spot = models.Spot.objects.filter(spotName=spot_name)
     return render(request, '../templates/spot_detail.html', {'spot': spot})
+
+
+# 查看专员列表
+def expertList(request):
+    experts = models.Expert.objects.all()
+    return render(request, '../templates/complete/expertList.html', {'experts': experts})
