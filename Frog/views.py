@@ -5,6 +5,7 @@ from Frog import models
 from django.core.mail import send_mail, send_mass_mail  # 用于发送邮件的类
 import json
 from django.conf import settings
+from django.db import connection
 # Create your views here.
 
 
@@ -67,25 +68,25 @@ def update(request):
         password = request.POST.get('password')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-
+        print(password,password2,password1)
         res = {}
-        email = request.session.get('email')
-        oldPassword = models.Expert.objects.get(email=email).password
-        if password == oldPassword:
+        email = request.user.username
+        if authenticate(username=email, password=password):
             if password1 == password2:
-                models.Expert.objects.filter(email=email).update(password=password1)
+                user = models.User.objects.get(username=email)
+                user.set_password(password1)
+                user.save()
                 res['cool'] = True
-                res['res_message'] = '修改成功!'
+                res['res_message'] = '修改密码成功!'
             else:
                 res['cool'] = False
-                res['res_message'] = '输入新密码不一致!'
+                res['res_message'] = '两次新密码不一致!'
         else:
             res['cool'] = False
-            res['res_message'] = '原始密码错误!'
+            res['res_message'] = '旧密码不正确!'
 
         return HttpResponse(json.dumps(res), content_type='application/json')
     return render(request, "../templates/complete/updatePage.html")
-
 
 def logoff(request):
     if request.user.is_authenticated:
@@ -118,15 +119,12 @@ def indexpage(request):
 
     if request.method == "POST":
         # print(request.POST)
-        searchContent = request.POST.get('searchContent')
-        strategys = models.Strategy.objects.filter(strategyTitle__contains=searchContent)
-        print(strategys)
+        # searchContent = request.POST.get('searchContent')
+        # if searchContent:
+        #     strategys = models.Strategy.objects.filter(strategyTitle__contains=searchContent)
+        #     print(strategys)
         return redirect('/strategyList')
     return render(request, "../templates/complete/indexPage.html")
-
-
-
-
 
 def user(request):
     return render(request, "../templates/complete/userPage.html")
@@ -138,7 +136,7 @@ def code(request):
         title = "青蛙旅行验证码"
         msg = "验证码："+ str(request.GET.get('code'))
         email_from = settings.EMAIL_HOST_USER
-        reciever = request.GET['email']
+        reciever = request.GET.get('email')
         # 发送邮件
         print(reciever, msg)
         send_mail(title, str(msg), email_from, [reciever])
@@ -150,30 +148,56 @@ def personal(request):
     email = request.session.get('email')
     if email:
         strategies = models.Strategy.objects.filter(memberEmail=email)
-        return render(request, '../templates/personalPage.html', {'strategies': strategies})
+        return render(request, '../templates/complete/personalPage.html', {'strategies': strategies})
     else:
-        return redirect('/personal')
+        return render(request, "../templates/complete/personalPage.html")
 
+    return render(request, "../templates/complete/personalPage.html")
 
 def filterStrategy(request):
     if request.method== "POST":
-        print(request.POST)
-        # searchSpot = request.POST.get('searchSpot')
-        searchPeopleNumber = request.POST.get('searchPeopleNumber')
-        searchDays = request.POST.get('searchDays')
-        searchBudget = request.POST.get('searchBudget')
-        # searchSortord = request.POST.get('searchSortord')
+        if request.POST.get('filterOrSearch'):
+            print(request.POST)
+            searchSpot = request.POST.get('searchSpot')
+            searchPeopleNumber = request.POST.get('searchPeopleNumber')
+            searchDays = request.POST.get('searchDays')
+            searchBudget = request.POST.get('searchBudget')
+            # searchSortord = request.POST.get('searchSortord')
 
-        strategys = models.Strategy.objects.filter(peopleNumber=searchPeopleNumber,days=searchDays,budget=searchBudget)
-        print(strategys)
-        return render(request, "../templates/strategyListPage.html", {'strategyList': strategys,
-                                                                      })
+            strategys = models.Strategy.objects.filter(peopleNumber=searchPeopleNumber,days=searchDays,budget=searchBudget)
+            print(strategys)
+            return render(request, "../templates/strategyListPage.html", {'strategyList': strategys,
+                                                                          })
+        else:
+            # 搜索功能
+            searchCity = request.POST.get('searchCity')
+            cursor = connection.cursor();
+            cursor.execute('select * from Frog_city, Frog_strategy, Frog_cityincluded where cityName=cityName_id and strategyId=strategyId_id');
+            dictCursor = dictfetchall(cursor);
+            strategyList=[];
+            if searchCity:
+                for strategy in dictCursor:
+                    if(strategy.get('cityName')==searchCity):
+                        strategyList.append(strategy);
+            else:
+                strategyList = dictCursor;
+
+            return render(request, "../templates/strategyListPage.html", {'strategyList': strategyList
+                                                                          })
     if request.method=="GET":
-        strategys = models.Strategy.objects.all()
-        # citys=models.CityIncluded.objects
-        print(strategys)
-        print("strategy")
-        return render(request, "../templates/strategyListPage.html", {'strategyList':strategys, })
+        cursor = connection.cursor();
+        cursor.execute(
+            'select * from Frog_city, Frog_strategy, Frog_cityincluded where cityName=cityName_id and strategyId=strategyId_id');
+        strategys = dictfetchall(cursor);
+        return render(request, "../templates/strategyListPage.html", {'strategyList':strategys})
+
+def dictfetchall(cursor):
+    "将游标返回的结果保存到一个字典对象中"
+    desc = cursor.description
+    return [
+    dict(zip([col[0] for col in desc], row))
+    for row in cursor.fetchall()
+    ]
 
 def enterUserPage(request):
     return render(request,"../templates/userPage.html")

@@ -19,6 +19,7 @@ def customize(request):
         # expertEmail = models.Expert.objects.filter(name=expertName).values_list('email', flat=True)
         expert = models.Expert.objects.filter(name=expertName)
         member = models.Member.objects.filter(email=request.user.username)
+        print('意愿信息：', intent)
 
         # 生成唯一订单号
         year = time.localtime()[0]
@@ -51,7 +52,9 @@ def customize(request):
 # 私人定制列表
 def orderList(request):
     if request.method == "GET":
-        orderlist = models.Order.objects.filter(member=request.user.username)
+        orderlist = models.Order.objects.filter(member_id=request.user.username)
+        print(request.user.username)
+        print(orderlist)
         return render(request, "../templates/complete/orderList.html", locals())
     return redirect('/orderDetail')
 
