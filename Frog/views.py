@@ -159,30 +159,42 @@ def personal(request):
 def filterStrategy(request):
     if request.method== "POST":
         if request.POST.get('filterOrSearch'):
+            # 筛选攻略
             print(request.POST)
             searchSpot = request.POST.get('searchSpot')
             searchPeopleNumber = request.POST.get('searchPeopleNumber')
             searchDays = request.POST.get('searchDays')
             searchBudget = request.POST.get('searchBudget')
+            strategys=[];
             # searchSortord = request.POST.get('searchSortord')
+            # cursor.execute(
+            #     'select * from Frog_city, Frog_strategy, Frog_cityincluded where cityName=cityName_id and strategyId=strategyId_id and cityName=\'{}\''.format(searchCity));
+            # strategyList=dictfetchall(cursor);
+            # print(strategyList);
 
-            strategys = models.Strategy.objects.filter(peopleNumber=searchPeopleNumber,days=searchDays,budget=searchBudget)
-            print(strategys)
+
             return render(request, "../templates/strategyListPage.html", {'strategyList': strategys,
                                                                           })
         else:
             # 搜索功能
-            searchCity = request.POST.get('searchCity')
+            searchKeywords = request.POST.get('searchKeywords')
             cursor = connection.cursor();
-            cursor.execute('select * from Frog_city, Frog_strategy, Frog_cityincluded where cityName=cityName_id and strategyId=strategyId_id');
-            dictCursor = dictfetchall(cursor);
+
             strategyList=[];
-            if searchCity:
+            if searchKeywords:
+                # 搜索关键词：景点、城市、用户名称或攻略名
+                cursor.execute(
+                    'select * from Frog_strategy, Frog_city, Frog_cityincluded, Frog_member, Frog_spotincluded where strategyId=Frog_spotincluded.strategyId_id and strategyId=Frog_cityincluded.strategyId_id and cityName=cityName_id and memberEmail_id=email');
+                dictCursor = dictfetchall(cursor);
+                # print(dictCursor);
                 for strategy in dictCursor:
-                    if(strategy.get('cityName')==searchCity):
+                    if strategy.get('cityName')==searchKeywords or strategy.get('spotName_id')==searchKeywords or strategy.get('name')==searchKeywords or strategy.get('strategyTitle')==searchKeywords:
                         strategyList.append(strategy);
             else:
-                strategyList = dictCursor;
+                cursor.execute(
+                    'select * from Frog_city, Frog_strategy, Frog_cityincluded where cityName=cityName_id and strategyId=strategyId_id');
+                strategyList = dictfetchall(cursor);
+                print(strategyList);
 
             return render(request, "../templates/strategyListPage.html", {'strategyList': strategyList
                                                                           })
