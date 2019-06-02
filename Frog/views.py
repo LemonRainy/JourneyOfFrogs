@@ -68,7 +68,7 @@ def update(request):
         password = request.POST.get('password')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-
+        print(password,password2,password1)
         res = {}
         email = request.user.username
         if authenticate(username=email, password=password):
@@ -86,7 +86,7 @@ def update(request):
             res['res_message'] = '旧密码不正确!'
 
         return HttpResponse(json.dumps(res), content_type='application/json')
-
+    return render(request, "../templates/complete/updatePage.html")
 
 def logoff(request):
     if request.user.is_authenticated:

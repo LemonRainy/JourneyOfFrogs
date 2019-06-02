@@ -41,19 +41,24 @@
             <form action="#" method="POST">
               {% csrf_token %}
               <div class="form-group">
-                <input id="password" type="text" class="form-control" placeholder="旧密码">
+                <input id="password" name="password" type="text" class="form-control" placeholder="旧密码">
               </div>
               <div class="form-group">
-                <input id="password1" type="text" class="form-control" placeholder="新密码第一次">
+                <input id="password1" name="password1" type="text" class="form-control" placeholder="新密码第一次">
               </div>
               <div class="form-group">
-                <input id="password2" type="text" class="form-control" placeholder="新密码第二次">
+                <input id="password2" name="password2" type="text" class="form-control" placeholder="新密码第二次">
               </div>
               <div class="form-group">
                 <input type="submit" value="修改" class="btn btn-primary py-3 px-5">
               </div>
             </form>
-          
+            <div class="form-group" id="content">
+                    <div id="disappare_password" style="display:none;">
+                        <h3></h3>
+                        <p></p>
+                    </div>
+                </div>
           </div>
           <div class="col-md-6" id="map"></div>
         </div>
