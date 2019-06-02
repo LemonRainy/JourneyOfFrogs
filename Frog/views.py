@@ -38,7 +38,7 @@ def register(request):
         password = request.POST.get('password')
         gender = request.POST.get('sex')
         type = request.POST.get('type')
-
+        print([name, email, telephone, password, gender, type])
         user = models.User.objects.create_user(password=password,
                                                telephone=telephone,
                                                username=email,
@@ -68,25 +68,16 @@ def update(request):
         password = request.POST.get('password')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
+        print(password,password2,password1)
 
-        res = {}
-        email = request.session.get('email')
-        oldPassword = models.Expert.objects.get(email=email).password
-        if password == oldPassword:
+        email = request.user.username
+        if authenticate(username=email, password=password):
             if password1 == password2:
-                models.Expert.objects.filter(email=email).update(password=password1)
-                res['cool'] = True
-                res['res_message'] = '修改成功!'
-            else:
-                res['cool'] = False
-                res['res_message'] = '输入新密码不一致!'
-        else:
-            res['cool'] = False
-            res['res_message'] = '原始密码错误!'
-
-        return HttpResponse(json.dumps(res), content_type='application/json')
+                user = models.User.objects.get(username=email)
+                user.set_password(password1)
+                user.save()
+                return redirect('/log')
     return render(request, "../templates/complete/updatePage.html")
-
 
 def logoff(request):
     if request.user.is_authenticated:
@@ -126,10 +117,6 @@ def indexpage(request):
         return redirect('/strategyList')
     return render(request, "../templates/complete/indexPage.html")
 
-
-
-
-
 def user(request):
     return render(request, "../templates/complete/userPage.html")
 
@@ -140,7 +127,7 @@ def code(request):
         title = "青蛙旅行验证码"
         msg = "验证码："+ str(request.GET.get('code'))
         email_from = settings.EMAIL_HOST_USER
-        reciever = request.GET['email']
+        reciever = request.GET.get('email')
         # 发送邮件
         print(reciever, msg)
         send_mail(title, str(msg), email_from, [reciever])
@@ -149,12 +136,16 @@ def code(request):
 
 #查看历史攻略
 def personal(request):
-    email = request.session.get('email')
+    email = request.user.username
+    print("查看" + email)
     if email:
         strategies = models.Strategy.objects.filter(memberEmail=email)
-        return render(request, '../templates/personalPage.html', {'strategies': strategies})
+
+        return render(request, '../templates/complete/personalPage.html', {'strategies': strategies})
     else:
-        return redirect('/personal')
+        return render(request, "../templates/complete/personalPage.html")
+
+    return render(request, "../templates/complete/personalPage.html")
 
 def filterStrategy(request):
     if request.method== "POST":

@@ -39,35 +39,26 @@
         <div class="row block-9">
           <div class="col-md-6 pr-md-5">
             <form action="#" method="POST">
+              {% csrf_token %}
               <div class="form-group">
-                <input name="password" type="text" class="form-control" placeholder="旧密码">
+                <input id="password" name="password" type="text" class="form-control" placeholder="旧密码">
               </div>
               <div class="form-group">
-                <input name="password1" type="text" class="form-control" placeholder="新密码第一次">
+                <input id="password1" name="password1" type="text" class="form-control" placeholder="新密码第一次">
               </div>
               <div class="form-group">
-                <input name="password2" type="text" class="form-control" placeholder="新密码第二次">
+                <input id="password2" name="password2" type="text" class="form-control" placeholder="新密码第二次">
               </div>
-              <!--<div class="form-group">-->
-                <!--<input name="email" type="text" class="form-control" placeholder="邮箱">-->
-                <!--<div class="slider-text">-->
-                  <!--<p class="browse d-md-flex">-->
-                  <!--<span class="d-flex justify-content-md-center align-items-md-center" onclick="getCode()"><a href="#">获取验证码</a></span>-->
-                <!--</p>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<div class="form-group">-->
-                <!--<input name="code" id="code" type="text" class="form-control" placeholder="验证码">-->
-              <!--</div>-->
-        
-              <!--<div class="form-group">
-                <textarea name="" id="" cols="30" rows="7" class="form-control" placeholder="Message"></textarea>
-              </div>-->
               <div class="form-group">
                 <input type="submit" value="修改" class="btn btn-primary py-3 px-5">
               </div>
             </form>
-          
+            <div class="form-group" id="content">
+                    <div id="disappare_password" style="display:none;">
+                        <h3>{{res.result}}</h3>
+                        <p></p>
+                    </div>
+                </div>
           </div>
           <div class="col-md-6" id="map"></div>
         </div>
