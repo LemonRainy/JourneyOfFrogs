@@ -5,6 +5,7 @@ from Frog import models
 from django.core.mail import send_mail, send_mass_mail  # 用于发送邮件的类
 import json
 from django.conf import settings
+from django.db import connection
 # Create your views here.
 
 
@@ -118,9 +119,10 @@ def indexpage(request):
 
     if request.method == "POST":
         # print(request.POST)
-        searchContent = request.POST.get('searchContent')
-        strategys = models.Strategy.objects.filter(strategyTitle__contains=searchContent)
-        print(strategys)
+        # searchContent = request.POST.get('searchContent')
+        # if searchContent:
+        #     strategys = models.Strategy.objects.filter(strategyTitle__contains=searchContent)
+        #     print(strategys)
         return redirect('/strategyList')
     return render(request, "../templates/complete/indexPage.html")
 
@@ -157,23 +159,58 @@ def personal(request):
 
 def filterStrategy(request):
     if request.method== "POST":
-        print(request.POST)
-        # searchSpot = request.POST.get('searchSpot')
-        searchPeopleNumber = request.POST.get('searchPeopleNumber')
-        searchDays = request.POST.get('searchDays')
-        searchBudget = request.POST.get('searchBudget')
-        # searchSortord = request.POST.get('searchSortord')
+        if request.POST.get('filterOrSearch'):
+            print(request.POST)
+            searchSpot = request.POST.get('searchSpot')
+            searchPeopleNumber = request.POST.get('searchPeopleNumber')
+            searchDays = request.POST.get('searchDays')
+            searchBudget = request.POST.get('searchBudget')
+            # searchSortord = request.POST.get('searchSortord')
 
-        strategys = models.Strategy.objects.filter(peopleNumber=searchPeopleNumber,days=searchDays,budget=searchBudget)
-        print(strategys)
-        return render(request, "../templates/strategyListPage.html", {'strategyList': strategys,
-                                                                      })
+            strategys = models.Strategy.objects.filter(peopleNumber=searchPeopleNumber,days=searchDays,budget=searchBudget)
+            print(strategys)
+            return render(request, "../templates/strategyListPage.html", {'strategyList': strategys,
+                                                                          })
+        else:
+            searchCity = request.POST.get('searchCity')
+            cityIncluded = models.CityIncluded.objects.filter(cityName=searchCity)
+            # print
+            strategys = []
+            if cityIncluded:
+                city = models.City.objects.get(cityName=searchCity)
+                for singleCityIncluded in cityIncluded:
+                    # print(strategyId)
+                    # print(singleCIstrategyId.strategyId)
+                    singleStrategy = models.Strategy.objects.get(strategyId=singleCityIncluded.strategyId.strategyId)
+                    strategys.append(singleStrategy)
+                zipped = zip(strategys, cityIncluded)
+
+
+            else:
+                cursor = connection.cursor();
+                cursor.execute('select * from Frog_city, Frog_strategy, Frog_cityincluded where cityName=cityName_id and strategyId=strategyId_id');
+                zipped = dictfetchall(cursor);
+
+
+            print(zipped)
+            return render(request, "../templates/strategyListPage.html", {'strategyList': zipped
+                                                                          })
+
+
     if request.method=="GET":
         strategys = models.Strategy.objects.all()
-        # citys=models.CityIncluded.objects
+        citys=models.CityIncluded.objects
         print(strategys)
         print("strategy")
         return render(request, "../templates/strategyListPage.html", {'strategyList':strategys, })
+
+def dictfetchall(cursor):
+    "将游标返回的结果保存到一个字典对象中"
+    desc = cursor.description
+    return [
+    dict(zip([col[0] for col in desc], row))
+    for row in cursor.fetchall()
+    ]
 
 def enterUserPage(request):
     return render(request,"../templates/userPage.html")

@@ -126,7 +126,7 @@ class Spot(models.Model):
 class City(models.Model):
     cityName=models.CharField(max_length=10,primary_key=True)
     introduction = models.TextField(max_length=100)
-    pictureURL=models.TextField(max_length=200)
+    pictureURL=models.TextField(max_length=200,null=True,blank=True)
     province=models.CharField(max_length=10)
 
 # 餐厅攻略表
