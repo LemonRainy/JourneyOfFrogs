@@ -38,7 +38,7 @@ def register(request):
         password = request.POST.get('password')
         gender = request.POST.get('sex')
         type = request.POST.get('type')
-
+        print([name, email, telephone, password, gender, type])
         user = models.User.objects.create_user(password=password,
                                                telephone=telephone,
                                                username=email,
@@ -145,9 +145,11 @@ def code(request):
 
 #查看历史攻略
 def personal(request):
-    email = request.session.get('email')
+    email = request.user.username
+    print("查看" + email)
     if email:
         strategies = models.Strategy.objects.filter(memberEmail=email)
+
         return render(request, '../templates/complete/personalPage.html', {'strategies': strategies})
     else:
         return render(request, "../templates/complete/personalPage.html")
