@@ -1,0 +1,71 @@
+{% extends "complete/base.html" %}
+
+
+
+{% block content %}
+
+    <div class="hero-wrap js-fullheight" style="background-image: url('/static/images/bg_5.jpg');" >
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
+                 data-scrollax-parent="true">
+                <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                    <!-- <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Hotel</span></p> -->
+                    <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">专员列表</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <section class="ftco-section contact-section ftco-degree-bg" style="padding-top: 40px">
+        <div class="container" style="max-width: 1400px;text-align: center">
+
+            <table class="table" style="table-layout: fixed;">
+
+                <thead>
+                <tr>
+                    <th>专员姓名</th>
+                    <th>邮箱</th>
+                    <th>性别</th>
+                    <th>电话</th>
+                    <th>
+                        介绍
+                    </th>
+                    <th>
+                        资龄
+                    </th>
+                    <th>
+                        擅长城市
+                    </th>
+                    <th>
+                        公司
+                    </th>
+                    <th>
+                        评分
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for expert in experts %}
+                    <tr>
+                        <td>{{ expert.name }}</td>
+                        <td>{{ expert.email }}</td>
+                        <td>{{ expert.gender }}</td>
+                        <td>{{ expert.telephone }}</td>
+                        <td>{{ expert.introduction }}</td>
+                        <td>{{ expert.seniority }} 年</td>
+                        <td>{{ expert.tag }}</td>
+                        <td>{{ expert.company }}</td>
+                        <td>{{ expert.mark }}</td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+            </table>
+        <input id="change_personal_info" style="margin-bottom: 10px;" onclick="javascript:history.back(-1);" type="submit" value="返回私人定制" class="btn btn-primary py-3 px-5">
+
+        </div>
+    </section>
+
+{% endblock %}
