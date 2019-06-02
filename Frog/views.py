@@ -156,7 +156,6 @@ def personal(request):
     else:
         return redirect('/personal')
 
-
 def filterStrategy(request):
     if request.method== "POST":
         if request.POST.get('filterOrSearch'):
@@ -172,37 +171,27 @@ def filterStrategy(request):
             return render(request, "../templates/strategyListPage.html", {'strategyList': strategys,
                                                                           })
         else:
+            # 搜索功能
             searchCity = request.POST.get('searchCity')
-            cityIncluded = models.CityIncluded.objects.filter(cityName=searchCity)
-            # print
-            strategys = []
-            if cityIncluded:
-                city = models.City.objects.get(cityName=searchCity)
-                for singleCityIncluded in cityIncluded:
-                    # print(strategyId)
-                    # print(singleCIstrategyId.strategyId)
-                    singleStrategy = models.Strategy.objects.get(strategyId=singleCityIncluded.strategyId.strategyId)
-                    strategys.append(singleStrategy)
-                zipped = zip(strategys, cityIncluded)
-
-
+            cursor = connection.cursor();
+            cursor.execute('select * from Frog_city, Frog_strategy, Frog_cityincluded where cityName=cityName_id and strategyId=strategyId_id');
+            dictCursor = dictfetchall(cursor);
+            strategyList=[];
+            if searchCity:
+                for strategy in dictCursor:
+                    if(strategy.get('cityName')==searchCity):
+                        strategyList.append(strategy);
             else:
-                cursor = connection.cursor();
-                cursor.execute('select * from Frog_city, Frog_strategy, Frog_cityincluded where cityName=cityName_id and strategyId=strategyId_id');
-                zipped = dictfetchall(cursor);
+                strategyList = dictCursor;
 
-
-            print(zipped)
-            return render(request, "../templates/strategyListPage.html", {'strategyList': zipped
+            return render(request, "../templates/strategyListPage.html", {'strategyList': strategyList
                                                                           })
-
-
     if request.method=="GET":
-        strategys = models.Strategy.objects.all()
-        citys=models.CityIncluded.objects
-        print(strategys)
-        print("strategy")
-        return render(request, "../templates/strategyListPage.html", {'strategyList':strategys, })
+        cursor = connection.cursor();
+        cursor.execute(
+            'select * from Frog_city, Frog_strategy, Frog_cityincluded where cityName=cityName_id and strategyId=strategyId_id');
+        strategys = dictfetchall(cursor);
+        return render(request, "../templates/strategyListPage.html", {'strategyList':strategys})
 
 def dictfetchall(cursor):
     "将游标返回的结果保存到一个字典对象中"
