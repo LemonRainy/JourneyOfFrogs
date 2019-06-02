@@ -16,10 +16,14 @@ def share(request):
         content = request.POST.get('content')
         title = request.POST.get('title')
         cover = request.POST.get('cover')
+        peopleNumber = request.POST.get('peopleNumber')
+        budget = request.POST.get('budget')
+        days = request.POST.get('days')
+
         print(cover)
-        newstrategy = models.Strategy.objects.create(peopleNumber=0, budget=0, content=content,
+        newstrategy = models.Strategy.objects.create(peopleNumber=peopleNumber, budget=budget, content=content,
                                                      memberEmail=member, strategyTitle=title,
-                                                     coverUrl=cover)
+                                                     coverUrl=cover, days=days)
 
         print(newstrategy)
         print(newstrategy.strategyId)
