@@ -71,7 +71,9 @@ class User(AbstractUser):
 
 # -------------------- xjy models end --------------------
 
+
 # 攻略表
+
 class Strategy(models.Model):
     strategyId = models.AutoField(primary_key=True)
     memberEmail = models.ForeignKey('Member', on_delete=models.CASCADE)
@@ -81,7 +83,7 @@ class Strategy(models.Model):
     content = models.CharField(max_length=500, blank=True, null=True)
     strategyTitle = models.CharField(max_length=10, blank=True, null=True)
     coverUrl = models.CharField(max_length=100, blank=True, null=True)
-    createDate=models.DateField(auto_now_add=True)
+    createDate = models.DateField(auto_now_add=True, blank=True)
 
 
 # 评论表
