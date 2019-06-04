@@ -12,6 +12,7 @@ def share(request):
         return render(request, '../templates/complete/shareStrategyPage.html')
     if request.method == "POST":
         print(request.POST)
+
         member = models.Member.objects.get(email=request.user)
         content = request.POST.get('content')
         title = request.POST.get('title')
