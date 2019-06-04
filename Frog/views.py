@@ -34,12 +34,14 @@ def register(request):
         print(request.POST)
         name = request.POST.get('name')
         email = request.POST.get('email')
+        location = request.POST.get('location')
         telephone = request.POST.get('telephone')
         password = request.POST.get('password')
         gender = request.POST.get('sex')
         type = request.POST.get('type')
-        print([name, email, telephone, password, gender, type])
+        print([name, email, location, telephone, password, gender, type])
         user = models.User.objects.create_user(password=password,
+                                               location=location,
                                                telephone=telephone,
                                                username=email,
                                                name=name,
@@ -52,7 +54,7 @@ def register(request):
             # return redirect('/index')
         if type == '普通用户':
             # 添加用户到member表
-            models.Member.objects.create(email=email, name=name, gender=gender, telephone=telephone)
+            models.Member.objects.create(email=email, location=location, name=name, gender=gender, telephone=telephone)
         login(request, user)
 
     if request.user.is_authenticated:
