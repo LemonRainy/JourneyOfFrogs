@@ -174,16 +174,62 @@ def filterStrategy(request):
             strategyList=[];
             if searchKeywords:
                 # 搜索关键词：景点、城市、用户名称或攻略名
+                strategyIds=[];
+                # 景点
                 cursor.execute(
-                    'select * from Frog_strategy, Frog_city, Frog_cityincluded, Frog_member, Frog_spotincluded where strategyId=Frog_spotincluded.strategyId_id and strategyId=Frog_cityincluded.strategyId_id and cityName=cityName_id and memberEmail_id=email');
+                    'select strategyId from Frog_strategy, Frog_spotincluded where strategyId_id=strategyId and spotName_id=\'{}\''.format(
+                        searchKeywords));
                 dictCursor = dictfetchall(cursor);
-                # print(dictCursor);
-                for strategy in dictCursor:
-                    if strategy.get('cityName')==searchKeywords or strategy.get('spotName_id')==searchKeywords or strategy.get('name')==searchKeywords or strategy.get('strategyTitle')==searchKeywords:
-                        strategyList.append(strategy);
+                if dictCursor:
+                    for one in dictCursor:
+                        if one.get('strategyId') not in strategyIds:
+                            strategyIds.append(one.get('strategyId'));
+
+                # 城市
+                cursor.execute(
+                               'select strategyId from Frog_strategy, Frog_cityincluded where strategyId_id=strategyId and cityName_id=\'{}\''.format(searchKeywords));
+                dictCursor = dictfetchall(cursor);
+                if dictCursor:
+                    for one in dictCursor:
+                        if one.get('strategyId') not in strategyIds:
+                            strategyIds.append(one.get('strategyId'));
+
+                # 用户名
+                cursor.execute(
+                    'select strategyId from Frog_strategy, Frog_member where memberEmail_id=email and name=\'{}\''.format(searchKeywords));
+                dictCursor = dictfetchall(cursor);
+                if dictCursor:
+                    for one in dictCursor:
+                        if one.get('strategyId') not in strategyIds:
+                            strategyIds.append(one.get('strategyId'));
+
+                #攻略标题
+                cursor.execute(
+                    'select strategyId from Frog_strategy where strategyTitle=\'{}\''.format(searchKeywords));
+                dictCursor= dictfetchall(cursor);
+                if dictCursor:
+                    for one in dictCursor:
+                        if one.get('strategyId') not in strategyIds:
+                            strategyIds.append(one.get('strategyId'));
+
+                print('符合标准的：');
+                print(strategyIds);
+                # 找到了所有符合标准的攻略Id攻略
+                for strategyId in strategyIds:
+                    cursor.execute(
+                        'select strategyTitle, budget, name, days, peopleNumber, content, count(Frog_digg.useremail_id) as likeNumber '
+                        'from Frog_strategy, Frog_member, Frog_digg '
+                        'where email=memberEmail_id and strategyId=strategy_id and strategyId=\'{}\''
+                        'group by Frog_digg.strategy_id'.format(strategyId));
+                    strategyList = dictfetchall(cursor);
+                print('符合标准的：');
+                print(strategyList);
+
             else:
                 cursor.execute(
-                    'select * from Frog_city, Frog_strategy, Frog_cityincluded where cityName=cityName_id and strategyId=strategyId_id');
+                    'select strategyTitle, budget, name, days, peopleNumber, content, count(Frog_digg.useremail_id) as likeNumber '
+                        'from Frog_strategy, Frog_member, Frog_digg '
+                        'where email=memberEmail_id and strategyId=strategy_id group by Frog_digg.strategy_id');
                 strategyList = dictfetchall(cursor);
                 print(strategyList);
 
@@ -192,7 +238,9 @@ def filterStrategy(request):
     if request.method=="GET":
         cursor = connection.cursor();
         cursor.execute(
-            'select * from Frog_city, Frog_strategy, Frog_cityincluded where cityName=cityName_id and strategyId=strategyId_id');
+            'select strategyTitle, budget, name, days, peopleNumber, content, count(Frog_digg.useremail_id) as likeNumber '
+                        'from Frog_strategy, Frog_member, Frog_digg '
+                        'where email=memberEmail_id and strategyId=strategy_id group by Frog_digg.strategy_id');
         strategys = dictfetchall(cursor);
         return render(request, "../templates/strategyListPage.html", {'strategyList':strategys})
 
