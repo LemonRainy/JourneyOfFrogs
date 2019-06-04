@@ -91,6 +91,7 @@
 		              <div class="form-group">
 {#		                <input type="text" name="searchSpot" class="form-control" placeholder="请输入景点名:">#}
                         <input type="hidden" name="filterOrSearch" value="filter">
+
 		              </div>
                       <div class="form-group">
 		                <input type="text" name="searchPeopleNumber" class="form-control" placeholder="请输入出行人数:">
@@ -114,7 +115,7 @@
 	                  </div>
 		              </div>
 		              <div class="form-group">
-		                <input type="submit" value="搜索" class="btn btn-primary py-3 px-5">
+		                <input type="submit" value="筛选" class="btn btn-primary py-3 px-5">
 		              </div>
 		            </div>
 	            </form>
@@ -173,9 +174,9 @@
 				    							<i class="icon-star"></i>
 				    							<i class="icon-star"></i>
 				    							<i class="icon-star"></i>
-				    							<i class="icon-star"></i>
-				    							<i class="icon-star-o"></i>
-				    							<span>{{ strategy.likeNumber }}</span>
+{#                                                <i class="icon-star"></i>#}
+{#				    							<i class="icon-star-o"></i>#}
+				    							<span>点赞数：{{ strategy.diggNumber }}</span>
 				    						</p>
 			    						</div>
 			    						<div class="two">
@@ -183,10 +184,10 @@
 		    							</div>
 		    						</div>
                                     <p class="days"><span>作者：{{strategy.name }}</span></p>
-
+                                    <p class="days"><span>发布时间：{{ strategy.createDate }}</span></p>
                                     <p class="days"><span>{{ strategy.days }}天，{{ strategy.peopleNumber }}人游</span></p>
                                     <hr>
-		    						<p>Far far away, behind the word mountains, far from the countries</p>
+		    						<p>{{ strategy.content| slice:":30" }}......</p>
 
 
 		    					</div>
@@ -197,21 +198,21 @@
 
 
           	</div>
-          	<div class="row mt-5">
-		          <div class="col text-center">
-		            <div class="block-27">
-		              <ul>
-		                <li><a href="#">&lt;</a></li>
-		                <li class="active"><span>1</span></li>
-		                <li><a href="#">2</a></li>
-		                <li><a href="#">3</a></li>
-		                <li><a href="#">4</a></li>
-		                <li><a href="#">5</a></li>
-		                <li><a href="#">&gt;</a></li>
-		              </ul>
-		            </div>
-		          </div>
-		        </div>
+{#          	<div class="row mt-5">#}
+{#		          <div class="col text-center">#}
+{#		            <div class="block-27">#}
+{#		              <ul>#}
+{#		                <li><a href="#">&lt;</a></li>#}
+{#		                <li class="active"><span>1</span></li>#}
+{#		                <li><a href="#">2</a></li>#}
+{#		                <li><a href="#">3</a></li>#}
+{#		                <li><a href="#">4</a></li>#}
+{#		                <li><a href="#">5</a></li>#}
+{#		                <li><a href="#">&gt;</a></li>#}
+{#		              </ul>#}
+{#		            </div>#}
+{#		          </div>#}
+{#		        </div>#}
           </div> <!-- .col-md-8 -->
         </div>
       </div>
