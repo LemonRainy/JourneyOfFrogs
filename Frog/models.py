@@ -84,7 +84,7 @@ class Strategy(models.Model):
     strategyTitle = models.CharField(max_length=10, blank=True, null=True)
     coverUrl = models.CharField(max_length=100, blank=True, null=True)
     createDate = models.DateField(auto_now_add=True, blank=True )
-    diggNumber=models.IntegerField(default=0)
+    diggNumber = models.IntegerField(default=0)
 
 
 # 评论表

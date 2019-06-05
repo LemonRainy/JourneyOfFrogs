@@ -3,6 +3,7 @@ import time
 from django.conf import settings
 from . import models
 # Create your views here.
+from django.db.models import F
 import json
 # 分享攻略
 
@@ -109,9 +110,11 @@ def digg(request):
         strategy = models.Strategy.objects.get(strategyId=request.GET.get('strategyId'))
         if models.Digg.objects.filter(useremail=member, strategy=strategy):
             models.Digg.objects.get(useremail=member, strategy=strategy).delete()
+            models.Strategy.objects.filter(strategyId=strategy.strategyId).update(diggNumber=F('diggNumber') - 1)
             return HttpResponse(0)
         else:
             models.Digg.objects.create(useremail=member, strategy=strategy)
+            models.Strategy.objects.filter(strategyId=strategy.strategyId).update(diggNumber=F('diggNumber') + 1)
             return HttpResponse(1)
     else:
         return HttpResponse(-1)
