@@ -163,6 +163,7 @@ def filterStrategy(request):
 
             if request.session['strategyIdsToFilter']:
                 strategyIdsToFilter=request.session['strategyIdsToFilter'];
+                # print(strategyIdsToFilter);
                 for one in strategyIdsToFilter:
                     cursor.execute(
                         'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(
@@ -171,36 +172,86 @@ def filterStrategy(request):
                     strategys += strategy;
                 print("需要筛选的攻略：")
                 print(strategys);
-                if searchPeopleNumber and searchDays and searchBudget:
+
+            else:
+                cursor.execute('select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id')
+                strategys=dictfetchall(cursor);
+                print("需要筛选的攻略：")
+                print(strategys);
+
+            if searchPeopleNumber and searchDays and searchBudget:
                     for one in strategys:
-                        if one.get('peopleNumber')==searchPeopleNumber and one.get('days')==searchDays and one.get('budget')==searchBudget:
-                            print("均符合")
+                        if one.get('peopleNumber') == int(searchPeopleNumber) and one.get('days') == int(searchDays) and one.get('budget') == int(searchBudget):
+                            # print("均符合")
                             if one not in filteredStrategys:
-                                filteredStrategys+=one;
-                    print("筛选后的攻略")
-                    print(filteredStrategys)
-                    print(" 人数，天数和预算都不空")
+                                filteredStrategys.append(one);
+                    # print(" 人数，天数和预算都不空")
+                    # print(filteredStrategys)
 
-                if searchPeopleNumber and searchDays:
-                    print(" 人数，天数都不空")
+            if searchPeopleNumber and searchDays:
+                    for one in strategys:
+                        if one.get('peopleNumber') == int(searchPeopleNumber) and one.get('days') == int(searchDays):
+                            # print("均符合")
+                            if one not in filteredStrategys:
+                                filteredStrategys.append(one);
+                    # print(" 人数，天数都不空")
+                    # print(filteredStrategys)
 
-                if searchPeopleNumber and searchBudget:
-                    print(" 人数，预算都不空")
+            if searchPeopleNumber and searchBudget:
+                    for one in strategys:
+                        if one.get('peopleNumber') == int(searchPeopleNumber) and one.get('budget') == int(searchBudget):
+                            # print("均符合")
+                            if one not in filteredStrategys:
+                                filteredStrategys.append(one);
+                    # print(" 人数，预算都不空")
+                    # print(filteredStrategys)
 
-                if searchDays and searchBudget:
-                    print(" 天数,预算都不空")
+            if searchDays and searchBudget:
+                    for one in strategys:
+                        if one.get('days') == int(searchDays) and one.get('budget') == int(searchBudget):
+                            # print("均符合")
+                            if one not in filteredStrategys:
+                                filteredStrategys.append(one);
+                    # print(" 天数,预算都不空")
+                    # print(filteredStrategys)
 
-                if searchPeopleNumber:
-                    print(" 人数不空")
+            if searchPeopleNumber:
+                    # print("searchPeopleNumber:"+searchPeopleNumber);
+                    # if isinstance(searchPeopleNumber, int):
+                    #     print("a is int")
+                    # else:
+                    #     print("a is not int")
+                    for one in strategys:
+                        # print(one.get('peopleNumber'));
+                        if one.get('peopleNumber') == int(searchPeopleNumber):
+                            print("符合")
+                            if one not in filteredStrategys:
+                                print(one)
+                                filteredStrategys.append(one);
+                    # print("筛选后的攻略")
+                    # print(filteredStrategys)
+                    # print(" 人数不空")
+                    # print(filteredStrategys)
 
-                if searchDays:
-                    print(" 天数不空")
+            if searchDays:
+                    for one in strategys:
+                        # print(one.get('searchDays'));
+                        if one.get('days') == int(searchDays):
+                            if one not in filteredStrategys:
+                                print(one)
+                                filteredStrategys.append(one);
+                    # print(" 天数不空")
+                    # print(filteredStrategys)
 
-                if searchBudget:
-                    print(" 预算不空")
-
-
-                # print(strategyIdsToFilter)
+            if searchBudget:
+                    for one in strategys:
+                        # print(one.get('searchBudget'));
+                        if one.get('budget') == int(searchBudget):
+                            if one not in filteredStrategys:
+                                print(one)
+                                filteredStrategys.append(one);
+                    # print(" 预算不空")
+                    # print(filteredStrategys)
 
             return render(request, "../templates/strategyListPage.html", {'strategyList': filteredStrategys,
                                                                           })
@@ -211,6 +262,7 @@ def filterStrategy(request):
             strategyList=[];
 
             if searchKeywords:
+
                 # 搜索关键词：景点、城市、用户名称或攻略名
                 strategyIds=[];
                 # 景点
@@ -262,6 +314,7 @@ def filterStrategy(request):
                     strategyList += strategy;
                 print('符合标准的strategyList：');
                 print(strategyList);
+                request.session['strategyIdsToFilter'] = strategyIds;
 
             else:
                 cursor.execute(
@@ -269,7 +322,6 @@ def filterStrategy(request):
                 strategyList = dictfetchall(cursor);
                 print(strategyList);
 
-            request.session['strategyIdsToFilter'] = strategyIds;
             return render(request, "../templates/strategyListPage.html", {'strategyList': strategyList
                                                                           })
     if request.method=="GET":
