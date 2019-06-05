@@ -160,10 +160,13 @@ def filterStrategy(request):
             filteredStrategys=[];
             strategys=[];
             cursor = connection.cursor();
+            for one in request.session['strategyIdsToFilter']:
+                print("request.session['strategyIdsToFilter']:"+str(one))
 
-            if request.session['strategyIdsToFilter']:
+            if request.session['strategyIdsToFilter']!='':
                 strategyIdsToFilter=request.session['strategyIdsToFilter'];
-                # print(strategyIdsToFilter);
+                print(strategyIdsToFilter);
+
                 for one in strategyIdsToFilter:
                     cursor.execute(
                         'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(
@@ -252,6 +255,8 @@ def filterStrategy(request):
                                 filteredStrategys.append(one);
                     # print(" 预算不空")
                     # print(filteredStrategys)
+            if not searchPeopleNumber and not searchDays and not searchBudget:
+                filteredStrategys=strategys
 
             return render(request, "../templates/strategyListPage.html", {'strategyList': filteredStrategys,
                                                                           })
@@ -321,6 +326,7 @@ def filterStrategy(request):
                     'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
                 strategyList = dictfetchall(cursor);
                 print(strategyList);
+                request.session['strategyIdsToFilter']='';
 
             return render(request, "../templates/strategyListPage.html", {'strategyList': strategyList
                                                                           })
@@ -330,6 +336,7 @@ def filterStrategy(request):
             'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
         strategys = dictfetchall(cursor);
         print(strategys);
+        request.session['strategyIdsToFilter'] = '';
         return render(request, "../templates/strategyListPage.html", {'strategyList':strategys})
 
 def dictfetchall(cursor):
