@@ -111,17 +111,14 @@ def indexpage(request):
             return redirect('/expert')
 
     if request.method == "POST":
-        # print(request.POST)
-        # searchContent = request.POST.get('searchContent')
-        # if searchContent:
-        #     strategys = models.Strategy.objects.filter(strategyTitle__contains=searchContent)
-        #     print(strategys)
-        return redirect('/strategyList')
+        # 搜索功能
+        searchContentIndex=request.POST.get('searchContentIndex')
+        request.session['searchKeywords']=searchContentIndex;
+        return redirect("/strategyList")
     return render(request, "../templates/complete/indexPage.html")
 
 def user(request):
     return render(request, "../templates/complete/userPage.html")
-
 
 def code(request):
     if request.method == "GET":
@@ -150,6 +147,7 @@ def personal(request):
     return render(request, "../templates/complete/personalPage.html")
 
 def filterStrategy(request):
+
     if request.method== "POST":
         if request.POST.get('filterOrSearch'):
             # 筛选攻略
@@ -259,6 +257,9 @@ def filterStrategy(request):
                 filteredStrategys=strategys
 
             return render(request, "../templates/strategyListPage.html", {'strategyList': filteredStrategys,
+                                                                          'searchPeopleNumber': searchPeopleNumber,
+                                                                          'searchDays': searchDays,
+                                                                          'searchBudget':searchBudget
                                                                           })
         else:
             # 搜索功能
@@ -267,7 +268,6 @@ def filterStrategy(request):
             strategyList=[];
 
             if searchKeywords:
-
                 # 搜索关键词：景点、城市、用户名称或攻略名
                 strategyIds=[];
                 # 景点
@@ -279,7 +279,6 @@ def filterStrategy(request):
                     for one in dictCursor:
                         if one.get('strategyId') not in strategyIds:
                             strategyIds.append(one.get('strategyId'));
-
                 # 城市
                 cursor.execute(
                                'select strategyId from Frog_strategy, Frog_cityincluded where strategyId_id=strategyId and cityName_id=\'{}\''.format(searchKeywords));
@@ -288,7 +287,6 @@ def filterStrategy(request):
                     for one in dictCursor:
                         if one.get('strategyId') not in strategyIds:
                             strategyIds.append(one.get('strategyId'));
-
                 # 用户名
                 cursor.execute(
                     'select strategyId from Frog_strategy, Frog_member where memberEmail_id=email and name=\'{}\''.format(searchKeywords));
@@ -299,7 +297,6 @@ def filterStrategy(request):
                     for one in dictCursor:
                         if one.get('strategyId') not in strategyIds:
                             strategyIds.append(one.get('strategyId'));
-
                 #攻略标题
                 cursor.execute(
                     'select strategyId from Frog_strategy where strategyTitle=\'{}\''.format(searchKeywords));
@@ -328,16 +325,23 @@ def filterStrategy(request):
                 print(strategyList);
                 request.session['strategyIdsToFilter']='';
 
-            return render(request, "../templates/strategyListPage.html", {'strategyList': strategyList
+            return render(request, "../templates/strategyListPage.html", {'strategyList': strategyList, 'searchKeywords':searchKeywords
                                                                           })
     if request.method=="GET":
-        cursor = connection.cursor();
-        cursor.execute(
-            'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
-        strategys = dictfetchall(cursor);
-        print(strategys);
-        request.session['strategyIdsToFilter'] = '';
-        return render(request, "../templates/strategyListPage.html", {'strategyList':strategys})
+        print("运行到这里了")
+
+        if request.session['searchKeywords']!='':
+            searchKeywords=request.session['searchKeywords'];
+            request.session['searchKeywords']='';
+            return render(request, "../templates/strategyListPage.html", {'searchKeywords':searchKeywords})
+        else:
+            cursor = connection.cursor();
+            cursor.execute(
+                'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
+            strategys = dictfetchall(cursor);
+            print(strategys);
+            request.session['strategyIdsToFilter'] = '';
+            return render(request, "../templates/strategyListPage.html", {'strategyList':strategys})
 
 def dictfetchall(cursor):
     "将游标返回的结果保存到一个字典对象中"
