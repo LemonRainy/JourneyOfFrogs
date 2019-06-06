@@ -152,6 +152,7 @@ def filterStrategy(request):
         if request.POST.get('filterOrSearch'):
             # 筛选攻略
             print(request.POST)
+            searchKeywords=request.session['searchKeywords'];
             searchPeopleNumber = request.POST.get('searchPeopleNumber')
             searchDays = request.POST.get('searchDays')
             searchBudget = request.POST.get('searchBudget')
@@ -164,7 +165,6 @@ def filterStrategy(request):
             if request.session['strategyIdsToFilter']!='':
                 strategyIdsToFilter=request.session['strategyIdsToFilter'];
                 print(strategyIdsToFilter);
-
                 for one in strategyIdsToFilter:
                     cursor.execute(
                         'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(
@@ -259,7 +259,8 @@ def filterStrategy(request):
             return render(request, "../templates/strategyListPage.html", {'strategyList': filteredStrategys,
                                                                           'searchPeopleNumber': searchPeopleNumber,
                                                                           'searchDays': searchDays,
-                                                                          'searchBudget':searchBudget
+                                                                          'searchBudget':searchBudget,
+                                                                          'searchKeywords':searchKeywords
                                                                           })
         else:
             # 搜索功能
@@ -268,47 +269,8 @@ def filterStrategy(request):
             strategyList=[];
 
             if searchKeywords:
-                # 搜索关键词：景点、城市、用户名称或攻略名
-                strategyIds=[];
-                # 景点
-                cursor.execute(
-                    'select strategyId from Frog_strategy, Frog_spotincluded where strategyId_id=strategyId and spotName_id=\'{}\''.format(
-                        searchKeywords));
-                dictCursor = dictfetchall(cursor);
-                if dictCursor:
-                    for one in dictCursor:
-                        if one.get('strategyId') not in strategyIds:
-                            strategyIds.append(one.get('strategyId'));
-                # 城市
-                cursor.execute(
-                               'select strategyId from Frog_strategy, Frog_cityincluded where strategyId_id=strategyId and cityName_id=\'{}\''.format(searchKeywords));
-                dictCursor = dictfetchall(cursor);
-                if dictCursor:
-                    for one in dictCursor:
-                        if one.get('strategyId') not in strategyIds:
-                            strategyIds.append(one.get('strategyId'));
-                # 用户名
-                cursor.execute(
-                    'select strategyId from Frog_strategy, Frog_member where memberEmail_id=email and name=\'{}\''.format(searchKeywords));
-                dictCursor = dictfetchall(cursor);
-                print("用户名搜索");
-                print(dictCursor);
-                if dictCursor:
-                    for one in dictCursor:
-                        if one.get('strategyId') not in strategyIds:
-                            strategyIds.append(one.get('strategyId'));
-                #攻略标题
-                cursor.execute(
-                    'select strategyId from Frog_strategy where strategyTitle=\'{}\''.format(searchKeywords));
-                dictCursor= dictfetchall(cursor);
-                if dictCursor:
-                    for one in dictCursor:
-                        if one.get('strategyId') not in strategyIds:
-                            strategyIds.append(one.get('strategyId'));
-
-                print('符合标准的strategyIds：');
-                print(strategyIds);
                 # 找到了所有符合标准的攻略Id攻略
+                strategyIds = searchStrategyIds(searchKeywords);
                 for strategyId in strategyIds:
                     cursor.execute(
                         'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(strategyId));
@@ -316,26 +278,39 @@ def filterStrategy(request):
                     strategyList += strategy;
                 print('符合标准的strategyList：');
                 print(strategyList);
+                # 保存搜索的攻略ID
                 request.session['strategyIdsToFilter'] = strategyIds;
-
+                request.session['searchKeywords']=searchKeywords;
             else:
                 cursor.execute(
                     'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
                 strategyList = dictfetchall(cursor);
                 print(strategyList);
                 request.session['strategyIdsToFilter']='';
+                request.session['searchKeywords']='';
 
             return render(request, "../templates/strategyListPage.html", {'strategyList': strategyList, 'searchKeywords':searchKeywords
                                                                           })
     if request.method=="GET":
         print("运行到这里了")
-
+        cursor = connection.cursor();
         if request.session['searchKeywords']!='':
             searchKeywords=request.session['searchKeywords'];
-            request.session['searchKeywords']='';
-            return render(request, "../templates/strategyListPage.html", {'searchKeywords':searchKeywords})
+            # request.session['searchKeywords']='';
+
+            strategyIds = searchStrategyIds(searchKeywords);
+            strategyList=[];
+            for strategyId in strategyIds:
+                cursor.execute(
+                    'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(
+                        strategyId));
+                strategy = dictfetchall(cursor);
+                strategyList += strategy;
+            print('符合标准的strategyList：');
+            print(strategyList);
+            request.session['strategyIdsToFilter'] = strategyIds;
+            return render(request, "../templates/strategyListPage.html", {'strategyList': strategyList,'searchKeywords':searchKeywords})
         else:
-            cursor = connection.cursor();
             cursor.execute(
                 'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
             strategys = dictfetchall(cursor);
@@ -350,6 +325,52 @@ def dictfetchall(cursor):
     dict(zip([col[0] for col in desc], row))
     for row in cursor.fetchall()
     ]
+
+def searchStrategyIds(searchKeywords):
+    cursor = connection.cursor();
+    # 搜索关键词：景点、城市、用户名称或攻略名
+    strategyIds = [];
+    # 景点
+    cursor.execute(
+        'select strategyId from Frog_strategy, Frog_spotincluded where strategyId_id=strategyId and spotName_id=\'{}\''.format(
+            searchKeywords));
+    dictCursor = dictfetchall(cursor);
+    if dictCursor:
+        for one in dictCursor:
+            if one.get('strategyId') not in strategyIds:
+                strategyIds.append(one.get('strategyId'));
+    # 城市
+    cursor.execute(
+        'select strategyId from Frog_strategy, Frog_cityincluded where strategyId_id=strategyId and cityName_id=\'{}\''.format(
+            searchKeywords));
+    dictCursor = dictfetchall(cursor);
+    if dictCursor:
+        for one in dictCursor:
+            if one.get('strategyId') not in strategyIds:
+                strategyIds.append(one.get('strategyId'));
+    # 用户名
+    cursor.execute(
+        'select strategyId from Frog_strategy, Frog_member where memberEmail_id=email and name=\'{}\''.format(
+            searchKeywords));
+    dictCursor = dictfetchall(cursor);
+    print("用户名搜索");
+    print(dictCursor);
+    if dictCursor:
+        for one in dictCursor:
+            if one.get('strategyId') not in strategyIds:
+                strategyIds.append(one.get('strategyId'));
+    # 攻略标题
+    cursor.execute(
+        'select strategyId from Frog_strategy where strategyTitle=\'{}\''.format(searchKeywords));
+    dictCursor = dictfetchall(cursor);
+    if dictCursor:
+        for one in dictCursor:
+            if one.get('strategyId') not in strategyIds:
+                strategyIds.append(one.get('strategyId'));
+
+    print('符合标准的strategyIds：');
+    print(strategyIds);
+    return strategyIds
 
 def enterUserPage(request):
     return render(request,"../templates/userPage.html")
