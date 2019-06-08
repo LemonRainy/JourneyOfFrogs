@@ -253,12 +253,13 @@ def filterStrategy(request):
                     # print(filteredStrategys)
             if not searchPeopleNumber and not searchDays and not searchBudget:
                 filteredStrategys=strategys
-
+            others=request.session['others']
             return render(request, "../templates/complete/strategyListPage.html", {'strategyList': filteredStrategys,
                                                                           'searchPeopleNumber': searchPeopleNumber,
                                                                           'searchDays': searchDays,
                                                                           'searchBudget':searchBudget,
-                                                                          'searchKeywords':searchKeywords
+                                                                          'searchKeywords':searchKeywords,
+                                                                                   'others':others
                                                                           })
         else:
             # 搜索功能
@@ -279,6 +280,17 @@ def filterStrategy(request):
                 # 保存搜索的攻略ID
                 request.session['strategyIdsToFilter'] = strategyIds;
                 request.session['searchKeywords']=searchKeywords;
+
+                # 搜索符合标准的城市和景点
+                cursor.execute(
+                    'select * from Frog_city where cityName=\'{}\''.format(searchKeywords)
+                )
+                others = dictfetchall(cursor)
+                cursor.execute(
+                    'select * from Frog_spot where spotName=\'{}\''.format(searchKeywords)
+                )
+                others += dictfetchall(cursor)
+                request.session['others'] = others;
             else:
                 cursor.execute(
                     'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
@@ -286,16 +298,27 @@ def filterStrategy(request):
                 print(strategyList);
                 request.session['strategyIdsToFilter']='';
                 request.session['searchKeywords']='';
+                # 搜索所有的城市和景点
+                cursor.execute(
+                    'select * from Frog_city'
+                )
+                others = dictfetchall(cursor)
+                cursor.execute(
+                    'select * from Frog_spot'
+                )
+                others += dictfetchall(cursor)
+                print(others)
+                request.session['others'] = others;
 
-            return render(request, "../templates/complete/strategyListPage.html", {'strategyList': strategyList, 'searchKeywords':searchKeywords
+            return render(request, "../templates/complete/strategyListPage.html", {'strategyList': strategyList, 'searchKeywords':searchKeywords,'others':others
                                                                           })
     if request.method=="GET":
         print("运行到这里了")
         cursor = connection.cursor();
         if request.session['searchKeywords']!='':
             searchKeywords=request.session['searchKeywords'];
-            # request.session['searchKeywords']='';
 
+            # 搜索符合标准的攻略
             strategyIds = searchStrategyIds(searchKeywords);
             strategyList=[];
             for strategyId in strategyIds:
@@ -307,14 +330,37 @@ def filterStrategy(request):
             print('符合标准的strategyList：');
             print(strategyList);
             request.session['strategyIdsToFilter'] = strategyIds;
-            return render(request, "../templates/complete/strategyListPage.html", {'strategyList': strategyList,'searchKeywords':searchKeywords})
+
+            # 搜索符合标准的城市和景点
+            cursor.execute(
+                'select * from Frog_city where cityName=\'{}\''.format(searchKeywords)
+            )
+            others=dictfetchall(cursor)
+            cursor.execute(
+                'select * from Frog_spot where spotName=\'{}\''.format(searchKeywords)
+            )
+            others+=dictfetchall(cursor)
+            request.session['others'] = others;
+            return render(request, "../templates/complete/strategyListPage.html", {'strategyList': strategyList,'searchKeywords':searchKeywords,'others':others})
         else:
+            # 搜索所有的攻略
             cursor.execute(
                 'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
             strategys = dictfetchall(cursor);
             print(strategys);
             request.session['strategyIdsToFilter'] = '';
-            return render(request, "../templates/complete/strategyListPage.html", {'strategyList':strategys})
+            # 搜索所有的城市和景点
+            cursor.execute(
+                'select * from Frog_city'
+            )
+            others=dictfetchall(cursor)
+            cursor.execute(
+                'select * from Frog_spot'
+            )
+            others+=dictfetchall(cursor)
+            print(others)
+            request.session['others'] = others;
+            return render(request, "../templates/complete/strategyListPage.html", {'strategyList':strategys,'others':others})
 
 def dictfetchall(cursor):
     "将游标返回的结果保存到一个字典对象中"

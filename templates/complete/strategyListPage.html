@@ -56,7 +56,9 @@
         		</div>
           </div>
           <div class="col-lg-9">
-          	<div class="row">
+              <h2>攻略</h2>
+              <hr>
+              <div class="row">
                 {% for  strategy in strategyList %}
           		<div class="col-md-4 ftco-animate">
 		    				<div class="destination">
@@ -73,7 +75,6 @@
 				    							<i class="icon-star"></i>
 				    							<i class="icon-star"></i>
 				    							<i class="icon-star"></i>
-{#                                                <i class="icon-star"></i>#}
 {#				    							<i class="icon-star-o"></i>#}
 				    							<span>点赞数：{{ strategy.diggNumber }}</span>
 				    						</p>
@@ -94,6 +95,37 @@
 		    			</div>
                 {% endfor %}
           	</div>
+              <h3>其他</h3>
+              <hr>
+              <div class="row">
+                {% for  one in others %}
+          		<div class="col-md-4 ftco-animate">
+		    				<div class="destination">
+		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/static/images/destination-1.jpg);">
+		    						<div class="icon d-flex justify-content-center align-items-center">
+    							<span class="icon-search2"></span>
+    						</div>
+		    					</a>
+		    					<div class="text p-3">
+		    						<div class="d-flex">
+		    							<div class="one">
+				    						<h3><a href="#">{{one.cityName }}{{ one.spotName }}</a></h3>
+			    						</div>
+			    						<div class="two">
+                                            <span class="price"><span>{{ one.province}}{{ one.cityName_id }}</span></span>
+		    							</div>
+		    						</div>
+
+                                    <hr>
+		    						<p>{{ one.introduction| slice:":30" }}......</p>
+
+
+		    					</div>
+		    				</div>
+		    			</div>
+                {% endfor %}
+          	</div>
+
           </div> <!-- .col-md-8 -->
         </div>
       </div>
