@@ -62,7 +62,7 @@
                 {% for  strategy in strategyList %}
           		<div class="col-md-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/static/images/destination-1.jpg);">
+		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{ strategy.coverUrl }});">
 		    						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-search2"></span>
     						</div>
@@ -101,7 +101,7 @@
                 {% for  one in spots %}
           		<div class="col-md-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/static/images/destination-1.jpg);">
+		    					<a href="/spotDetail?spotName={{ one.spotName }}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{ one.pictureURL }});">
 		    						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-search2"></span>
     						</div>
@@ -127,7 +127,7 @@
               {% for  one in citys %}
           		<div class="col-md-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="#" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(/static/images/destination-1.jpg);">
+		    					<a href="/cityDetail?cityName={{ one.cityName }}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{ one.pictureURL }});">
 		    						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-search2"></span>
     						</div>
