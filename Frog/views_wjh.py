@@ -134,14 +134,14 @@ def orderHandling(request):
 
 
 # 城市详情
-def city_detail(request):
+def cityDetail(request):
     city_name = '哈尔滨'
     city = models.City.objects.get(cityName=city_name)
     return render(request, '../templates/city_detail.html', {'city': city})
 
 
 # 景点详情
-def spot_detail(request):
+def spotDetail(request):
     spot_name = '太阳岛'
     spot = models.Spot.objects.filter(spotName=spot_name)
     return render(request, '../templates/spot_detail.html', {'spot': spot})

@@ -11,7 +11,7 @@ urlpatterns = [
     path('refuseOrder', views_wjh.refuseOrder, name='refuseOrder'),
     path('endOrder', views_wjh.endOrder, name='endOrder'),
     path('cancelOrder', views_wjh.cancelOrder, name='cancelOrder'),
-    path('city_detail', views_wjh.city_detail, name='city_detail'),
-    path('spot_detail', views_wjh.spot_detail, name='spot_detail'),
+    path('cityDetail', views_wjh.cityDetail, name='cityDetail'),
+    path('spotDetail', views_wjh.spotDetail, name='spotDetail'),
     path('expertList', views_wjh.expertList, name='expertList'),
 ]

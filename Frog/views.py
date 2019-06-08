@@ -28,8 +28,6 @@ def login_view(request):
             return HttpResponse("用户名或密码错误")
 
 def register(request):
-
-
     if request.method == "POST":
         print(request.POST)
         name = request.POST.get('name')
@@ -146,8 +144,8 @@ def personal(request):
 
     return render(request, "../templates/complete/personalPage.html")
 
+# 筛选和搜索攻略
 def filterStrategy(request):
-
     if request.method== "POST":
         if request.POST.get('filterOrSearch'):
             # 筛选攻略
@@ -256,7 +254,7 @@ def filterStrategy(request):
             if not searchPeopleNumber and not searchDays and not searchBudget:
                 filteredStrategys=strategys
 
-            return render(request, "../templates/strategyListPage.html", {'strategyList': filteredStrategys,
+            return render(request, "../templates/complete/strategyListPage.html", {'strategyList': filteredStrategys,
                                                                           'searchPeopleNumber': searchPeopleNumber,
                                                                           'searchDays': searchDays,
                                                                           'searchBudget':searchBudget,
@@ -289,7 +287,7 @@ def filterStrategy(request):
                 request.session['strategyIdsToFilter']='';
                 request.session['searchKeywords']='';
 
-            return render(request, "../templates/strategyListPage.html", {'strategyList': strategyList, 'searchKeywords':searchKeywords
+            return render(request, "../templates/complete/strategyListPage.html", {'strategyList': strategyList, 'searchKeywords':searchKeywords
                                                                           })
     if request.method=="GET":
         print("运行到这里了")
@@ -309,14 +307,14 @@ def filterStrategy(request):
             print('符合标准的strategyList：');
             print(strategyList);
             request.session['strategyIdsToFilter'] = strategyIds;
-            return render(request, "../templates/strategyListPage.html", {'strategyList': strategyList,'searchKeywords':searchKeywords})
+            return render(request, "../templates/complete/strategyListPage.html", {'strategyList': strategyList,'searchKeywords':searchKeywords})
         else:
             cursor.execute(
                 'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
             strategys = dictfetchall(cursor);
             print(strategys);
             request.session['strategyIdsToFilter'] = '';
-            return render(request, "../templates/strategyListPage.html", {'strategyList':strategys})
+            return render(request, "../templates/complete/strategyListPage.html", {'strategyList':strategys})
 
 def dictfetchall(cursor):
     "将游标返回的结果保存到一个字典对象中"
