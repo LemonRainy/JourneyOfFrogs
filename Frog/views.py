@@ -136,12 +136,14 @@ def personal(request):
     print("查看" + email)
     if email:
         strategies = models.Strategy.objects.filter(memberEmail=email)
-
-        return render(request, '../templates/complete/personalPage.html', {'strategies': strategies})
+        member = models.Member.objects.get(email=email)
+        return render(request, '../templates/complete/personalPage.html', {'strategies': strategies,
+                                                                           'member': member,
+                                                                           })
     else:
         return render(request, "../templates/complete/personalPage.html")
 
-    return render(request, "../templates/complete/personalPage.html")
+    # return render(request, "../templates/complete/personalPage.html")
 
 # 筛选和搜索攻略
 def strategyList(request):

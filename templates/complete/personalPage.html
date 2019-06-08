@@ -7,13 +7,13 @@
           <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }"  >
             <img src="/static/images/member.jpg" alt="Responsive image" class="userInfo img-thumbnail" width="180" height="180">
 
-              <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" style="margin-bottom: 10px; font-size: 2.5rem">薇薇的窝</h1>
+              <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" style="margin-bottom: 10px; font-size: 2.5rem">{{ member.name }}的窝</h1>
               <div >
-                  <p class="inline">定位：北京</p>
+                  <p class="inline">定位：{{ member.location }}</p>
 
-                  <p class="inline">邮箱：123456@163.com</p>
+                  <p class="inline">邮箱：{{ member.email }}</p>
 
-                   <p class="inline">粉丝数：88</p>
+                   <p class="inline">粉丝数:{{ member.fan_number }}</p>
               </div>
 
           </div>
