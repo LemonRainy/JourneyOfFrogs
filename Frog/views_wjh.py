@@ -107,7 +107,7 @@ def expertOrderList(request):
     v = request.user.username
     if v:
         orders = models.Order.objects.filter(expert_id=v).exclude(state__in=[0, 1]).order_by("-date")
-        return render(request, '../templates/expertOrderListPage.html', {'orders': orders})
+        return render(request, '../templates/complete/expertOrderListPage.html', {'orders': orders})
     else:
         return redirect('/expert')
 
@@ -117,7 +117,7 @@ def expert(request):
     if request.method == 'GET':
         expert = models.Expert.objects.get(email=request.user.username)
         if expert:
-            return render(request, '../templates/expertPage.html', {'expert': expert})
+            return render(request, '../templates/complete/expertPage.html', {'expert': expert})
 
     elif request.method == 'POST':
         pass
@@ -128,7 +128,7 @@ def orderHandling(request):
     v = request.user.username
     if v:
         orders = models.Order.objects.filter(expert_id=v, state__in=[0, 1]).order_by("-date")
-        return render(request, '../templates/orderHandlingPage.html', {'orders': orders})
+        return render(request, '../templates/complete/orderHandlingPage.html', {'orders': orders})
     else:
         return redirect('/expert')
 
@@ -137,14 +137,14 @@ def orderHandling(request):
 def cityDetail(request):
     city_name = '哈尔滨'
     city = models.City.objects.get(cityName=city_name)
-    return render(request, '../templates/city_detail.html', {'city': city})
+    return render(request, '../templates/complete/city_detail.html', {'city': city})
 
 
 # 景点详情
 def spotDetail(request):
     spot_name = '太阳岛'
     spot = models.Spot.objects.filter(spotName=spot_name)
-    return render(request, '../templates/spot_detail.html', {'spot': spot})
+    return render(request, '../templates/complete/spot_detail.html', {'spot': spot})
 
 
 # 查看专员列表
