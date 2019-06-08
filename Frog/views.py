@@ -9,8 +9,8 @@ from django.db import connection
 # Create your views here.
 
 
-def index(request):
-    return redirect('/index')
+# def index(request):
+#     return redirect('/index')
 
 
 def login_view(request):
@@ -144,7 +144,7 @@ def personal(request):
     return render(request, "../templates/complete/personalPage.html")
 
 # 筛选和搜索攻略
-def filterStrategy(request):
+def strategyList(request):
     if request.method== "POST":
         if request.POST.get('filterOrSearch'):
             # 筛选攻略
