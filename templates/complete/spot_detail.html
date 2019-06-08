@@ -6,7 +6,7 @@
 
 {% block content %}
 
-    <div class="hero-wrap js-fullheight" style="background-image: url('/static/images/bg_5.jpg');">
+    <div class="hero-wrap js-fullheight" style="background-image: url({{  spot.pictureURL  }});">
         <div class="overlay"></div>
         <div class="container">
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
@@ -44,13 +44,6 @@
                             <p style="font-size: 20px;">{{ spot.introduction }}</p>
 
 
-                        </div>
-                        <div class="col-md-12 ftco-animate">
-                            <div class="single-slider owl-carousel">
-                                <div class="item">
-                                    <div class="hotel-img" style="background-image: url({{ spot.pictureURL }});"></div>
-                                </div>
-                            </div>
                         </div>
 
 
