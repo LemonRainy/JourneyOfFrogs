@@ -16,4 +16,5 @@ urlpatterns = [
     path('api/code/', views.code, name='code'),
     path('strategyList/',views.strategyList,name='strategyList'),
     path('strategyDetail/',views.enterUserPage,name='strategyDetail'),
+
 ]
