@@ -74,8 +74,10 @@ def detailArticle(request, strategyId):
         digg_tag = 1
 
     comments = models.Comment.objects.filter(strategy=strategy).order_by('-commentId')
+    user = models.User.objects.get(username=strategy.memberEmail.email)
     return render(request, '../templates/complete/strategyDetailPage.html', {'strategy': strategy, 'comments': comments,
-                                                                             'digg_tag': digg_tag})
+                                                                             'digg_tag': digg_tag,
+                                                                             'user': user})
 
 
 def singleUser(request, userId):
