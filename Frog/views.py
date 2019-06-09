@@ -433,3 +433,6 @@ def searchSpot(searchKeywords):
 
 def enterUserPage(request):
     return render(request,"../templates/userPage.html")
+
+def followList(request):
+    return render(request,"../templates/complete/followListPage.html")
