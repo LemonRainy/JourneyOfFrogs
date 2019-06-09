@@ -21,6 +21,7 @@ def customize(request):
         member = models.Member.objects.filter(email=request.user.username)
         print('意愿信息：', intent)
 
+
         # 生成唯一订单号
         year = time.localtime()[0]
         month = time.localtime()[1]
