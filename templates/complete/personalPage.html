@@ -13,7 +13,7 @@
 
                   <p class="inline">邮箱：{{ member.email }}</p>
 
-                   <p class="inline">粉丝数:{{ member.fan_number }}</p>
+                   <p class="inline">粉丝数: {{ member.fansNum }}</p>
               </div>
 
           </div>
@@ -41,11 +41,11 @@
               <a href="blog-single.html" class="block-20" style="background-image: url('/static/images/image_1.jpg');">
               </a>
               <div class="text p-4 d-block">
-              	<span class="tag">Tips, Travel</span>
-                <h3 class="heading mt-3"><a href="#">{{ singleStrategy.strategyTitle }}</a></h3>
+              	<span class="tag">{{ singleStrategy.strategyTitle }}</span>
+                <h3 class="heading mt-3"><a href="#">{{ singleStrategy.content| slice:":30" }}</a></h3>
                 <div class="meta mb-3">
-                  <div><a href="#">{{ singleStrategy.days }}天</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> {{ singleStrategy.peopleNumber }}</a></div>
+                  <div><a href="#">{{ singleStrategy.createDate }}</a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> {{ singleStrategy.diggNumber }}</a></div>
                 </div>
               </div>
             </div>
