@@ -11,7 +11,10 @@ from django.db import connection
 
 def share(request):
     if request.method == "GET":
-        return render(request, '../templates/complete/shareStrategyPage.html')
+        citys = models.City.objects.all()
+        spots = models.Spot.objects.all()
+        return render(request, '../templates/complete/shareStrategyPage.html', {'citys': citys,
+                                                                                'spots': spots})
     if request.method == "POST":
         print(request.POST)
 
@@ -27,7 +30,17 @@ def share(request):
         newstrategy = models.Strategy.objects.create(peopleNumber=peopleNumber, budget=budget, content=content,
                                                      memberEmail=member, strategyTitle=title,
                                                      coverUrl=cover, days=days)
+        citys = request.POST.getlist('city')
+        for i in citys:
+            ci = models.City.objects.get(cityName=i)
+            print(ci)
+            models.CityIncluded.objects.create(cityName_id=ci.cityName, strategyId_id=newstrategy.strategyId)
 
+        spots = request.POST.getlist('spot')
+        for i in spots:
+            cp = models.Spot.objects.get(spotName=i)
+            print(cp)
+            models.SpotIncluded.objects.create(spotName_id=cp.spotName, strategyId_id=newstrategy.strategyId)
         print(newstrategy)
         print(newstrategy.strategyId)
         articleurl = '/article/' + str(newstrategy.strategyId)
