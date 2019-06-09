@@ -2,7 +2,6 @@ JFVenv
 .idea
 venv
 __pycache__
-db.sqlite3
 *.pyc
 .idea/*
 Frog/migrations
