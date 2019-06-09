@@ -121,7 +121,7 @@ class Spot(models.Model):
     spotName=models.CharField(max_length=30,primary_key=True)
     cityName=models.ForeignKey('City', on_delete=models.SET_NULL,null=True)
     introduction=models.TextField(max_length=100)
-    ticketPrice=models.PositiveIntegerField()
+    ticketPrice=models.IntegerField(blank=True, null=True)
     location = models.CharField(max_length=60)
     spotTelephone=models.CharField(max_length=20)
     pictureURL = models.TextField(max_length=200, null=True)

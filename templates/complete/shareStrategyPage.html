@@ -38,7 +38,7 @@
           <div>
             
             <label style="font-size:24px;margin: 0px 0px 10px 0px;">攻略内容</label>
-            <div  id="content" contenteditable="true">
+            <div  id="content" contenteditable="true" style=" border:2px solid #eeeeee">
                 从这里开始.....
             </div>
           </div>
@@ -104,6 +104,21 @@
                     <label>预算</label>
                   <input class="form-control" type="number" name="budget" placeholder="预算" value=0>
               </div>
+             <div class="form-group">
+                 <label>城市</label>
+                {% for city in citys %}
+                 <input type="checkbox" id="jack" name="city" value={{ city.cityName }} v-model="checkedNames">
+                 <label for={{ city.cityName }}>{{ city.cityName }}</label>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label>景点</label>
+                {% for spot in spots %}
+                <input type="checkbox" id="jack" name="spot" value={{ spot.spotName }} v-model="checkedNames">
+                <label for={{ spot.spotName }}>{{ spot.spotName }}</label>
+               {% endfor %}
+           </div>
+
                <div class="form-group">
                   <input class="form-control" type="hidden" name="cover" id="cover_input">
               </div>
