@@ -1,217 +1,107 @@
 {% extends "complete/base.html" %}
 {% block link %}
 
-<style>
-.follow{
-  background-color:#f85959; 
-  color: white;
-}
-</style>
+    <style>
+        .follow {
+            background-color: #f85959;
+            color: white;
+        }
+    </style>
 {% endblock %}
 {% block content %}
     <div class="hero-wrap js-fullheight" style="background-image: url('/static/images/userBackground1.jpg');">
-      <div class="overlay"></div>
-      <div class="container">
-        <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
-          <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }"  >
-            <img src="/static/images/member.jpg" alt="Responsive image" class="userInfo img-thumbnail" width="180" height="180">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center"
+                 data-scrollax-parent="true">
+                <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
+                    <img src="/static/images/member.jpg" alt="Responsive image" class="userInfo img-thumbnail"
+                         width="180" height="180">
 
-              <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }" style="margin-bottom: 10px; font-size: 2.5rem">{{ member.name }}的窝</h1>
-              <div id="app-6">
-                  <p class="inline">定位：{{ member.location }}</p>
+                    <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"
+                        style="margin-bottom: 10px; font-size: 2.5rem">{{ member.name }}的窝</h1>
+                    <div id="app-6">
+                        <p class="inline">定位：{{ member.location }}</p>
 
-                  <p class="inline">邮箱：{{ member.email }}</p>
+                        <p class="inline">邮箱：{{ member.email }}</p>
 
-                   <p class="inline" id="fan_number">粉丝数:{% verbatim myblock %} {{ number }}{% endverbatim myblock %}</p>
-                  <button class="btn btn-default {% if tag == 0 %}follow{% endif %}" id="followButton" type="button" width="80" onclick="follow();">{% if tag == 1 %}取消关注{% else %}+关注{% endif %}</button>
-              </div>
+                        <p class="inline" id="fan_number">粉丝数:{% verbatim myblock %}
+                            {{ number }}{% endverbatim myblock %}</p>
+                        <button class="btn btn-default {% if tag == 0 %}follow{% endif %}" id="followButton"
+                                type="button" width="80" onclick="follow();">{% if tag == 1 %}取消关注{% else %}
+                            +关注{% endif %}</button>
+                    </div>
 
-          </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
     <section class="strategies ftco-section bg-light">
 
-          <div class="container strategy col-md-7">
+        <div class="container strategy col-md-7">
             <h2 class="mb-4"><strong>TA的 </strong> 旅行攻略</h2>
-          </div>
+        </div>
 
-      <div class="container">
-        <div class="row d-flex">
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/static/images/image_1.jpg');">
-              </a>
-              <div class="text p-4 d-block">
-              	<span class="tag">Tips, Travel</span>
-                <h3 class="heading mt-3"><a href="#">8 Best homestay in Philippines that you don't miss out</a></h3>
-                <div class="meta mb-3">
-                  <div><a href="#">August 12, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-              </div>
+        <div class="container">
+            <div class="row d-flex">
+                {% for one in strategys %}
+                    <div class="col-md-3 d-flex ftco-animate">
+                        <div class="blog-entry align-self-stretch">
+                            <a href="blog-single.html" class="block-20"
+                               style="background-image: url('/static/images/image_1.jpg');">
+                            </a>
+                            <div class="text p-4 d-block">
+                                <span class="tag">{{ one.strategyTitle }}</span>
+                                <h3 class="heading mt-3"><a href="#">{{ one.content| slice:":28" }}......</a></h3>
+                                <div class="meta mb-3">
+                                    <div><a href="#">{{ one.createDate }}</a></div>
+                                    <div><a href="#"></a></div>
+                                    <div><a href="#" class="meta-chat"><i class="icon-star"></i> {{ one.diggNumber }}
+                                    </a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/static/images/image_2.jpg');">
-              </a>
-              <div class="text p-4">
-              	<span class="tag">Culture</span>
-                <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="meta mb-3">
-                  <div><a href="#">August 12, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/static/images/image_3.jpg');">
-              </a>
-              <div class="text p-4">
-              	<span class="tag">Tips, Travel</span>
-                <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="meta mb-3">
-                  <div><a href="#">August 12, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/static/images/image_4.jpg');">
-              </a>
-              <div class="text p-4">
-              	<span class="tag">Tips, Travel</span>
-                <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="meta mb-3">
-                  <div><a href="#">August 12, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/static/images/image_5.jpg');">
-              </a>
-              <div class="text p-4 d-block">
-              	<span class="tag">Tips, Travel</span>
-                <h3 class="heading mt-3"><a href="#">8 Best homestay in Philippines that you don't miss out</a></h3>
-                <div class="meta mb-3">
-                  <div><a href="#">August 12, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/static/images/image_6.jpg');">
-              </a>
-              <div class="text p-4">
-              	<span class="tag">Culture</span>
-                <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="meta mb-3">
-                  <div><a href="#">August 12, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/static/images/image_7.jpg');">
-              </a>
-              <div class="text p-4">
-              	<span class="tag">Tips, Travel</span>
-                <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="meta mb-3">
-                  <div><a href="#">August 12, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/static/images/image_8.jpg');">
-              </a>
-              <div class="text p-4">
-              	<span class="tag">Tips, Travel</span>
-                <h3 class="heading mt-3"><a href="#">Even the all-powerful Pointing has no control about the blind texts</a></h3>
-                <div class="meta mb-3">
-                  <div><a href="#">August 12, 2018</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-        <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
- {% endblock %}
+{% endblock %}
 
 
- {% block script %}
- <script type="text/javascript">
-function follow(){
-      $.ajax({
-          url: "/api/follow/",
-          data: {
-              followEmail:  {{ email|safe }} 
-          },
-          success: function( result ) {
-             if(result==1){
-              $("#followButton").addClass("follow")
-                $("#followButton").text("+关注");
-                app6.number = app6.number - 1;
-            
-             }else if(result==0){
-              $("#followButton").removeClass("follow")
-              $("#followButton").text("取消关注");
-                  app6.number = app6.number + 1;
-             }
-          }
-      });
-  }
+{% block script %}
+    <script type="text/javascript">
+        function follow() {
+            $.ajax({
+                url: "/api/follow/",
+                data: {
+                    followEmail:  {{ email|safe }}
+                },
+                success: function (result) {
+                    if (result == 1) {
+                        $("#followButton").addClass("follow")
+                        $("#followButton").text("+关注");
+                        app6.number = app6.number - 1;
 
- </script>
- <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-<script>
-  var app6 = new Vue({
-    el: '#app-6',
-    data: {
-      number: {{ fan_number }}
-    }
-  })
-  </script>
+                    } else if (result == 0) {
+                        $("#followButton").removeClass("follow")
+                        $("#followButton").text("取消关注");
+                        app6.number = app6.number + 1;
+                    }
+                }
+            });
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        var app6 = new Vue({
+            el: '#app-6',
+            data: {
+                number: {{ fan_number }}
+            }
+        })
+    </script>
 {% endblock %}

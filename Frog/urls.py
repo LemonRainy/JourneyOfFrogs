@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.indexpage, name='indexpage'),
     path('login/', views.login_view, name='login'),
     path('register/', views.register, name='register'),
     path('update/', views.update, name='update'),
@@ -14,6 +14,7 @@ urlpatterns = [
     #  path('user/<userId>', views.user, name='user'), 用这个可以穿参数
     path('user/', views.user, name='user'),
     path('api/code/', views.code, name='code'),
-    path('strategyList/',views.filterStrategy,name='strategyList'),
+    path('strategyList/',views.strategyList,name='strategyList'),
     path('strategyDetail/',views.enterUserPage,name='strategyDetail'),
+
 ]

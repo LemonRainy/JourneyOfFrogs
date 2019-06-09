@@ -5,6 +5,7 @@ from . import models
 # Create your views here.
 from django.db.models import F
 import json
+from django.db import connection
 # 分享攻略
 
 
@@ -76,10 +77,15 @@ def singleUser(request, userId):
             tag = 0
             if models.Follow.objects.filter(followedEmail=member, followingEmail=u):
                 tag = 1
+            cursor = connection.cursor();
+            cursor.execute(
+                'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and email=\'{}\''.format(user.username))
+            strategys = dictfetchall(cursor);
             return render(request, '../templates/complete/singleUserPage.html', {'member': member,
                                                                                  'email': json.dumps(member.email),
                                                                                  'fan_number': fan_number,
-                                                                                 'tag': tag})
+                                                                                 'tag': tag,
+                                                                                 'strategys':strategys})
 
     return redirect('/index')
 
@@ -134,3 +140,12 @@ def follow(request):
     else:
         models.Follow.objects.create(followedEmail=follow, followingEmail=fan)
         return HttpResponse(0)
+
+
+def dictfetchall(cursor):
+    "将游标返回的结果保存到一个字典对象中"
+    desc = cursor.description
+    return [
+    dict(zip([col[0] for col in desc], row))
+    for row in cursor.fetchall()
+    ]
