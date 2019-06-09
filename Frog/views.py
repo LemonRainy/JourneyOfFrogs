@@ -181,7 +181,7 @@ def strategyList(request):
 
             if searchPeopleNumber and searchDays and searchBudget:
                     for one in strategys:
-                        if one.get('peopleNumber') == int(searchPeopleNumber) and one.get('days') == int(searchDays) and one.get('budget') == int(searchBudget):
+                        if one.get('peopleNumber') == int(searchPeopleNumber) and one.get('days') == int(searchDays) and one.get('budget') <= int(searchBudget):
                             # print("均符合")
                             if one not in filteredStrategys:
                                 filteredStrategys.append(one);
@@ -199,7 +199,7 @@ def strategyList(request):
 
             if searchPeopleNumber and searchBudget:
                     for one in strategys:
-                        if one.get('peopleNumber') == int(searchPeopleNumber) and one.get('budget') == int(searchBudget):
+                        if one.get('peopleNumber') == int(searchPeopleNumber) and one.get('budget') <= int(searchBudget):
                             # print("均符合")
                             if one not in filteredStrategys:
                                 filteredStrategys.append(one);
@@ -208,7 +208,7 @@ def strategyList(request):
 
             if searchDays and searchBudget:
                     for one in strategys:
-                        if one.get('days') == int(searchDays) and one.get('budget') == int(searchBudget):
+                        if one.get('days') == int(searchDays) and one.get('budget') <= int(searchBudget):
                             # print("均符合")
                             if one not in filteredStrategys:
                                 filteredStrategys.append(one);
@@ -246,7 +246,7 @@ def strategyList(request):
             if searchBudget:
                     for one in strategys:
                         # print(one.get('searchBudget'));
-                        if one.get('budget') == int(searchBudget):
+                        if one.get('budget') <= int(searchBudget):
                             if one not in filteredStrategys:
                                 print(one)
                                 filteredStrategys.append(one);
