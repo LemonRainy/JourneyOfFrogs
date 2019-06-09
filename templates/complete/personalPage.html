@@ -28,10 +28,10 @@
           <div class="container strategy col-md-7 slider-text" data-scrollax-parent="true"  >
              <p class="browse d-md-flex" style="width: 650px">
             	<span class="d-flex justify-content-md-center align-items-md-center" ><a href="#" style="border-bottom: 1.5px solid rgb(248,89,89);"><i class="flaticon-fork"></i>我的攻略</a></span>
-            	<span class="d-flex justify-content-md-center align-items-md-center" ><a href="#"><i class="flaticon-meeting-point"></i>写攻略</a></span>
-                <span class="d-flex justify-content-md-center align-items-md-center" ><a href="#"><i class="flaticon-hotel"></i>我的订单</a></span>
+            	<span class="d-flex justify-content-md-center align-items-md-center" ><a href="/share"><i class="flaticon-meeting-point"></i>写攻略</a></span>
+                <span class="d-flex justify-content-md-center align-items-md-center" ><a href="/orderList"><i class="flaticon-hotel"></i>我的订单</a></span>
                <span class="d-flex justify-content-md-center align-items-md-center" ><a href="{% url "update" %}"><i class="flaticon-shopping-bag"></i>修改密码</a></span>
-                 <span class="d-flex justify-content-md-center align-items-md-center" ><a href="{% url "update" %}"><i class="flaticon-like"></i>关注列表</a></span>
+                 <span class="d-flex justify-content-md-center align-items-md-center" ><a href="{% url "followList" %}"><i class="flaticon-like"></i>关注列表</a></span>
              </p>
             </div>
 
@@ -39,7 +39,7 @@
           {% for singleStrategy in strategies %}
           <div class="col-md-3 d-flex ftco-animate">
             <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/static/images/image_1.jpg');">
+              <a href="/article/{{ singleStrategy.strategyId }}" class="block-20" style="background-image: url('/static/images/image_1.jpg');">
               </a>
               <div class="text p-4 d-block">
               	<span class="tag">{{ singleStrategy.strategyTitle }}</span>
