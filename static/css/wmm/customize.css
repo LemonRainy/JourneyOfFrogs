@@ -65,15 +65,15 @@ th,td {
 
 }
 
-th {
+/*th {*/
 
-    background: #555 nonerepeat scroll 0 0;
+    /*background: #555 nonerepeat scroll 0 0;*/
 
-  /* border: 1px solid #777; */
+  /*!* border: 1px solid #777; *!*/
 
-  /*color: #fff;*/
+  /*!*color: #fff;*!*/
 
-}
+/*}*/
 
 td {
 

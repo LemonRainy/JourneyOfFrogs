@@ -59,10 +59,11 @@
               <h2>攻略</h2>
               <hr>
               <div class="row">
+
                 {% for  strategy in strategyList %}
           		<div class="col-md-4 ftco-animate">
 		    				<div class="destination">
-		    					<a href="/article/{{ strategy.strategyId }}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({{ strategy.coverUrl }});">
+		    					<a href="/article/{{ strategy.strategyId }}" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url({% if strategy.coverUrl != '' %} {{ strategy.coverUrl }}{% endif %} {% if strategy.coverUrl == '' %} /static/images/destination-1.jpg {% endif %});">
 		    						<div class="icon d-flex justify-content-center align-items-center">
     							<span class="icon-search2"></span>
     						</div>

@@ -365,7 +365,7 @@ def searchStrategyIds(searchKeywords):
     strategyIds = [];
     # 景点
     cursor.execute(
-        'select strategyId from Frog_strategy, Frog_spotincluded where strategyId_id=strategyId and spotName_id=\'{}\''.format(
+        'select strategyId from Frog_strategy, Frog_spotincluded where strategyId_id=strategyId and spotName_id LIKE \'%{}%\''.format(
             searchKeywords));
     dictCursor = dictfetchall(cursor);
     if dictCursor:
@@ -383,7 +383,7 @@ def searchStrategyIds(searchKeywords):
                 strategyIds.append(one.get('strategyId'));
     # 用户名
     cursor.execute(
-        'select strategyId from Frog_strategy, Frog_member where memberEmail_id=email and name=\'{}\''.format(
+        'select strategyId from Frog_strategy, Frog_member where memberEmail_id=email and name LIKE \'%{}%\''.format(
             searchKeywords));
     dictCursor = dictfetchall(cursor);
     print("用户名搜索");
@@ -394,7 +394,7 @@ def searchStrategyIds(searchKeywords):
                 strategyIds.append(one.get('strategyId'));
     # 攻略标题
     cursor.execute(
-        'select strategyId from Frog_strategy where strategyTitle=\'{}\''.format(searchKeywords));
+        'select strategyId from Frog_strategy where strategyTitle LIKE \'%{}%\''.format(searchKeywords));
     dictCursor = dictfetchall(cursor);
     if dictCursor:
         for one in dictCursor:
@@ -409,7 +409,7 @@ def searchCity(searchKeywords):
     cursor = connection.cursor();
     if searchKeywords:
         cursor.execute(
-            'select * from Frog_city where cityName=\'{}\''.format(searchKeywords)
+            'select * from Frog_city where cityName LIKE \'%{}%\''.format(searchKeywords)
         )
     else:
         cursor.execute(
@@ -422,7 +422,7 @@ def searchSpot(searchKeywords):
     cursor = connection.cursor();
     if searchKeywords:
         cursor.execute(
-            'select * from Frog_spot where spotName=\'{}\''.format(searchKeywords)
+            'select * from Frog_spot where spotName LIKE \'%{}%\''.format(searchKeywords)
         )
     else:
         cursor.execute(
