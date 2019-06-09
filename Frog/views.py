@@ -166,7 +166,7 @@ def strategyList(request):
                 print(strategyIdsToFilter);
                 for one in strategyIdsToFilter:
                     cursor.execute(
-                        'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(
+                        'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(
                             one));
                     strategy = dictfetchall(cursor);
                     strategys += strategy;
@@ -174,14 +174,14 @@ def strategyList(request):
                 print(strategys);
 
             else:
-                cursor.execute('select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id')
+                cursor.execute('select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id')
                 strategys=dictfetchall(cursor);
                 print("需要筛选的攻略：")
                 print(strategys);
 
             if searchPeopleNumber and searchDays and searchBudget:
                     for one in strategys:
-                        if one.get('peopleNumber') == int(searchPeopleNumber) and one.get('days') == int(searchDays) and one.get('budget') == int(searchBudget):
+                        if one.get('peopleNumber') == int(searchPeopleNumber) and one.get('days') == int(searchDays) and one.get('budget') <= int(searchBudget):
                             # print("均符合")
                             if one not in filteredStrategys:
                                 filteredStrategys.append(one);
@@ -199,7 +199,7 @@ def strategyList(request):
 
             if searchPeopleNumber and searchBudget:
                     for one in strategys:
-                        if one.get('peopleNumber') == int(searchPeopleNumber) and one.get('budget') == int(searchBudget):
+                        if one.get('peopleNumber') == int(searchPeopleNumber) and one.get('budget') <= int(searchBudget):
                             # print("均符合")
                             if one not in filteredStrategys:
                                 filteredStrategys.append(one);
@@ -208,7 +208,7 @@ def strategyList(request):
 
             if searchDays and searchBudget:
                     for one in strategys:
-                        if one.get('days') == int(searchDays) and one.get('budget') == int(searchBudget):
+                        if one.get('days') == int(searchDays) and one.get('budget') <= int(searchBudget):
                             # print("均符合")
                             if one not in filteredStrategys:
                                 filteredStrategys.append(one);
@@ -246,7 +246,7 @@ def strategyList(request):
             if searchBudget:
                     for one in strategys:
                         # print(one.get('searchBudget'));
-                        if one.get('budget') == int(searchBudget):
+                        if one.get('budget') <= int(searchBudget):
                             if one not in filteredStrategys:
                                 print(one)
                                 filteredStrategys.append(one);
@@ -275,7 +275,7 @@ def strategyList(request):
                 strategyIds = searchStrategyIds(searchKeywords);
                 for strategyId in strategyIds:
                     cursor.execute(
-                        'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(strategyId));
+                        'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(strategyId));
                     strategy = dictfetchall(cursor);
                     strategyList += strategy;
                 print('符合标准的strategyList：');
@@ -293,7 +293,7 @@ def strategyList(request):
                 request.session['spots'] = spots;
             else:
                 cursor.execute(
-                    'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
+                    'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id');
                 strategyList = dictfetchall(cursor);
                 print(strategyList);
                 request.session['strategyIdsToFilter']='';
@@ -319,7 +319,7 @@ def strategyList(request):
             strategyList=[];
             for strategyId in strategyIds:
                 cursor.execute(
-                    'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(
+                    'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(
                         strategyId));
                 strategy = dictfetchall(cursor);
                 strategyList += strategy;
@@ -338,7 +338,7 @@ def strategyList(request):
         else:
             # 搜索所有的攻略
             cursor.execute(
-                'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
+                'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id');
             strategys = dictfetchall(cursor);
             print(strategys);
             request.session['strategyIdsToFilter'] = '';
@@ -365,7 +365,7 @@ def searchStrategyIds(searchKeywords):
     strategyIds = [];
     # 景点
     cursor.execute(
-        'select strategyId from Frog_strategy, Frog_spotincluded where strategyId_id=strategyId and spotName_id=\'{}\''.format(
+        'select strategyId from Frog_strategy, Frog_spotincluded where strategyId_id=strategyId and spotName_id LIKE \'%{}%\''.format(
             searchKeywords));
     dictCursor = dictfetchall(cursor);
     if dictCursor:
@@ -383,7 +383,7 @@ def searchStrategyIds(searchKeywords):
                 strategyIds.append(one.get('strategyId'));
     # 用户名
     cursor.execute(
-        'select strategyId from Frog_strategy, Frog_member where memberEmail_id=email and name=\'{}\''.format(
+        'select strategyId from Frog_strategy, Frog_member where memberEmail_id=email and name LIKE \'%{}%\''.format(
             searchKeywords));
     dictCursor = dictfetchall(cursor);
     print("用户名搜索");
@@ -394,7 +394,7 @@ def searchStrategyIds(searchKeywords):
                 strategyIds.append(one.get('strategyId'));
     # 攻略标题
     cursor.execute(
-        'select strategyId from Frog_strategy where strategyTitle=\'{}\''.format(searchKeywords));
+        'select strategyId from Frog_strategy where strategyTitle LIKE \'%{}%\''.format(searchKeywords));
     dictCursor = dictfetchall(cursor);
     if dictCursor:
         for one in dictCursor:
@@ -409,7 +409,7 @@ def searchCity(searchKeywords):
     cursor = connection.cursor();
     if searchKeywords:
         cursor.execute(
-            'select * from Frog_city where cityName=\'{}\''.format(searchKeywords)
+            'select * from Frog_city where cityName LIKE \'%{}%\''.format(searchKeywords)
         )
     else:
         cursor.execute(
@@ -422,7 +422,7 @@ def searchSpot(searchKeywords):
     cursor = connection.cursor();
     if searchKeywords:
         cursor.execute(
-            'select * from Frog_spot where spotName=\'{}\''.format(searchKeywords)
+            'select * from Frog_spot where spotName LIKE \'%{}%\''.format(searchKeywords)
         )
     else:
         cursor.execute(
@@ -433,3 +433,6 @@ def searchSpot(searchKeywords):
 
 def enterUserPage(request):
     return render(request,"../templates/userPage.html")
+
+def followList(request):
+    return render(request,"../templates/complete/followListPage.html")
