@@ -166,7 +166,7 @@ def strategyList(request):
                 print(strategyIdsToFilter);
                 for one in strategyIdsToFilter:
                     cursor.execute(
-                        'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(
+                        'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(
                             one));
                     strategy = dictfetchall(cursor);
                     strategys += strategy;
@@ -174,7 +174,7 @@ def strategyList(request):
                 print(strategys);
 
             else:
-                cursor.execute('select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id')
+                cursor.execute('select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id')
                 strategys=dictfetchall(cursor);
                 print("需要筛选的攻略：")
                 print(strategys);
@@ -275,7 +275,7 @@ def strategyList(request):
                 strategyIds = searchStrategyIds(searchKeywords);
                 for strategyId in strategyIds:
                     cursor.execute(
-                        'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(strategyId));
+                        'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(strategyId));
                     strategy = dictfetchall(cursor);
                     strategyList += strategy;
                 print('符合标准的strategyList：');
@@ -293,7 +293,7 @@ def strategyList(request):
                 request.session['spots'] = spots;
             else:
                 cursor.execute(
-                    'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
+                    'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id');
                 strategyList = dictfetchall(cursor);
                 print(strategyList);
                 request.session['strategyIdsToFilter']='';
@@ -319,7 +319,7 @@ def strategyList(request):
             strategyList=[];
             for strategyId in strategyIds:
                 cursor.execute(
-                    'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(
+                    'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id and strategyId=\'{}\''.format(
                         strategyId));
                 strategy = dictfetchall(cursor);
                 strategyList += strategy;
@@ -338,7 +338,7 @@ def strategyList(request):
         else:
             # 搜索所有的攻略
             cursor.execute(
-                'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id');
+                'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id');
             strategys = dictfetchall(cursor);
             print(strategys);
             request.session['strategyIdsToFilter'] = '';
