@@ -4,7 +4,7 @@
 {% block link %}
 <style>
 .bk-img{
-  background-image: url({% if strategy.coverUrl != '' %} {{ strategy.coverUrl }}{% endif %} {% if strategy.coverUrl == '' %} /static/images/destination-1.jpg {% endif %});
+  background-image: url({{ strategy.coverUrl }});
 }
 </style>
 {% endblock%}

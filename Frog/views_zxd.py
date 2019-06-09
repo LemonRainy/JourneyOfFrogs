@@ -94,7 +94,7 @@ def singleUser(request, userId):
                 tag = 1
             cursor = connection.cursor();
             cursor.execute(
-                'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId, coverUrl from Frog_strategy, Frog_member where email=memberEmail_id and email=\'{}\''.format(user.username))
+                'select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate from Frog_strategy, Frog_member where email=memberEmail_id and email=\'{}\''.format(user.username))
             strategys = dictfetchall(cursor);
             return render(request, '../templates/complete/singleUserPage.html', {'member': member,
                                                                                  'email': json.dumps(member.email),
