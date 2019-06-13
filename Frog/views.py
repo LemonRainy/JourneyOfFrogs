@@ -13,6 +13,7 @@ from django.db import connection
 #     return redirect('/index')
 
 
+
 def login_view(request):
     if request.method == "POST":
         # 输入的邮箱和密码
@@ -176,6 +177,8 @@ def strategyList(request):
             else:
                 cursor.execute('select strategyTitle, budget, name, days, peopleNumber, content, diggNumber, createDate, strategyId,coverUrl from Frog_strategy, Frog_member where email=memberEmail_id')
                 strategys=dictfetchall(cursor);
+                print(strategys)
+
                 print("需要筛选的攻略：")
                 print(strategys);
 

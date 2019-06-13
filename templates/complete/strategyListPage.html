@@ -1,6 +1,9 @@
+
 {% extends "complete/base.html" %}
 
 {% block content %}
+    {% load filter_contents %}
+
     <div class="hero-wrap js-fullheight" style="background-image: url('/static/images/bg_3.jpg');">
       <div class="overlay"></div>
       <div class="container">
@@ -88,7 +91,7 @@
                                     <p class="days"><span>发布时间：{{ strategy.createDate }}</span></p>
                                     <p class="days"><span>{{ strategy.days }}天，{{ strategy.peopleNumber }}人游</span></p>
                                     <hr>
-		    						<p>{{ strategy.content| slice:":30" }}......</p>
+		    						<p>{{ strategy.content|extract_text }}......</p>
 
 
 		    					</div>
