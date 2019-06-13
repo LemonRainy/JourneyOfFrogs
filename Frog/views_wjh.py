@@ -8,13 +8,12 @@ from django.shortcuts import render, redirect
 
 from Frog import models
 
-# 修改专员个人信息
 from Frog.models import User
 
 
+# 修改专员个人信息
 def changeInfo(request):
     if request.method == 'GET':
-        # print('来了老弟？')
         expert_name = request.GET['expert_name']
         expert_tel = request.GET['expert_tel']
         expert_intro = request.GET['expert_intro']
@@ -38,7 +37,7 @@ def changeInfo(request):
 # 修改密码
 def changePassword(request):
     if request.method == 'GET':
-        # print('来了老弟？')
+
         old_password = request.GET['old_password']
         new_password = request.GET['new_password']
         new_password_confirm = request.GET['new_password_confirm']
@@ -142,7 +141,7 @@ def cityDetail(request):
 
 # 景点详情
 def spotDetail(request):
-    spot_name =  request.GET.get('spotName')
+    spot_name = request.GET.get('spotName')
     spot = models.Spot.objects.get(spotName=spot_name)
     return render(request, '../templates/complete/spot_detail.html', {'spot': spot})
 
