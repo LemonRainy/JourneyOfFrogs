@@ -15,7 +15,8 @@ class Expert(models.Model):
     seniority = models.IntegerField(null=True)
     tag = models.CharField(max_length=10, null=True)
     company = models.CharField(max_length=64, null=True)
-    mark = models.FloatField(null=True)
+    mark = models.FloatField(default=0)
+    location = models.CharField(max_length=64,  null=True)
 
 
 # 会员表

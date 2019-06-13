@@ -25,13 +25,13 @@
             <form action="#" method="POST">
               {% csrf_token %}
               <div class="form-group">
-                <input id="password" name="password" type="text" class="form-control" placeholder="旧密码">
+                <input id="password" name="password" type="password" class="form-control" placeholder="旧密码">
               </div>
               <div class="form-group">
-                <input id="password1" name="password1" type="text" class="form-control" placeholder="新密码第一次">
+                <input id="password1" name="password1" type="password" class="form-control" placeholder="新密码第一次">
               </div>
               <div class="form-group">
-                <input id="password2" name="password2" type="text" class="form-control" placeholder="新密码第二次">
+                <input id="password2" name="password2" type="password" class="form-control" placeholder="新密码第二次">
               </div>
               <div class="form-group">
                 <input type="submit" value="修改" class="btn btn-primary py-3 px-5">

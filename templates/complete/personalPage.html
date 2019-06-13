@@ -1,5 +1,6 @@
 {% extends "complete/base.html" %}
 {% block content %}
+    {% load filter_contents %}
     <div class="hero-wrap js-fullheight" style="background-image: url('/static/images/personalBackground2.jpg');">
       <div class="overlay"></div>
       <div class="container">
@@ -39,11 +40,11 @@
           {% for singleStrategy in strategies %}
           <div class="col-md-3 d-flex ftco-animate">
             <div class="blog-entry align-self-stretch">
-              <a href="/article/{{ singleStrategy.strategyId }}" class="block-20" style="background-image: url('/static/images/image_1.jpg');">
+              <a href="/article/{{ singleStrategy.strategyId }}" class="block-20" style="background-image: url({% if singleStrategy.coverUrl != '' %} {{ singleStrategy.coverUrl }}{% endif %} {% if singleStrategy.coverUrl == '' %} '/static/images/image_1.jpg' {% endif %});">
               </a>
               <div class="text p-4 d-block">
               	<span class="tag">{{ singleStrategy.strategyTitle }}</span>
-                <h3 class="heading mt-3"><a href="#">{{ singleStrategy.content| slice:":30" }}</a></h3>
+                <h3 class="heading mt-3"><a href="#">{{ singleStrategy.content| extract_text }}</a></h3>
                 <div class="meta mb-3">
                   <div><a href="#">{{ singleStrategy.createDate }}</a></div>
                   <div><a href="#" class="meta-chat"><span class="icon-chat"></span> {{ singleStrategy.diggNumber }}</a></div>

@@ -75,10 +75,10 @@ def orderDetail(request, orderID):
         if order.state == -2:
             state = "订单已拒绝"
 
-        if order.comment == "":
+        if order.comment == None:
             comment = "未评价"
 
-        if order.mark == "":
+        if order.mark == None:
             order.mark = 0
         return render(request, "../templates/complete/orderDetail.html", locals())
 
