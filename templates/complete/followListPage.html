@@ -27,47 +27,70 @@
       <div class="container">
           <div class="container strategy col-md-7 slider-text" data-scrollax-parent="true"  >
              <p class="browse d-md-flex" style="width: 650px">
-            	<span class="d-flex justify-content-md-center align-items-md-center" ><a href="#"><i class="flaticon-fork"></i>我的攻略</a></span>
-            	<span class="d-flex justify-content-md-center align-items-md-center" ><a href="#"><i class="flaticon-meeting-point"></i>写攻略</a></span>
-                <span class="d-flex justify-content-md-center align-items-md-center" ><a href="#"><i class="flaticon-hotel"></i>我的订单</a></span>
+            	<span class="d-flex justify-content-md-center align-items-md-center" ><a href="{% url "personal" %}"><i class="flaticon-fork"></i>我的攻略</a></span>
+            	<span class="d-flex justify-content-md-center align-items-md-center" ><a href="/share"><i class="flaticon-meeting-point"></i>写攻略</a></span>
+                <span class="d-flex justify-content-md-center align-items-md-center" ><a href="/orderList"><i class="flaticon-hotel"></i>我的订单</a></span>
                <span class="d-flex justify-content-md-center align-items-md-center" ><a href="{% url "update" %}"><i class="flaticon-shopping-bag"></i>修改密码</a></span>
-                 <span class="d-flex justify-content-md-center align-items-md-center" ><a href="{% url "followList" %}" style="border-bottom: 1.5px solid rgb(248,89,89);"><i class="flaticon-like"></i>关注列表</a></span>
+                 <span class="d-flex justify-content-md-center align-items-md-center" ><a href="#" style="border-bottom: 1.5px solid rgb(248,89,89);"><i class="flaticon-like"></i>关注列表</a></span>
              </p>
             </div>
 
         <div class="row d-flex">
-          {% for singleStrategy in strategies %}
-          <div class="col-md-3 d-flex ftco-animate">
-            <div class="blog-entry align-self-stretch">
-              <a href="blog-single.html" class="block-20" style="background-image: url('/static/images/image_1.jpg');">
-              </a>
-              <div class="text p-4 d-block">
-              	<span class="tag">{{ singleStrategy.strategyTitle }}</span>
-                <h3 class="heading mt-3"><a href="#">{{ singleStrategy.content| slice:":30" }}</a></h3>
-                <div class="meta mb-3">
-                  <div><a href="#">{{ singleStrategy.createDate }}</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> {{ singleStrategy.diggNumber }}</a></div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="container">
+        <div class="row">
+    			<div class="col-md-12 ftco-animate">
+    				<div id="accordion">
+    					<div class="row">
+    						<div class="col-md-6">
+						      <div class="card">
+						        <div class="card-header">
+										  <a class="card-link" data-toggle="collapse"  href="#menutwo" aria-expanded="false" aria-controls="menutwo">
+                                              粉丝
+                                              <span class="collapsed">
+                                                  <i class="icon-plus-circle"></i>
+                                              </span>
+                                              <span class="expanded">
+                                                  <i class="icon-minus-circle"></i>
+                                              </span>
+                                          </a>
+						        </div>
+						        <div id="menutwo" class="collapse">
+						          <div class="card-body">
+                                      {% for one in fans %}
+                                          <p>{{ one.followingEmail_id }}</p>
+                                      {% endfor %}
+						          </div>
+						        </div>
+						      </div>
+    						</div>
 
-          {% endfor %}
+    						<div class="col-md-6">
+                              <div class="card">
+						        <div class="card-header">
+										  <a class="card-link" data-toggle="collapse"  href="#menu5" aria-expanded="false" aria-controls="menu5">
+                                              关注
+                                              <span class="collapsed">
+                                                  <i class="icon-plus-circle"></i>
+                                              </span>
+                                              <span class="expanded">
+                                                  <i class="icon-minus-circle"></i>
+                                              </span>
+                                          </a>
+						        </div>
+						        <div id="menu5" class="collapse">
+						          <div class="card-body">
+                                     {% for one in concern %}
+                                          <p>{{ one.followedEmail_id }}</p>
+                                      {% endfor %}
+						          </div>
+						        </div>
+						      </div>
+    						</div>
+    					</div>
+				    </div>
+    			</div>
+    		</div>
         </div>
-        <div class="row mt-5">
-          <div class="col text-center">
-            <div class="block-27">
-              <ul>
-                <li><a href="#">&lt;</a></li>
-                <li class="active"><span>1</span></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li><a href="#">&gt;</a></li>
-              </ul>
-            </div>
-          </div>
         </div>
       </div>
     </section>

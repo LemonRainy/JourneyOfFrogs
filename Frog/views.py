@@ -444,4 +444,23 @@ def enterUserPage(request):
     return render(request,"../templates/userPage.html")
 
 def followList(request):
-    return render(request,"../templates/complete/followListPage.html")
+    email = request.user.username
+    print("followList查看:" + email)
+    if email:
+        member = models.Member.objects.get(email=email)
+        cursor = connection.cursor();
+        cursor.execute(
+            'select followingEmail_id from Frog_follow where followedEmail_id=\'{}\''.format(email)
+        )
+        fans=dictfetchall(cursor)
+        cursor.execute(
+            'select followedEmail_id from Frog_follow where followingEmail_id=\'{}\''.format(email)
+        )
+        concern=dictfetchall(cursor)
+        return render(request, '../templates/complete/followListPage.html', {
+                                                                           'member': member,
+                                                                           'fans':fans,
+                                                                           'concern':concern,
+                                                                           })
+    else:
+        return render(request,"../templates/complete/followListPage.html")
