@@ -427,11 +427,17 @@ def searchSpot(searchKeywords):
         cursor.execute(
             'select * from Frog_spot where spotName LIKE \'%{}%\''.format(searchKeywords)
         )
+        spots = dictfetchall(cursor)
+        cursor.execute(
+            'select * from Frog_spot where cityName_id LIKE \'%{}%\''.format(searchKeywords)
+        )
+        cityTospots = dictfetchall(cursor)
+        spots +=cityTospots
     else:
         cursor.execute(
             'select * from Frog_spot'
         )
-    spots = dictfetchall(cursor)
+        spots = dictfetchall(cursor)
     return spots
 
 def enterUserPage(request):
