@@ -57,7 +57,7 @@
 						        <div id="menutwo" class="collapse">
 						          <div class="card-body">
                                       {% for one in fans %}
-                                          <p>{{ one.followingEmail_id }}</p>
+                                          <p><a href="/u/{{ one.id }}">{{ one.name }}</a></p>
                                       {% endfor %}
 						          </div>
 						        </div>
@@ -80,7 +80,7 @@
 						        <div id="menu5" class="collapse">
 						          <div class="card-body">
                                      {% for one in concern %}
-                                          <p>{{ one.followedEmail_id }}</p>
+                                          <p><a href="/u/{{ one.id }}">{{ one.name }}</a></p>
                                       {% endfor %}
 						          </div>
 						        </div>
