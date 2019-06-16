@@ -478,7 +478,7 @@ def followList(request):
         for x in concern:
             concern_list.append(x.followedEmail.email)
         fans = models.User.objects.filter(username__in=fans_list)
-        concern = models.User.objeccts.filter(username__in=concern_list)
+        concern = models.User.objects.filter(username__in=concern_list)
 
         # cursor.execute(
         #     'select followingEmail_id from Frog_follow where followedEmail_id=\'{}\''.format(email)
